@@ -1,16 +1,12 @@
 import React from 'react';
-// import { Platform, SafeAreaView, Button, View } from 'react-native';
+import { Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
-// import { Ionicons } from '@expo/vector-icons';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Ionicons } from '@expo/vector-icons';
 // import { useDispatch } from 'react-redux';
 
-// import ProductsMainScreen, { screenOptions as prodScreenOptions } from '../screens/shop/ProductsMainScreen';
-// import DetailScreen, { screenOptions as detailsScreenOptions } from '../screens/shop/DetailScreen';
-// import CartScreen, { screenOptions as cartScreenOptions } from '../screens/shop/CartScreen'
-// import OrdersScreen, { screenOptions as ordersScreenOptions } from '../screens/shop/OrdersScreen';
-// import UserProductsScreen, { screenOptions as userProdScreenOptions } from '../screens/user/UserProductsScreen';
-// import EditProductsScreen, { screenOptions as editProdScreenOptions } from '../screens/user/EditProductsScreen';
+import ScheduleScreen, { screenOptions as schedScreenOptions } from '../screens/day/ScheduleScreen';
+import SelectDayScreen, { screenOptions as selectDayScreenOptions } from '../screens/day/ScheduleScreen';
 import Colors from '../constants/Colors';
 // import AuthScreen, { screenOptions as authScreenOptions } from '../screens/user/AuthScreen';
 // import * as authActions from '../store/actions/auth';
@@ -22,108 +18,114 @@ const defaultNavigationOptions= {
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 };
 
-const ProductsStackNavigator = createStackNavigator();
+const DayStackNavigator = createStackNavigator();
 
-const ProductsNavigator = () => {
+export const DayNavigator = () => {
   return (
-    <ProductsStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-      <ProductsStackNavigator.Screen 
-        name="MainScreen" 
-        component={ProductsMainScreen} 
-        options={prodScreenOptions}
+    <DayStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
+      <DayStackNavigator.Screen 
+        name="ScheduleScreen" 
+        component={ScheduleScreen} 
+        options={schedScreenOptions}
       />
-      <ProductsStackNavigator.Screen 
-        name="Details" 
-        component={DetailScreen} 
-        options={detailsScreenOptions}
+      <DayStackNavigator.Screen 
+        name="SelectDayScreen" 
+        component={SelectDayScreen} 
+        options={selectDayScreenOptions}
       />
-      <ProductsStackNavigator.Screen 
+      {/* <DayStackNavigator.Screen 
         name="Cart" 
         component={CartScreen} 
         options={cartScreenOptions}
-      />
-    </ProductsStackNavigator.Navigator>
+      /> */}
+    </DayStackNavigator.Navigator>
   );
 }
 
-const AdminStackNavigator = createStackNavigator();
+// const DayStackNavigator = createStackNavigator();
 
-const AdminNavigator = () => {
-  return (
-    <AdminStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-      <AdminStackNavigator.Screen 
-        name="UserProductsScreen" 
-        component={UserProductsScreen} 
-        options={userProdScreenOptions}
-      />
-      <AdminStackNavigator.Screen 
-        name="EditScreen" 
-        component={EditProductsScreen} 
-        options={editProdScreenOptions}
-      />
-    </AdminStackNavigator.Navigator>
-  );
-}
+// export const DayNavigator = () => {
+//   return (
+//     <DayStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
+//       <DayStackNavigator.Screen 
+//         name="ScheduleScreen" 
+//         component={ScheduleScreen} 
+//         options={schedScreenOptions}
+//       />
+//       <DayStackNavigator.Screen 
+//         name="SelectDayScreen" 
+//         component={SelectDayScreen} 
+//         options={selectDayScreenOptions}
+//       />
+//       <DayStackNavigator.Screen 
+//         name="Cart" 
+//         component={CartScreen} 
+//         options={cartScreenOptions}
+//       />
+//     </DayStackNavigator.Navigator>
+//   );
+// }
 
-const OrdersStackNavigator = createStackNavigator();
+// const AdminStackNavigator = createStackNavigator();
 
-const OrdersNavigator = () => {
-  return (
-    <OrdersStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-      <OrdersStackNavigator.Screen 
-        name="OrderStack" 
-        component={OrdersScreen} 
-        options={ordersScreenOptions}
-      />
-    </OrdersStackNavigator.Navigator>
-  );
-}
+// const AdminNavigator = () => {
+//   return (
+//     <AdminStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
+//       <AdminStackNavigator.Screen 
+//         name="UserProductsScreen" 
+//         component={UserProductsScreen} 
+//         options={userProdScreenOptions}
+//       />
+//       <AdminStackNavigator.Screen 
+//         name="EditScreen" 
+//         component={EditProductsScreen} 
+//         options={editProdScreenOptions}
+//       />
+//     </AdminStackNavigator.Navigator>
+//   );
+// }
 
-const AuthStackNavigator = createStackNavigator();
+// const OrdersStackNavigator = createStackNavigator();
 
-export const AuthNavigator = () => {
-  return(
-    <AuthStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-      <AuthStackNavigator.Screen 
-        name="AuthNavigator" 
-        component={AuthScreen} 
-        options={authScreenOptions}
-      />
-    </AuthStackNavigator.Navigator>
-  );
-}
+// const OrdersNavigator = () => {
+//   return (
+//     <OrdersStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
+//       <OrdersStackNavigator.Screen 
+//         name="OrderStack" 
+//         component={OrdersScreen} 
+//         options={ordersScreenOptions}
+//       />
+//     </OrdersStackNavigator.Navigator>
+//   );
+// }
+
+// const AuthStackNavigator = createStackNavigator();
+
+// export const AuthNavigator = () => {
+//   return(
+//     <AuthStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
+//       <AuthStackNavigator.Screen 
+//         name="AuthNavigator" 
+//         component={AuthScreen} 
+//         options={authScreenOptions}
+//       />
+//     </AuthStackNavigator.Navigator>
+//   );
+// }
 
 const DrawerNavigator = createDrawerNavigator();
 
-export const ShopNavigator = () => {
-  const dispatch = useDispatch();
+export const Drawer = () => {
   return (
     <DrawerNavigator.Navigator
-      drawerContent={props => {
-        return (
-          <View style={{flex: 1, padding: 20}}>
-            <SafeAreaView forceInset={{top: 'always', horizontal: 'never'}}>
-              <DrawerItemList {...props} />
-              <Button 
-                title="Log Out"
-                color={Colors.primary}
-                onPress={() => {
-                  dispatch(authActions.logout());
-                  // props.navigation.navigate('Auth');
-                }}
-              />
-            </SafeAreaView>
-          </View>
-        );
-      }}
       screenOptions={{
         drawerActiveTintColor: Colors.secondary,
         headerShown: false
       }}
     >
       <DrawerNavigator.Screen 
-        name="Products" 
-        component={ProductsNavigator} 
+        name="Schedule" 
+        component={ScheduleScreen} 
         options={{
           drawerIcon: props => (
             <Ionicons
@@ -135,8 +137,8 @@ export const ShopNavigator = () => {
         }} 
       />
       <DrawerNavigator.Screen 
-        name="Orders" 
-        component={OrdersNavigator} 
+        name="DaySelector" 
+        component={SelectDayScreen} 
         options={{
           drawerIcon: props => (
             <Ionicons
@@ -147,7 +149,7 @@ export const ShopNavigator = () => {
           )
         }} 
       />
-      <DrawerNavigator.Screen 
+      {/* <DrawerNavigator.Screen 
         name="Admin" 
         component={AdminNavigator} 
         options={{
@@ -158,8 +160,8 @@ export const ShopNavigator = () => {
               color={props.color}
             />
           )
-        }} 
-      />
+        }}  
+      />*/}
     </DrawerNavigator.Navigator>
   );
 }
