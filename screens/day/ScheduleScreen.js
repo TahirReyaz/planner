@@ -2,15 +2,18 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  Text
+  Text,
+  SafeAreaView
 } from 'react-native';
 
 const ScheduleScreen = props => {
 
   return (
-    <View>
-      <Text>Schedule Screen</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text>Schedule Screen</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 

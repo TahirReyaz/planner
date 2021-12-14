@@ -6,11 +6,11 @@ import {
   SafeAreaView
 } from 'react-native';
 
-const SelectDayScreen = props => {
+const SelectMonthScreen = props => {
 
   return (
     <SafeAreaView>
-      <Text>Select Day Screen</Text>
+      <Text>Select Month Screen</Text>
     </SafeAreaView>
   );
 };
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default SelectDayScreen;
+export default SelectMonthScreen;

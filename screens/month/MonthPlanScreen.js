@@ -6,18 +6,20 @@ import {
   SafeAreaView
 } from 'react-native';
 
-const SelectDayScreen = props => {
+const MonthPlanScreen = props => {
 
   return (
     <SafeAreaView>
-      <Text>Select Day Screen</Text>
+      <View>
+        <Text>Month Plan Screen</Text>
+      </View>
     </SafeAreaView>
   );
 };
 
 export const screenOptions = navData => {
   return {
-    headerTitle: 'Select Day',
+    headerTitle: 'Schedule',
   }
 };
 
@@ -26,4 +28,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default SelectDayScreen;
+export default MonthPlanScreen;

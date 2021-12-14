@@ -3,7 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 // import { createStackNavigator } from '@react-navigation/stack';
 
-import { Drawer } from './Navigator';
+import { MainNavigator } from './Navigator';
 // import StartupScreen from '../screens/StartupScreen';
 
 // const Stack = createStackNavigator();
@@ -14,7 +14,7 @@ const AppNavigator = props => {
 
   return (
     <NavigationContainer>
-      <Drawer />
+      <MainNavigator />
       {/* {isAuth && <ShopNavigator />}
       {!isAuth && triedAutoLogin && <AuthNavigator />}
       {!isAuth && !triedAutoLogin && <StartupScreen />} */}
