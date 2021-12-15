@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 const Activity = props => {
+  const [showDetails, setShowDetails] = useState(false);
   const styles = StyleSheet.create({
     container: {
       margin: 5,
@@ -17,6 +18,8 @@ const Activity = props => {
       borderBottomWidth: 5,
       borderLeftWidth: 5,
       borderBottomLeftRadius: 10,
+    },
+    summaryContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between'
     },
@@ -27,26 +30,47 @@ const Activity = props => {
     text: {
       fontSize: 20,
       marginRight: 5
+    },
+    buttonContainer: {
+      flexDirection: 'row'
+    },
+    fullTitle: {
+      margin: 5
     }
   });
 
   return (
     <View style={styles.container}>
-      <View style={styles.timeNtitle}>
-        <View>
-          <Text style={styles.text}>{props.time}</Text>
+      <View style={styles.summaryContainer}>
+        <View style={styles.timeNtitle}>
+          <View>
+            <Text style={styles.text}>{props.time}</Text>
+          </View>
+          {!showDetails && <View>
+            <Text style={styles.text}>{props.title}</Text>
+          </View>}
         </View>
-        <View>
-          <Text style={styles.text}>{props.title}</Text>
+        <View style={styles.buttonContainer}>
+          <Ionicons
+            name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'}
+            size={23}
+            color="red"
+          />
+          <Ionicons
+            name={showDetails ? 'md-caret-up' : 'md-caret-down'}
+            size={20}
+            color="grey"
+            style={{marginHorizontal: 10}}
+            onPress={() => {
+              setShowDetails(prevState => !prevState);
+            }} 
+          />
         </View>
       </View>
-      <View>
-        <Ionicons
-          name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'}
-          size={23}
-          color="red"
-        />
+      {showDetails && <View style={styles.fullTitle}>
+        <Text style={styles.text}>{props.title}</Text>
       </View>
+      }
     </View>
   );
 }
