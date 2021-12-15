@@ -44,11 +44,6 @@ export const DayNavigator = () => {
         component={SelectDayScreen} 
         options={selectDayScreenOptions}
       />
-      {/* <DayStackNavigator.Screen 
-        name="Cart" 
-        component={CartScreen} 
-        options={cartScreenOptions}
-      /> */}
     </DayStackNavigator.Navigator>
   );
 }

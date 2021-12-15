@@ -3,17 +3,20 @@ import {
   View,
   StyleSheet,
   Text,
-  SafeAreaView
 } from 'react-native';
+import Colors from '../../constants/Colors';
+
+import Activity from '../../components/Activity';
 
 const ScheduleScreen = props => {
 
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Schedule Screen</Text>
-      </View>
-    </SafeAreaView>
+    <View style={styles.screen}>
+      <Text>Schedule Screen</Text>
+      <Activity title="Activity" time="2:30" color={Colors.primary}/>
+      <Activity title="Activity" time="2:30" color={Colors.primary}/>
+      <Activity title="Activity" time="2:30" color={Colors.primary}/>
+    </View>
   );
 };
 
@@ -25,7 +28,10 @@ export const screenOptions = navData => {
 
 
 const styles = StyleSheet.create({
-  
+  screen: {
+    flex: 1,
+    backgroundColor: '#E5E5E5'
+  }
 });
 
 export default ScheduleScreen;
