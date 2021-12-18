@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
-import Colors from "../../constants/Colors";
+import { View, StyleSheet, Text, Button, FlatList } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
 
+import Colors from "../../constants/Colors";
 import Activity from "../../components/Activity";
 import Form from "../../components/Form";
 
 const ScheduleScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
+  const activities = useSelector((state) => state.schedule.activities);
 
   return (
     <View style={styles.screen}>
@@ -22,9 +25,16 @@ const ScheduleScreen = (props) => {
           <Form onCancel={() => setShowForm(false)} />
         </View>
       )}
-      <Activity title="Activity" time="2:30" color={Colors.primary} />
-      <Activity title="Activity" time="2:30" color={Colors.primary} />
-      <Activity title="Activity" time="2:30" color={Colors.primary} />
+      <FlatList
+        data={activities}
+        renderItem={(itemData) => (
+          <Activity
+            title={itemData.item.activity}
+            time={moment(itemData.item.time).format("h:mm A")}
+            color={Colors.primary}
+          />
+        )}
+      />
     </View>
   );
 };

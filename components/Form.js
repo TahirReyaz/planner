@@ -7,11 +7,10 @@ import {
   Button,
   Platform,
   TouchableOpacity,
-  Picker,
 } from "react-native";
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
-// import {Picker} from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 
 import Colors from "../constants/Colors";
 
@@ -65,6 +64,7 @@ const Form = (props) => {
     const currentTime = selectedTime || time;
     setShow(Platform.OS === "ios");
     setTime(currentTime);
+    console.log(time);
   };
 
   return (
