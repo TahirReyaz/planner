@@ -1,4 +1,5 @@
 import ScheduleItem from "../../models/schedule";
+import { DEL_ACTIVITY } from "../actions/dayActions";
 
 const initialState = {
   activities: [
@@ -15,6 +16,14 @@ const initialState = {
   ],
 };
 
-export default (state = initialState) => {
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case DEL_ACTIVITY:
+      return {
+        activities: state.activities.filter(
+          (activity) => activity.id !== action.actId
+        ),
+      };
+  }
   return state;
 };

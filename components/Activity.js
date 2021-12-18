@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+
+import * as dayActions from "../store/actions/dayActions";
 
 const Activity = (props) => {
   const [showDetails, setShowDetails] = useState(false);
+  const dispatch = useDispatch();
   const styles = StyleSheet.create({
     container: {
       margin: 5,
@@ -57,6 +61,7 @@ const Activity = (props) => {
             name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
             size={23}
             color="red"
+            onPress={() => dispatch(dayActions.delActivity(props.id))}
           />
           <Ionicons
             name={showDetails ? "md-caret-up" : "md-caret-down"}

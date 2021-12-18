@@ -39,7 +39,7 @@ const Form = (props) => {
   const [time, setTime] = useState(new Date(1598051730000));
   const [color, setColor] = useState();
   const [show, setShow] = useState(false);
-  const [inputState, dispatch] = useReducer(inputReducer, {
+  const [inputState, textDispatch] = useReducer(inputReducer, {
     value: "",
     isValid: false,
     edited: false,
@@ -50,14 +50,14 @@ const Form = (props) => {
     if (text.trim().length === 0) {
       isValid = false;
     }
-    dispatch({
+    textDispatch({
       type: INPUT_CHANGE,
       value: text,
       isValid,
     });
   };
   const lostFocusHandler = () => {
-    dispatch({ type: INPUT_BLUR });
+    textDispatch({ type: INPUT_BLUR });
   };
 
   const onChangeTime = (event, selectedTime) => {

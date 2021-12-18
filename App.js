@@ -1,7 +1,7 @@
 import React from "react";
 import { enableScreens } from "react-native-screens";
 import { createStore, combineReducers, applyMiddleware } from "redux";
-// import ReduxThunk from "redux-thunk";
+import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
 
 import AppNavigator from "./navigation/AppNavigator";
@@ -12,7 +12,7 @@ enableScreens();
 const rootReducer = combineReducers({
   schedule: dayReducer,
 });
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
   return (

@@ -29,6 +29,7 @@ const ScheduleScreen = (props) => {
         data={activities}
         renderItem={(itemData) => (
           <Activity
+            id={itemData.item.id}
             title={itemData.item.activity}
             time={moment(itemData.item.time).format("h:mm A")}
             color={Colors.primary}
