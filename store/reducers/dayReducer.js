@@ -1,5 +1,5 @@
 import ScheduleItem from "../../models/schedule";
-import { DEL_ACTIVITY } from "../actions/dayActions";
+import { DEL_ACTIVITY, ADD_ACTIVITY } from "../actions/dayActions";
 
 const initialState = {
   activities: [
@@ -23,6 +23,16 @@ export default (state = initialState, action) => {
         activities: state.activities.filter(
           (activity) => activity.id !== action.actId
         ),
+      };
+    case ADD_ACTIVITY:
+      const newActivity = new ScheduleItem(
+        action.id,
+        action.activity,
+        action.time,
+        action.color
+      );
+      return {
+        activities: state.activities.concat(newActivity),
       };
   }
   return state;

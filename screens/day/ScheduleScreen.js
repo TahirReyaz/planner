@@ -6,10 +6,17 @@ import moment from "moment";
 import Colors from "../../constants/Colors";
 import Activity from "../../components/Activity";
 import Form from "../../components/Form";
+import * as dayActions from "../../store/actions/dayActions";
 
 const ScheduleScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
   const activities = useSelector((state) => state.schedule.activities);
+
+  const dispatch = useDispatch();
+
+  const onAddHandler = (text, time, color) => {
+    dispatch(dayActions.addActivity(text, time, color));
+  };
 
   return (
     <View style={styles.screen}>
@@ -22,7 +29,7 @@ const ScheduleScreen = (props) => {
       )}
       {showForm && (
         <View style={styles.form}>
-          <Form onCancel={() => setShowForm(false)} />
+          <Form onCancel={() => setShowForm(false)} onAdd={onAddHandler} />
         </View>
       )}
       <FlatList
@@ -32,7 +39,7 @@ const ScheduleScreen = (props) => {
             id={itemData.item.id}
             title={itemData.item.activity}
             time={moment(itemData.item.time).format("h:mm A")}
-            color={Colors.primary}
+            color={itemData.item.color}
           />
         )}
       />

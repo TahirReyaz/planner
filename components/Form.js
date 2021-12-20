@@ -36,8 +36,8 @@ const inputReducer = (state, action) => {
 };
 
 const Form = (props) => {
-  const [time, setTime] = useState(new Date(1598051730000));
-  const [color, setColor] = useState();
+  const [time, setTime] = useState(new Date());
+  const [color, setColor] = useState("green");
   const [show, setShow] = useState(false);
   const [inputState, textDispatch] = useReducer(inputReducer, {
     value: "",
@@ -64,7 +64,6 @@ const Form = (props) => {
     const currentTime = selectedTime || time;
     setShow(Platform.OS === "ios");
     setTime(currentTime);
-    console.log(time);
   };
 
   return (
@@ -103,7 +102,11 @@ const Form = (props) => {
         </View>
         <View style={{ flexDirection: "row" }}>
           <Button title="Cancel" color="red" onPress={props.onCancel} />
-          <Button title="ADD" color={Colors.primary} />
+          <Button
+            title="ADD"
+            color={Colors.primary}
+            onPress={props.onAdd.bind(this, inputState.value, time, color)}
+          />
         </View>
       </View>
       <View>
