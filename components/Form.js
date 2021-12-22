@@ -2,7 +2,6 @@ import React, { useState, useReducer, useCallback } from "react";
 import {
   View,
   StyleSheet,
-  TextInput,
   Text,
   Button,
   Platform,
@@ -115,21 +114,36 @@ const Form = (props) => {
     );
   }, [dispatch, formState]);
 
+  const timePicker = (
+    <DateTimePicker
+      value={formState.inputValues.time}
+      mode="time"
+      is24Hour={false}
+      display="default"
+      onChange={timeChangeHandler}
+    />
+  );
+
+  const colorPicker = (
+    <Picker
+      selectedValue={formState.inputValues.color}
+      style={{ width: 100 }}
+      onValueChange={colorChangeHandler}
+      mode="dropdown"
+    >
+      <Picker.Item label="Green" value="green" color="green" />
+      <Picker.Item label="Yellow" value="yellow" color="yellow" />
+      <Picker.Item label="Red" value="red" color="red" />
+    </Picker>
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
           <Text>{moment(formState.inputValues.time).format("h:mm A")}</Text>
         </TouchableOpacity>
-        {show && (
-          <DateTimePicker
-            value={formState.inputValues.time}
-            mode="time"
-            is24Hour={false}
-            display="default"
-            onChange={timeChangeHandler}
-          />
-        )}
+        {show && timePicker}
         <View
           style={{
             ...styles.input,
@@ -138,16 +152,7 @@ const Form = (props) => {
             marginVertical: 0,
           }}
         >
-          <Picker
-            selectedValue={formState.inputValues.color}
-            style={{ width: 100 }}
-            onValueChange={colorChangeHandler}
-            mode="dropdown"
-          >
-            <Picker.Item label="Green" value="green" color="green" />
-            <Picker.Item label="Yellow" value="yellow" color="yellow" />
-            <Picker.Item label="Red" value="red" color="red" />
-          </Picker>
+          {colorPicker}
         </View>
         <View style={{ flexDirection: "row" }}>
           <Button title="Cancel" color="red" onPress={props.onCancel} />
