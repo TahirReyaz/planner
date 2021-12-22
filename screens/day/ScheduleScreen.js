@@ -32,6 +32,9 @@ const ScheduleScreen = (props) => {
           <Form onCancel={() => setShowForm(false)} onAdd={onAddHandler} />
         </View>
       )}
+      {(!activities || activities.length === 0) && (
+        <Text>Schedule not set yet. Add some activities</Text>
+      )}
       <FlatList
         data={activities}
         renderItem={(itemData) => (

@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -7,78 +7,127 @@ import {
   Button,
   Platform,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 
 import Colors from "../constants/Colors";
+import InputText from "./InputText";
+import * as dayActions from "../store/actions/dayActions";
 
-const INPUT_CHANGE = "INPUT_CHANGE";
-const INPUT_BLUR = "INPUT_BLUR";
+const FORM_UPDATE = "UPDATE";
 
-const inputReducer = (state, action) => {
-  switch (action.type) {
-    case INPUT_CHANGE:
-      return {
-        ...state,
-        value: action.value,
-        isValid: action.isValid,
-      };
-    case INPUT_BLUR:
-      return {
-        ...state,
-        edited: true,
-      };
-    default:
-      return state;
+const formReducer = (state, action) => {
+  if (action.type === FORM_UPDATE) {
+    const updatedValues = {
+      ...state.inputValues,
+      [action.input]: action.value,
+    };
+    const updatedValidities = {
+      ...state.inputValidities,
+      [action.input]: action.isValid,
+    };
+    let updatedFormIsValid = true;
+    for (const key in updatedValidities) {
+      updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
+    }
+    return {
+      formIsValid: updatedFormIsValid,
+      inputValues: updatedValues,
+      inputValidities: updatedValidities,
+    };
   }
+  return state;
 };
 
 const Form = (props) => {
-  const [time, setTime] = useState(new Date());
-  const [color, setColor] = useState("green");
   const [show, setShow] = useState(false);
-  const [inputState, textDispatch] = useReducer(inputReducer, {
-    value: "",
-    isValid: false,
-    edited: false,
+  const dispatch = useDispatch();
+  const [formState, dispatchFormState] = useReducer(formReducer, {
+    inputValues: {
+      task: "",
+      time: new Date(),
+      color: "green",
+    },
+    inputValidities: {
+      task: false,
+      time: true,
+      color: true,
+    },
+    formIsValid: false,
   });
 
-  const onTextChange = (text) => {
-    let isValid = true;
-    if (text.trim().length === 0) {
-      isValid = false;
-    }
-    textDispatch({
-      type: INPUT_CHANGE,
-      value: text,
-      isValid,
-    });
-  };
-  const lostFocusHandler = () => {
-    textDispatch({ type: INPUT_BLUR });
-  };
+  const textChangeHandler = useCallback(
+    (value, validity) => {
+      dispatchFormState({
+        type: FORM_UPDATE,
+        value: value,
+        isValid: validity,
+        input: "task",
+      });
+    },
+    [dispatchFormState]
+  );
 
-  const onChangeTime = (event, selectedTime) => {
-    const currentTime = selectedTime || time;
-    setShow(Platform.OS === "ios");
-    setTime(currentTime);
-  };
+  const timeChangeHandler = useCallback(
+    (event, selectedTime) => {
+      const currentTime = selectedTime || formState.inputValues.time;
+      setShow(Platform.OS === "ios");
+
+      dispatchFormState({
+        type: FORM_UPDATE,
+        value: currentTime,
+        isValid: true,
+        input: "time",
+      });
+    },
+    [dispatchFormState]
+  );
+
+  const colorChangeHandler = useCallback(
+    (value, index) => {
+      dispatchFormState({
+        type: FORM_UPDATE,
+        value,
+        isValid: true,
+        input: "color",
+      });
+    },
+    [dispatchFormState]
+  );
+
+  const submitHandler = useCallback(async () => {
+    if (!formState.formIsValid) {
+      Alert.alert("Wrong Input", "Please check errors in the form", [
+        { text: "OK" },
+      ]);
+      return;
+    }
+    await dispatch(
+      dayActions.addActivity(
+        formState.inputValues.task,
+        formState.inputValues.time,
+        formState.inputValues.color
+      )
+    );
+  }, [dispatch, formState]);
 
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
-          <Text>{moment(time).format("h:mm A")}</Text>
+          <Text>{moment(formState.inputValues.time).format("h:mm A")}</Text>
         </TouchableOpacity>
         {show && (
           <DateTimePicker
-            value={time}
+            value={formState.inputValues.time}
             mode="time"
             is24Hour={false}
             display="default"
-            onChange={onChangeTime}
+            onChange={timeChangeHandler}
           />
         )}
         <View
@@ -90,9 +139,9 @@ const Form = (props) => {
           }}
         >
           <Picker
-            selectedValue={color}
+            selectedValue={formState.inputValues.color}
             style={{ width: 100 }}
-            onValueChange={(value, index) => setColor(value)}
+            onValueChange={colorChangeHandler}
             mode="dropdown"
           >
             <Picker.Item label="Green" value="green" color="green" />
@@ -102,25 +151,19 @@ const Form = (props) => {
         </View>
         <View style={{ flexDirection: "row" }}>
           <Button title="Cancel" color="red" onPress={props.onCancel} />
-          <Button
-            title="ADD"
-            color={Colors.primary}
-            onPress={props.onAdd.bind(this, inputState.value, time, color)}
-          />
+          <Button title="ADD" color={Colors.primary} onPress={submitHandler} />
         </View>
       </View>
       <View>
-        <TextInput
-          style={styles.input}
-          value={inputState.value}
-          onChangeText={onTextChange}
-          onBlur={lostFocusHandler}
+        <InputText
+          label="Task"
+          keyboardType="default"
+          error="Please enter a valid task!"
+          onInputChange={textChangeHandler}
+          initialValue=""
+          initiallyValid={false}
+          required
         />
-        {!inputState.isValid && inputState.edited && (
-          <View style={styles.errorContainer}>
-            <Text style={styles.error}>Required</Text>
-          </View>
-        )}
       </View>
     </View>
   );
@@ -146,13 +189,6 @@ const styles = StyleSheet.create({
     borderLeftWidth: 5,
     borderBottomLeftRadius: 10,
     fontSize: 20,
-  },
-  errorContainer: {
-    marginVertical: 5,
-  },
-  error: {
-    fontSize: 13,
-    color: "red",
   },
 });
 
