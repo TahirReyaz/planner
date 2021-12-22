@@ -33,7 +33,11 @@ const ScheduleScreen = (props) => {
         </View>
       )}
       {(!activities || activities.length === 0) && (
-        <Text>Schedule not set yet. Add some activities</Text>
+        <View style={styles.fallback}>
+          <Text style={styles.fallbackText}>
+            Schedule not set yet. Add some activities
+          </Text>
+        </View>
       )}
       <FlatList
         data={activities}
@@ -63,6 +67,15 @@ const styles = StyleSheet.create({
   },
   form: {
     padding: 5,
+  },
+  fallback: {
+    padding: 5,
+    marginHorizontal: 5,
+    backgroundColor: "white",
+  },
+  fallbackText: {
+    fontSize: 25,
+    fontWeight: "bold",
   },
 });
 
