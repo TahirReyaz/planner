@@ -10,12 +10,14 @@ import * as dayActions from "../../store/actions/dayActions";
 
 const ScheduleScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
-  const activities = useSelector((state) => state.schedule.activities);
-
+  const selectedDay = useSelector((state) => state.schedule.selectedDay);
+  const activities = useSelector(
+    (state) => state.schedule.schedules[selectedDay]
+  );
   const dispatch = useDispatch();
 
   const onAddHandler = (text, time, color) => {
-    dispatch(dayActions.addActivity(text, time, color));
+    dispatch(dayActions.addActivity(selectedDay, text, time, color));
   };
 
   return (

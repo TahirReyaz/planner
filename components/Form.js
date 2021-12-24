@@ -15,7 +15,6 @@ import { Picker } from "@react-native-picker/picker";
 
 import Colors from "../constants/Colors";
 import InputText from "./InputText";
-import * as dayActions from "../store/actions/dayActions";
 
 const FORM_UPDATE = "UPDATE";
 
@@ -98,21 +97,15 @@ const Form = (props) => {
     [dispatchFormState]
   );
 
-  const submitHandler = useCallback(async () => {
+  const submitHandler = useCallback(() => {
     if (!formState.formIsValid) {
       Alert.alert("Wrong Input", "Please check errors in the form", [
         { text: "OK" },
       ]);
       return;
     }
-    await dispatch(
-      dayActions.addActivity(
-        formState.inputValues.task,
-        formState.inputValues.time,
-        formState.inputValues.color
-      )
-    );
-  }, [dispatch, formState]);
+    props.onAdd(formState.inputValues.task,formState.inputValues.time,formState.inputValues.color)
+  }, [formState]);
 
   const timePicker = (
     <DateTimePicker
