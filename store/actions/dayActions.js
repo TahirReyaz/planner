@@ -1,5 +1,6 @@
 export const DEL_ACTIVITY = "DEL_ACTIVITY";
 export const ADD_ACTIVITY = "ADD_ACTIVITY";
+export const CHANGE_DAY = "CHANGE_DAY";
 
 export const addActivity = (selectedDay, activity, time, color) => {
   return async (dispatch) => {
@@ -25,3 +26,9 @@ export const delActivity = (id) => {
     dispatch({ type: DEL_ACTIVITY, actId: id });
   };
 };
+
+export const changeDay = (selectedDay) => {
+  return async (dispatch) => {
+    dispatch({ type: CHANGE_DAY, selectedDay });
+  };
+}

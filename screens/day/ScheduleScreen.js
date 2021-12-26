@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
+import { Picker } from "@react-native-picker/picker";
 
 import Colors from "../../constants/Colors";
 import Activity from "../../components/Activity";
@@ -20,15 +21,36 @@ const ScheduleScreen = (props) => {
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
   };
 
+  const dayChangeHandler = (day) => {
+    dispatch(dayActions.changeDay(day));
+  };
+
   return (
     <View style={styles.screen}>
-      {!showForm && (
-        <Button
-          title="Add Task"
-          color={Colors.primary}
-          onPress={() => setShowForm(true)}
-        />
-      )}
+      <View style={styles.topMenu}>
+        <Picker
+          selectedValue={selectedDay}
+          style={{ width: 150 }}
+          onValueChange={dayChangeHandler}
+          mode="dropdown"
+        >
+          <Picker.Item label="Monday" value="Mon" />
+          <Picker.Item label="Tuesday" value="Tue" />
+          <Picker.Item label="Wednesday" value="Wed" />
+          <Picker.Item label="Thursday" value="Thu" />
+          <Picker.Item label="Friday" value="Fri" />
+          <Picker.Item label="Satday" value="Sat" />
+          <Picker.Item label="Sunday" value="Sun" />
+        </Picker>
+
+        {!showForm && (
+          <Button
+            title="Add Task"
+            color={Colors.primary}
+            onPress={() => setShowForm(true)}
+          />
+        )}
+      </View>
       {showForm && (
         <View style={styles.form}>
           <Form onCancel={() => setShowForm(false)} onAdd={onAddHandler} />
@@ -66,6 +88,13 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: "#E5E5E5",
+  },
+  topMenu: {
+    flexDirection: "row",
+    height: 50,
+    padding: 5,
+    backgroundColor: "white",
+    justifyContent: "space-between",
   },
   form: {
     padding: 5,
