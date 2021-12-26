@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Activity = (props) => {
+import Colors from "../../constants/Colors";
+
+const MonthPlanDay = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const styles = StyleSheet.create({
     container: {
       margin: 5,
       padding: 5,
       backgroundColor: "white",
-      borderBottomColor: props.color,
-      borderLeftColor: props.color,
+      borderBottomColor: Colors.primary,
+      borderLeftColor: Colors.primary,
       borderBottomWidth: 5,
       borderLeftWidth: 5,
       borderBottomLeftRadius: 10,
@@ -79,4 +81,4 @@ const Activity = (props) => {
   );
 };
 
-export default Activity;
+export default MonthPlanDay;
