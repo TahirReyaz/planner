@@ -1,13 +1,14 @@
 import React from "react";
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector, useDispatch } from "react-redux";
 
-import MonthPlanDay from "../../components/month/MonthPlanDay";
+import MonthDayPlan from "../../components/month/MonthPlanDay";
 import * as monthActions from "../../store/actions/monthActions";
 
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
+  const plans = useSelector((state) => state.monthPlan.plans[selectedMonth]);
   const dispatch = useDispatch();
   const monthChangeHandler = (month) => {
     dispatch(monthActions.changeMonth(month));
@@ -36,7 +37,24 @@ const MonthPlanScreen = (props) => {
         </Picker>
       </View>
       <View>
-        <MonthPlanDay time="Jan 1" title="Dence" />
+        {(!plans || plans.length === 0) && (
+          <View style={styles.fallback}>
+            <Text style={styles.fallbackText}>
+              Schedule not set yet. Add some plans
+            </Text>
+          </View>
+        )}
+        <FlatList
+          data={plans}
+          renderItem={(itemData) => (
+            <MonthDayPlan
+              id={itemData.item.day}
+              plans={itemData.item.tasks}
+              time={`${selectedMonth} ${itemData.item.day}`}
+              onDel={() => dispatch(monthActions.clearPlan(itemData.item.day))}
+            />
+          )}
+        />
       </View>
     </SafeAreaView>
   );

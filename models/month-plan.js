@@ -1,7 +1,7 @@
 export class MonthPlans {
-  constructor(tasks, day) {
-    this.tasks = tasks;
+  constructor(day, tasks) {
     this.day = day;
+    this.tasks = tasks;
   }
 }
 

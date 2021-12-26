@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
 
-const MonthPlanDay = (props) => {
+const MonthDayPlan = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const styles = StyleSheet.create({
     container: {
@@ -46,11 +46,7 @@ const MonthPlanDay = (props) => {
           </View>
           {!showDetails && (
             <View>
-              <Text style={styles.text}>
-                {props.title.length < 15
-                  ? props.title
-                  : props.title.substring(0, 15) + "..."}
-              </Text>
+              <Text style={styles.text}>{props.plans[0].task}</Text>
             </View>
           )}
         </View>
@@ -74,11 +70,15 @@ const MonthPlanDay = (props) => {
       </View>
       {showDetails && (
         <View style={styles.fullTitle}>
-          <Text style={styles.text}>{props.title}</Text>
+          {props.plans.map((plan) => (
+            <View key={plan.id}>
+              <Text style={styles.text}>{plan.task}</Text>
+            </View>
+          ))}
         </View>
       )}
     </View>
   );
 };
 
-export default MonthPlanDay;
+export default MonthDayPlan;

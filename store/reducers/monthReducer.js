@@ -3,7 +3,7 @@ import { ADD_PLAN_ITEM, CHANGE_MONTH } from "../actions/monthActions";
 
 const initialState = {
   selectedMonth: "Jan",
-  schedules: {
+  plans: {
     Jan: [
       new MonthPlans("1", [
         new MonthPlanItem("p1", "Complete the app", true),
@@ -20,7 +20,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_MONTH:
-      console.log("inside reducer ", action.month);
       return {
         ...state,
         selectedMonth: action.month,
