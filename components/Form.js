@@ -148,7 +148,6 @@ const Form = (props) => {
           {colorPicker}
         </View>
         <View style={{ flexDirection: "row" }}>
-          <Button title="Cancel" color="red" onPress={props.onCancel} />
           <Button title="ADD" color={Colors.primary} onPress={submitHandler} />
         </View>
       </View>

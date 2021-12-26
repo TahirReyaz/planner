@@ -43,17 +43,15 @@ const ScheduleScreen = (props) => {
           <Picker.Item label="Sunday" value="Sun" />
         </Picker>
 
-        {!showForm && (
-          <Button
-            title="Add Task"
-            color={Colors.primary}
-            onPress={() => setShowForm(true)}
-          />
-        )}
+        <Button
+          title={!showForm ? "Add Task" : "Close Form"}
+          color={Colors.primary}
+          onPress={() => setShowForm(prevState => !prevState)}
+        />
       </View>
       {showForm && (
         <View style={styles.form}>
-          <Form onCancel={() => setShowForm(false)} onAdd={onAddHandler} />
+          <Form onAdd={onAddHandler} />
         </View>
       )}
       {(!activities || activities.length === 0) && (
