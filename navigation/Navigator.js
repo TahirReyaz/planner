@@ -4,10 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-// import { useDispatch } from 'react-redux';
 
 import ScheduleScreen, { screenOptions as schedScreenOptions } from '../screens/day/ScheduleScreen';
-import SelectDayScreen, { screenOptions as selectDayScreenOptions } from '../screens/day/SelectDayScreen';
+import ToggleDaysScreen, { screenOptions as toggleDaysScreenOptions } from '../screens/day/ToggleDaysScreen';
 import MonthPlanScreen, { screenOptions as monthPlanScreenOptions } from '../screens/month/MonthPlanScreen';
 import SelectMonthScreen, { screenOptions as selectMonthScreenOptions } from '../screens/month/SelectMonthScreen';
 import Colors from '../constants/Colors';
@@ -40,84 +39,13 @@ export const DayNavigator = () => {
         options={schedScreenOptions}
       />
       <DayStackNavigator.Screen 
-        name="SelectDayScreen" 
-        component={SelectDayScreen} 
-        options={selectDayScreenOptions}
+        name="ToggleDaysScreen" 
+        component={ToggleDaysScreen} 
+        options={toggleDaysScreenOptions}
       />
     </DayStackNavigator.Navigator>
   );
 }
-
-// const DayStackNavigator = createStackNavigator();
-
-// export const DayNavigator = () => {
-//   return (
-//     <DayStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-//       <DayStackNavigator.Screen 
-//         name="ScheduleScreen" 
-//         component={ScheduleScreen} 
-//         options={schedScreenOptions}
-//       />
-//       <DayStackNavigator.Screen 
-//         name="SelectDayScreen" 
-//         component={SelectDayScreen} 
-//         options={selectDayScreenOptions}
-//       />
-//       <DayStackNavigator.Screen 
-//         name="Cart" 
-//         component={CartScreen} 
-//         options={cartScreenOptions}
-//       />
-//     </DayStackNavigator.Navigator>
-//   );
-// }
-
-// const AdminStackNavigator = createStackNavigator();
-
-// const AdminNavigator = () => {
-//   return (
-//     <AdminStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-//       <AdminStackNavigator.Screen 
-//         name="UserProductsScreen" 
-//         component={UserProductsScreen} 
-//         options={userProdScreenOptions}
-//       />
-//       <AdminStackNavigator.Screen 
-//         name="EditScreen" 
-//         component={EditProductsScreen} 
-//         options={editProdScreenOptions}
-//       />
-//     </AdminStackNavigator.Navigator>
-//   );
-// }
-
-// const OrdersStackNavigator = createStackNavigator();
-
-// const OrdersNavigator = () => {
-//   return (
-//     <OrdersStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-//       <OrdersStackNavigator.Screen 
-//         name="OrderStack" 
-//         component={OrdersScreen} 
-//         options={ordersScreenOptions}
-//       />
-//     </OrdersStackNavigator.Navigator>
-//   );
-// }
-
-// const AuthStackNavigator = createStackNavigator();
-
-// export const AuthNavigator = () => {
-//   return(
-//     <AuthStackNavigator.Navigator screenOptions={defaultNavigationOptions}>
-//       <AuthStackNavigator.Screen 
-//         name="AuthNavigator" 
-//         component={AuthScreen} 
-//         options={authScreenOptions}
-//       />
-//     </AuthStackNavigator.Navigator>
-//   );
-// }
 
 const DayDrawerNavigator = createDrawerNavigator();
 
@@ -140,8 +68,8 @@ const DayDrawer = () => {
         }} 
       />
       <DayDrawerNavigator.Screen 
-        name="Select Day" 
-        component={SelectDayScreen} 
+        name="Toggle Days" 
+        component={ToggleDaysScreen} 
         options={{
           drawerIcon: props => (
             <Ionicons
