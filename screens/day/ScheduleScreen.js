@@ -69,6 +69,7 @@ const ScheduleScreen = (props) => {
             title={itemData.item.activity}
             time={moment(itemData.item.time).format("h:mm A")}
             color={itemData.item.color}
+            onDel={() => dispatch(dayActions.delActivity(itemData.item.id))}
           />
         )}
       />

@@ -61,7 +61,7 @@ const Activity = (props) => {
             name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
             size={23}
             color="red"
-            onPress={() => dispatch(dayActions.delActivity(props.id))}
+            onPress={props.onDel}
           />
           <Ionicons
             name={showDetails ? "md-caret-up" : "md-caret-down"}
