@@ -33,6 +33,7 @@ const MonthPlanItem = (props) => {
         ? { textDecorationLine: "line-through", textDecorationStyle: "solid" }
         : {}
     );
+    props.onCheck();
   };
   return (
     <View style={styles.container}>

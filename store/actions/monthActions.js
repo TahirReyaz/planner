@@ -10,8 +10,14 @@ export const changeMonth = (month) => {
   };
 };
 
-export const checkPlanItem = (id, day) => {
+export const checkPlanItem = (id, index) => {
   return async (dispatch) => {
-    dispatch({ type: CHECK_PLAN_ITEM, id, day });
+    dispatch({ type: CHECK_PLAN_ITEM, id, index });
+  };
+};
+
+export const clearPlan = (index) => {
+  return async (dispatch) => {
+    dispatch({ type: CLEAR_PLAN, index });
   };
 };

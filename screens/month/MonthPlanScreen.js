@@ -9,6 +9,8 @@ import * as monthActions from "../../store/actions/monthActions";
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
   const plans = useSelector((state) => state.monthPlan.plans[selectedMonth]);
+  console.log("------------------------------------");
+  console.log(plans);
   const dispatch = useDispatch();
   const monthChangeHandler = (month) => {
     dispatch(monthActions.changeMonth(month));
@@ -46,13 +48,13 @@ const MonthPlanScreen = (props) => {
         )}
         <FlatList
           data={plans}
+          keyExtractor={(item, index) => index}
           renderItem={(itemData) => (
             <MonthDayPlan
-              id={itemData.item.day}
-              key={itemData.item.day}
-              plans={itemData.item.tasks}
-              time={`${selectedMonth} ${itemData.item.day}`}
-              onDel={() => dispatch(monthActions.clearPlan(itemData.item.day))}
+              id={itemData.index}
+              plans={itemData.item}
+              time={`${selectedMonth} ${itemData.index + 1}`}
+              onDel={() => dispatch(monthActions.clearPlan(itemData.index))}
             />
           )}
         />
