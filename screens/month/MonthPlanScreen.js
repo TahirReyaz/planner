@@ -49,6 +49,7 @@ const MonthPlanScreen = (props) => {
           renderItem={(itemData) => (
             <MonthDayPlan
               id={itemData.item.day}
+              key={itemData.item.day}
               plans={itemData.item.tasks}
               time={`${selectedMonth} ${itemData.item.day}`}
               onDel={() => dispatch(monthActions.clearPlan(itemData.item.day))}

@@ -3,39 +3,10 @@ import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
+import MonthPlanItem from "./MonthPlanItem";
 
 const MonthDayPlan = (props) => {
   const [showDetails, setShowDetails] = useState(false);
-  const styles = StyleSheet.create({
-    container: {
-      margin: 5,
-      padding: 5,
-      backgroundColor: "white",
-      borderBottomColor: Colors.primary,
-      borderLeftColor: Colors.primary,
-      borderBottomWidth: 5,
-      borderLeftWidth: 5,
-      borderBottomLeftRadius: 10,
-    },
-    summaryContainer: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-    timeNtitle: {
-      flexDirection: "row",
-      justifyContent: "flex-start",
-    },
-    text: {
-      fontSize: 20,
-      marginRight: 5,
-    },
-    buttonContainer: {
-      flexDirection: "row",
-    },
-    fullTitle: {
-      margin: 5,
-    },
-  });
 
   return (
     <View style={styles.container}>
@@ -69,16 +40,51 @@ const MonthDayPlan = (props) => {
         </View>
       </View>
       {showDetails && (
-        <View style={styles.fullTitle}>
+        <View style={styles.itemContainer}>
           {props.plans.map((plan) => (
-            <View key={plan.id}>
-              <Text style={styles.text}>{plan.task}</Text>
-            </View>
+            <MonthPlanItem
+              title={plan.task}
+              id={plan.id}
+              key={plan.id}
+              checked={plan.checked}
+            />
           ))}
         </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 5,
+    padding: 5,
+    backgroundColor: "white",
+    borderBottomColor: Colors.primary,
+    borderLeftColor: Colors.primary,
+    borderBottomWidth: 5,
+    borderLeftWidth: 5,
+    borderBottomLeftRadius: 10,
+  },
+  summaryContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  timeNtitle: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
+  text: {
+    fontSize: 20,
+    marginRight: 5,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+  },
+  itemContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+});
 
 export default MonthDayPlan;

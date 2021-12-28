@@ -1,5 +1,9 @@
 import { MonthPlans, MonthPlanItem } from "../../models/month-plan";
-import { ADD_PLAN_ITEM, CHANGE_MONTH } from "../actions/monthActions";
+import {
+  ADD_PLAN_ITEM,
+  CHANGE_MONTH,
+  CHECK_PLAN_ITEM,
+} from "../actions/monthActions";
 
 const initialState = {
   selectedMonth: "Jan",
@@ -8,6 +12,8 @@ const initialState = {
       new MonthPlans("1", [
         new MonthPlanItem("p1", "Complete the app", true),
         new MonthPlanItem("p2", "Launch the app", false),
+        new MonthPlanItem("p3", "Meh", false),
+        new MonthPlanItem("p4", "Blah", false),
       ]),
       new MonthPlans("2", [
         new MonthPlanItem("j1", "Learn to reduce size", true),
@@ -24,7 +30,17 @@ export default (state = initialState, action) => {
         ...state,
         selectedMonth: action.month,
       };
-      break;
+    // case CHECK_PLAN_ITEM:
+    //   const newMonthPlans =
+    //   return {
+    //     ...state,
+    //     plans: {
+    //       ...state.plans,
+    //       [state.selectedMonth]: [
+    //         ...[state.selectedMonth]
+    //       ]
+    //     }
+    //   }
     //   case DEL_ACTIVITY:
     //     const newSchedule = state.schedules[state.selectedDay].filter(
     //       (activity) => activity.id !== action.actId

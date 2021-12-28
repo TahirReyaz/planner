@@ -9,3 +9,9 @@ export const changeMonth = (month) => {
     dispatch({ type: CHANGE_MONTH, month });
   };
 };
+
+export const checkPlanItem = (id, day) => {
+  return async (dispatch) => {
+    dispatch({ type: CHECK_PLAN_ITEM, id, day });
+  };
+};
