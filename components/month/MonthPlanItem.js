@@ -14,7 +14,7 @@ const checkedIcon = {
 };
 
 const MonthPlanItem = (props) => {
-  const [checked, setChecked] = useState(props.checked);
+  const checked = useState(props.checked);
   const [doneIcon, setDoneIcon] = useState(
     checked ? checkedIcon : uncheckedIcon
   );

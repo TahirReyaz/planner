@@ -21,3 +21,9 @@ export const clearPlan = (index) => {
     dispatch({ type: CLEAR_PLAN, index });
   };
 };
+
+export const delPlanItem = (id, index) => {
+  return async (dispatch) => {
+    dispatch({ type: DEL_PLAN_ITEM, index, id });
+  };
+};

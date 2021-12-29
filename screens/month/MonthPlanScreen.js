@@ -9,8 +9,6 @@ import * as monthActions from "../../store/actions/monthActions";
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
   const plans = useSelector((state) => state.monthPlan.plans[selectedMonth]);
-  console.log("------------------------------------");
-  console.log(plans);
   const dispatch = useDispatch();
   const monthChangeHandler = (month) => {
     dispatch(monthActions.changeMonth(month));

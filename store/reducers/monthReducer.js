@@ -4,6 +4,7 @@ import {
   CHANGE_MONTH,
   CHECK_PLAN_ITEM,
   CLEAR_PLAN,
+  DEL_PLAN_ITEM,
 } from "../actions/monthActions";
 
 const initialState = {
@@ -43,53 +44,21 @@ export default (state = initialState, action) => {
         },
       };
     case CHECK_PLAN_ITEM:
-      const checkedPlanItem = state.plans[state.selectedMonth][
+      const itemIndex = state.plans[state.selectedMonth][
         action.index
-      ].find((plan) => plan.id === action.id);
-      console.log(checkedPlanItem);
-      const newPlanItem = new MonthPlanItem(
-        checkedPlanItem.id,
-        checkedPlanItem.task,
-        !checkedPlanItem.checked
-      );
-      console.log(newPlanItem);
+      ].findIndex((plan) => plan.id === action.id);
+      const monthPlan = state.plans[state.selectedMonth];
+      monthPlan[action.index][itemIndex].checked =
+        !monthPlan[action.index][itemIndex].checked;
       return {
         ...state,
         plans: {
           ...state.plans,
-          // [state.selectedMonth]: [
-          //   ...[state.selectedMonth]
-          // ]
+          [state.selectedMonth]: monthPlan,
         },
       };
-    //   case DEL_ACTIVITY:
-    //     const newSchedule = state.schedules[state.selectedDay].filter(
-    //       (activity) => activity.id !== action.actId
-    //     );
-    //     return {
-    //       ...state,
-    //       schedules: {
-    //         ...state.schedules,
-    //         [state.selectedDay]: newSchedule,
-    //       },
-    //     };
-    //   case ADD_ACTIVITY:
-    //     const newActivity = new ScheduleItem(
-    //       action.id,
-    //       action.activity,
-    //       action.time,
-    //       action.color
-    //     );
-    //     const selectedDay = action.selectedDay;
-    //     return {
-    //       ...state,
-    //       schedules: {
-    //         ...state.schedules,
-    //         [selectedDay]: state.schedules[selectedDay]
-    //           ? state.schedules[selectedDay].concat(newActivity)
-    //           : [newActivity],
-    //       },
-    //     };
+    case DEL_PLAN_ITEM:
+      return state;
     default:
       return state;
   }
