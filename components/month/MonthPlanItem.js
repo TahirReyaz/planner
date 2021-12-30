@@ -14,27 +14,11 @@ const checkedIcon = {
 };
 
 const MonthPlanItem = (props) => {
-  const checked = useState(props.checked);
-  const [doneIcon, setDoneIcon] = useState(
-    checked ? checkedIcon : uncheckedIcon
-  );
-  const [crossedText, setCrossedText] = useState(
-    checked
-      ? { textDecorationLine: "line-through", textDecorationStyle: "solid" }
-      : {}
-  );
+  const doneIcon = props.checked ? checkedIcon : uncheckedIcon;
+  const crossedText = props.checked
+    ? { textDecorationLine: "line-through", textDecorationStyle: "solid" }
+    : {};
 
-  const onCheckHandler = () => {
-    const icon = checked ? checkedIcon : uncheckedIcon;
-    setDoneIcon(icon);
-    setChecked((prevState) => !prevState);
-    setCrossedText(
-      checked
-        ? { textDecorationLine: "line-through", textDecorationStyle: "solid" }
-        : {}
-    );
-    props.onCheck();
-  };
   return (
     <View style={styles.container}>
       <View style={styles.timeNtitle}>
@@ -42,7 +26,7 @@ const MonthPlanItem = (props) => {
           name={Platform.OS === "android" ? doneIcon.android : doneIcon.ios}
           size={20}
           color="black"
-          onPress={onCheckHandler}
+          onPress={props.onCheck}
         />
         <View>
           <Text style={{ ...styles.text, ...crossedText }}>{props.title}</Text>

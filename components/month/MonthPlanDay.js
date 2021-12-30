@@ -55,9 +55,13 @@ const MonthDayPlan = (props) => {
               <MonthPlanItem
                 title={plan.task}
                 id={plan.id}
+                key={plan.id}
                 checked={plan.checked}
                 onCheck={() =>
                   dispatch(monthActions.checkPlanItem(plan.id, props.id))
+                }
+                onDel={() =>
+                  dispatch(monthActions.delPlanItem(plan.id, props.id))
                 }
               />
             ))}

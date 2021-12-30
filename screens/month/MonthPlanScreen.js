@@ -8,13 +8,13 @@ import * as monthActions from "../../store/actions/monthActions";
 
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
-  const plans = useSelector((state) => state.monthPlan.plans[selectedMonth]);
+  const plans = useSelector((state) => state.monthPlan[selectedMonth]);
   const dispatch = useDispatch();
   const monthChangeHandler = (month) => {
     dispatch(monthActions.changeMonth(month));
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View>
         <Picker
           selectedValue={selectedMonth}
@@ -36,7 +36,7 @@ const MonthPlanScreen = (props) => {
           <Picker.Item label="December" value="Dec" />
         </Picker>
       </View>
-      <View>
+      <SafeAreaView style={{ flex: 1 }}>
         {(!plans || plans.length === 0) && (
           <View style={styles.fallback}>
             <Text style={styles.fallbackText}>
@@ -56,7 +56,7 @@ const MonthPlanScreen = (props) => {
             />
           )}
         />
-      </View>
+      </SafeAreaView>
     </SafeAreaView>
   );
 };
