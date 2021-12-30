@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
@@ -43,7 +42,6 @@ const formReducer = (state, action) => {
 
 const Form = (props) => {
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch();
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       task: "",
@@ -104,7 +102,11 @@ const Form = (props) => {
       ]);
       return;
     }
-    props.onAdd(formState.inputValues.task,formState.inputValues.time,formState.inputValues.color)
+    props.onAdd(
+      formState.inputValues.task,
+      formState.inputValues.time,
+      formState.inputValues.color
+    );
   }, [formState]);
 
   const timePicker = (
