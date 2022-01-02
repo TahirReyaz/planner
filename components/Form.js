@@ -95,6 +95,8 @@ const Form = (props) => {
     [dispatchFormState]
   );
 
+  const { onAdd } = props;
+
   const submitHandler = useCallback(() => {
     if (!formState.formIsValid) {
       Alert.alert("Wrong Input", "Please check errors in the form", [
@@ -102,12 +104,12 @@ const Form = (props) => {
       ]);
       return;
     }
-    props.onAdd(
+    onAdd(
       formState.inputValues.task,
       formState.inputValues.time,
       formState.inputValues.color
     );
-  }, [formState]);
+  }, [formState, onAdd]);
 
   const timePicker = (
     <DateTimePicker

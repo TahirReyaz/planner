@@ -66,7 +66,7 @@ const InputText = (props) => {
 
   return (
     <View style={styles.formControl}>
-      <Text style={styles.label}>{props.label}</Text>
+      {props.label && <Text style={styles.label}>{props.label}</Text>}
       <TextInput
         {...props}
         style={styles.input}
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
   input: {
     paddingHorizontal: 10,
     paddingVertical: 5,
-    marginVertical: 10,
     backgroundColor: "white",
     borderBottomColor: Colors.primary,
     borderLeftColor: Colors.primary,

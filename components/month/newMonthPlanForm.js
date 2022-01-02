@@ -1,10 +1,11 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { View, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
 import InputText from "../InputText";
 
-const newMonthPlanForm = (props) => {
+const NewMonthPlanForm = (props) => {
   const [task, setTask] = useState("");
   const [isValid, setIsValid] = useState(false);
 
@@ -22,14 +23,22 @@ const newMonthPlanForm = (props) => {
 
   return (
     <View style={styles.container}>
-      <InputText
-        label="Task"
-        keyboardType="default"
-        error="Please enter a valid task!"
-        onInputChange={textChangeHandler}
-        initialValue=""
-        initiallyValid={false}
-        required
+      <View style={styles.input}>
+        <InputText
+          keyboardType="default"
+          error="Please enter a valid task!"
+          onInputChange={textChangeHandler}
+          initialValue=""
+          initiallyValid={false}
+          required
+        />
+      </View>
+
+      <Ionicons
+        name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
+        size={25}
+        color="black"
+        onPress={submitHandler}
       />
     </View>
   );
@@ -37,25 +46,15 @@ const newMonthPlanForm = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
     backgroundColor: "white",
-  },
-  row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+    width: "80%",
   },
   input: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginVertical: 10,
-    backgroundColor: "white",
-    borderBottomColor: Colors.primary,
-    borderLeftColor: Colors.primary,
-    borderBottomWidth: 5,
-    borderLeftWidth: 5,
-    borderBottomLeftRadius: 10,
-    fontSize: 20,
+    width: "85%",
   },
 });
 
-export default newMonthPlanForm;
+export default NewMonthPlanForm;

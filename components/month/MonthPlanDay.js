@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import Colors from "../../constants/Colors";
 import MonthPlanItem from "./MonthPlanItem";
 import * as monthActions from "../../store/actions/monthActions";
+import NewMonthPlanForm from "./NewMonthPlanForm";
 
 const MonthDayPlan = (props) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -26,6 +27,9 @@ const MonthDayPlan = (props) => {
                   : "No plans for this day"}
               </Text>
             </View>
+          )}
+          {showDetails && (
+            <NewMonthPlanForm onAdd={(txt) => console.log(txt)} />
           )}
         </View>
         {props.plans && props.plans.length > 0 && (
@@ -85,10 +89,13 @@ const styles = StyleSheet.create({
   summaryContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   timeNtitle: {
     flexDirection: "row",
     justifyContent: "flex-start",
+    alignItems: "center",
+    flex: 1,
   },
   text: {
     fontSize: 20,
