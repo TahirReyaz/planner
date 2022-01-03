@@ -29,7 +29,12 @@ const MonthDayPlan = (props) => {
             </View>
           )}
           {showDetails && (
-            <NewMonthPlanForm onAdd={(txt) => console.log(txt)} />
+            <NewMonthPlanForm
+              onAdd={(task) => {
+                console.log("In onAdd", task);
+                dispatch(monthActions.addPlanItem(props.id, task));
+              }}
+            />
           )}
         </View>
         {props.plans && props.plans.length > 0 && (

@@ -14,12 +14,15 @@ const NewMonthPlanForm = (props) => {
     setIsValid(validity);
   };
 
+  const { onAdd } = props;
+
   const submitHandler = useCallback(() => {
-    if (isValid) {
+    if (!isValid) {
+      console.log("Not Valid");
       return;
     }
-    props.onAdd(task);
-  }, [task, isValid]);
+    onAdd(task);
+  }, [task, isValid, onAdd]);
 
   return (
     <View style={styles.container}>

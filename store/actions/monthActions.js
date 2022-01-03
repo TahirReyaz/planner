@@ -27,3 +27,10 @@ export const delPlanItem = (id, index) => {
     dispatch({ type: DEL_PLAN_ITEM, index, id });
   };
 };
+
+export const addPlanItem = (index, task) => {
+  const id = Math.random().toString();
+  return async (dispatch) => {
+    dispatch({ type: ADD_PLAN_ITEM, index, id, task });
+  };
+};
