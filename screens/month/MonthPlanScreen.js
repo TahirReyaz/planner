@@ -63,7 +63,7 @@ const MonthPlanScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "Schedule",
+    headerTitle: "Planner",
   };
 };
 
