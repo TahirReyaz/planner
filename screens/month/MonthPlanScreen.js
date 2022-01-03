@@ -46,7 +46,7 @@ const MonthPlanScreen = (props) => {
         )}
         <FlatList
           data={plans}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => `${index}${selectedMonth}`}
           renderItem={(itemData) => (
             <MonthDayPlan
               id={itemData.index}
