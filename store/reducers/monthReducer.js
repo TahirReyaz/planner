@@ -53,32 +53,40 @@ export default (state = initialState, action) => {
         selectedMonth: action.month,
       };
     case CLEAR_PLAN:
-      newMonthPlan = state[state.selectedMonth];
+      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index] = [];
-      Object.assign(state[state.selectedMonth], newMonthPlan);
-      return state;
+      return {
+        ...state,
+        [state.selectedMonth]: newMonthPlan,
+      };
     case CHECK_PLAN_ITEM:
       const itemIndex = state[state.selectedMonth][action.index].findIndex(
         (plan) => plan.id === action.id
       );
-      newMonthPlan = state[state.selectedMonth];
+      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index][itemIndex].checked =
         !newMonthPlan[action.index][itemIndex].checked;
-      Object.assign(state[state.selectedMonth], newMonthPlan);
-      return state;
+      return {
+        ...state,
+        [state.selectedMonth]: newMonthPlan,
+      };
     case DEL_PLAN_ITEM:
-      newMonthPlan = state[state.selectedMonth];
+      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index] = newMonthPlan[action.index].filter(
         (plan) => plan.id !== action.id
       );
-      Object.assign(state[state.selectedMonth], newMonthPlan);
-      return state;
+      return {
+        ...state,
+        [state.selectedMonth]: newMonthPlan,
+      };
     case ADD_PLAN_ITEM:
       const newPlanItem = new MonthPlanItem(action.id, action.task, false);
-      newMonthPlan = state[state.selectedMonth];
+      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index].push(newPlanItem);
-      state[state.selectedMonth] = newMonthPlan;
-      return state;
+      return {
+        ...state,
+        [state.selectedMonth]: newMonthPlan,
+      };
     default:
       return state;
   }
