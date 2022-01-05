@@ -45,7 +45,8 @@ initialState.Jan[1] = [
 ];
 
 export default (state = initialState, action) => {
-  let newMonthPlan;
+  const newMonthPlan = [...state[state.selectedMonth]];
+
   switch (action.type) {
     case CHANGE_MONTH:
       return {
@@ -53,7 +54,6 @@ export default (state = initialState, action) => {
         selectedMonth: action.month,
       };
     case CLEAR_PLAN:
-      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index] = [];
       return {
         ...state,
@@ -63,7 +63,6 @@ export default (state = initialState, action) => {
       const itemIndex = state[state.selectedMonth][action.index].findIndex(
         (plan) => plan.id === action.id
       );
-      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index][itemIndex].checked =
         !newMonthPlan[action.index][itemIndex].checked;
       return {
@@ -71,7 +70,6 @@ export default (state = initialState, action) => {
         [state.selectedMonth]: newMonthPlan,
       };
     case DEL_PLAN_ITEM:
-      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index] = newMonthPlan[action.index].filter(
         (plan) => plan.id !== action.id
       );
@@ -81,7 +79,6 @@ export default (state = initialState, action) => {
       };
     case ADD_PLAN_ITEM:
       const newPlanItem = new MonthPlanItem(action.id, action.task, false);
-      newMonthPlan = [...state[state.selectedMonth]];
       newMonthPlan[action.index].push(newPlanItem);
       return {
         ...state,
