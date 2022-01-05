@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 // import MonthDayPlan from "../components/month/MonthPlanDay";
 import * as yearActions from "../store/actions/yearActions";
+import defaultStyles from "../constants/default-styles";
 
 const currentYear = new Date().getFullYear();
 const years = [];
@@ -22,7 +23,7 @@ const YearScreen = (props) => {
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View>
+      <View style={defaultStyles.topMenu}>
         <Picker
           selectedValue={selectedYear}
           style={{ width: 150 }}

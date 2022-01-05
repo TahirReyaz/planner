@@ -8,6 +8,7 @@ import Colors from "../../constants/Colors";
 import Activity from "../../components/Activity";
 import Form from "../../components/Form";
 import * as dayActions from "../../store/actions/dayActions";
+import defaultStyles from "../../constants/default-styles";
 
 const ScheduleScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
@@ -27,7 +28,7 @@ const ScheduleScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.topMenu}>
+      <View style={defaultStyles.topMenu}>
         <Picker
           selectedValue={selectedDay}
           style={{ width: 150 }}
@@ -46,7 +47,7 @@ const ScheduleScreen = (props) => {
         <Button
           title={!showForm ? "Add Task" : "Close Form"}
           color={Colors.primary}
-          onPress={() => setShowForm(prevState => !prevState)}
+          onPress={() => setShowForm((prevState) => !prevState)}
         />
       </View>
       {showForm && (
@@ -87,13 +88,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: "#E5E5E5",
-  },
-  topMenu: {
-    flexDirection: "row",
-    height: 50,
-    padding: 5,
-    backgroundColor: "white",
-    justifyContent: "space-between",
   },
   form: {
     padding: 5,

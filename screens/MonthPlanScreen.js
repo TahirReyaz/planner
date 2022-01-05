@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import MonthDayPlan from "../components/month/MonthPlanDay";
 import * as monthActions from "../store/actions/monthActions";
+import defaultStyles from "../constants/default-styles";
 
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
@@ -15,7 +16,7 @@ const MonthPlanScreen = (props) => {
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View>
+      <View style={defaultStyles.topMenu}>
         <Picker
           selectedValue={selectedMonth}
           style={{ width: 150 }}
@@ -67,6 +68,14 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  topMenu: {
+    flexDirection: "row",
+    height: 50,
+    padding: 5,
+    backgroundColor: "white",
+    justifyContent: "space-between",
+  },
+});
 
 export default MonthPlanScreen;

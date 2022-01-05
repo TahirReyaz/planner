@@ -61,7 +61,7 @@ const Activity = (props) => {
           />
           <Ionicons
             name={showDetails ? "md-caret-up" : "md-caret-down"}
-            size={20}
+            size={25}
             color="grey"
             style={{ marginHorizontal: 10 }}
             onPress={() => {
