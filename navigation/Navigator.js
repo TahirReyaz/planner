@@ -12,7 +12,7 @@ import ToggleDaysScreen, {
 } from "../screens/day/ToggleDaysScreen";
 import MonthPlanScreen, {
   screenOptions as monthPlanScreenOptions,
-} from "../screens/month/MonthPlanScreen";
+} from "../screens/MonthPlanScreen";
 import YearScreen, {
   screenOptions as YearScreenOptions,
 } from "../screens/YearScreen";

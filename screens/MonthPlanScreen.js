@@ -3,8 +3,8 @@ import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector, useDispatch } from "react-redux";
 
-import MonthDayPlan from "../../components/month/MonthPlanDay";
-import * as monthActions from "../../store/actions/monthActions";
+import MonthDayPlan from "../components/month/MonthPlanDay";
+import * as monthActions from "../store/actions/monthActions";
 
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
