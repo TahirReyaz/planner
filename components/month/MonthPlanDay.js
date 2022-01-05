@@ -28,33 +28,27 @@ const MonthDayPlan = (props) => {
               </Text>
             </View>
           )}
-          {showDetails && (
-            <NewMonthPlanForm
-              onAdd={(task) =>
-                dispatch(monthActions.addPlanItem(props.id, task))
-              }
-            />
-          )}
         </View>
-        {props.plans && props.plans.length > 0 && (
-          <View style={styles.buttonContainer}>
+
+        <View style={styles.buttonContainer}>
+          {props.plans && props.plans.length > 0 && (
             <Ionicons
               name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
               size={23}
               color="red"
               onPress={props.onDel}
             />
-            <Ionicons
-              name={showDetails ? "md-caret-up" : "md-caret-down"}
-              size={20}
-              color="grey"
-              style={{ marginHorizontal: 10 }}
-              onPress={() => {
-                setShowDetails((prevState) => !prevState);
-              }}
-            />
-          </View>
-        )}
+          )}
+          <Ionicons
+            name={showDetails ? "md-caret-up" : "md-caret-down"}
+            size={20}
+            color="grey"
+            style={{ marginHorizontal: 10 }}
+            onPress={() => {
+              setShowDetails((prevState) => !prevState);
+            }}
+          />
+        </View>
       </View>
       {showDetails && (
         <View style={styles.itemContainer}>
@@ -73,6 +67,13 @@ const MonthDayPlan = (props) => {
                 }
               />
             ))}
+          {showDetails && (
+            <NewMonthPlanForm
+              onAdd={(task) =>
+                dispatch(monthActions.addPlanItem(props.id, task))
+              }
+            />
+          )}
         </View>
       )}
     </View>

@@ -7,12 +7,14 @@ import { Provider } from "react-redux";
 import AppNavigator from "./navigation/AppNavigator";
 import dayReducer from "./store/reducers/dayReducer";
 import monthReducer from "./store/reducers/monthReducer";
+import yearReducer from "./store/reducers/yearReducer";
 
 enableScreens();
 
 const rootReducer = combineReducers({
   schedule: dayReducer,
-  monthPlan: monthReducer
+  monthPlan: monthReducer,
+  yearPlan: yearReducer,
 });
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 

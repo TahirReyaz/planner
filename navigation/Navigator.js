@@ -13,6 +13,9 @@ import ToggleDaysScreen, {
 import MonthPlanScreen, {
   screenOptions as monthPlanScreenOptions,
 } from "../screens/month/MonthPlanScreen";
+import YearScreen, {
+  screenOptions as YearScreenOptions,
+} from "../screens/YearScreen";
 import Colors from "../constants/Colors";
 
 const defaultNavigationOptions = {
@@ -103,6 +106,22 @@ export const MainNavigator = () => {
           ),
           headerShown: true,
           ...monthPlanScreenOptions(),
+          ...defaultNavigationOptions,
+        }}
+      />
+      <Tab.Screen
+        name="Year"
+        component={YearScreen}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+              size={23}
+              color={props.color}
+            />
+          ),
+          headerShown: true,
+          ...YearScreenOptions(),
           ...defaultNavigationOptions,
         }}
       />
