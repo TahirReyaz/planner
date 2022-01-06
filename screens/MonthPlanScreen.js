@@ -38,13 +38,6 @@ const MonthPlanScreen = (props) => {
         </Picker>
       </View>
       <SafeAreaView style={{ flex: 1 }}>
-        {(!plans || plans.length === 0) && (
-          <View style={styles.fallback}>
-            <Text style={styles.fallbackText}>
-              Schedule not set yet. Add some plans
-            </Text>
-          </View>
-        )}
         <FlatList
           data={plans}
           keyExtractor={(item, index) => `${index}${selectedMonth}`}

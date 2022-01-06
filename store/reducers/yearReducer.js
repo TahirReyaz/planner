@@ -1,4 +1,5 @@
-// import { MonthPlanItem } from "../../models/month-plan";
+import YearPlanItem from "../../models/year-plan";
+import years, { currentYear } from "../../constants/years";
 import {
   ADD_PLAN_ITEM,
   CHANGE_YEAR,
@@ -7,30 +8,23 @@ import {
   DEL_PLAN_ITEM,
 } from "../actions/yearActions";
 
-// const months = [
-//   "Jan",
-//   "Feb",
-//   "Mar",
-//   "Apr",
-//   "May",
-//   "Jun",
-//   "Jul",
-//   "Aug",
-//   "Sep",
-//   "Oct",
-//   "Nov",
-//   "Dec",
-// ];
 const initialState = {
-  selectedYear: "2022",
+  selectedYear: currentYear,
 };
+years.forEach((year) => {
+  const monthsArray = [];
+  for (let i = 0; i < 12; i++) {
+    monthsArray.push([]);
+  }
+  initialState[year] = monthsArray;
+});
 
-// initialState.Jan[0] = [
-//   new MonthPlanItem("Jan1p1", "Complete the app", true),
-//   new MonthPlanItem("Jan1p2", "Launch the app", false),
-//   new MonthPlanItem("Jan1p3", "Meh", false),
-//   new MonthPlanItem("Jan1p4", "Blah", false),
-// ];
+initialState["2022"][0] = [
+  new YearPlanItem("Jan1p1", "Complete the app", true),
+  new YearPlanItem("Jan1p2", "Launch the app", false),
+  new YearPlanItem("Jan1p3", "Meh", false),
+  new YearPlanItem("Jan1p4", "Blah", false),
+];
 // initialState.Jan[1] = [
 //   new MonthPlanItem("Jan2p1", "Learn to reduce size", true),
 //   new MonthPlanItem("Jan2p2", "Reduce size of the app", false),

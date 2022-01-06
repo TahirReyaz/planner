@@ -1,22 +1,31 @@
 import React from "react";
-import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector, useDispatch } from "react-redux";
 
-// import MonthDayPlan from "../components/month/MonthPlanDay";
+import YearMonthPlan from "../components/year/YearMonthPlan";
 import * as yearActions from "../store/actions/yearActions";
 import defaultStyles from "../constants/default-styles";
+import years from "../constants/years";
 
-const currentYear = new Date().getFullYear();
-const years = [];
-for (let i = 0; i < 8; i++) {
-  const year = currentYear + i;
-  years.push(year.toString());
-}
+const months = [
+  { name: "January", value: "Jan" },
+  { name: "February", value: "Feb" },
+  { name: "March", value: "Mar" },
+  { name: "April", value: "Apr" },
+  { name: "May", value: "May" },
+  { name: "June", value: "Jun" },
+  { name: "July", value: "Jul" },
+  { name: "August", value: "Aug" },
+  { name: "September", value: "Sep" },
+  { name: "October", value: "Oct" },
+  { name: "November", value: "Nov" },
+  { name: "December", value: "Dec" },
+];
 
 const YearScreen = (props) => {
   const selectedYear = useSelector((state) => state.yearPlan.selectedYear);
-  //   const plans = useSelector((state) => state.monthPlan[selectedMonth]);
+  // const monthPlans = useSelector((state) => state.yearPlan[selectedYear]);
   const dispatch = useDispatch();
   const yearChangeHandler = (year) => {
     dispatch(yearActions.changeYear(year));
@@ -35,27 +44,30 @@ const YearScreen = (props) => {
           ))}
         </Picker>
       </View>
-      {/* <SafeAreaView style={{ flex: 1 }}>
-        {(!plans || plans.length === 0) && (
-          <View style={styles.fallback}>
-            <Text style={styles.fallbackText}>
-              Schedule not set yet. Add some plans
-            </Text>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={styles.monthsContainer}>
+          <View style={styles.col}>
+            {months.slice(0, 5).map((month) => (
+              <YearMonthPlan
+                title={month.name}
+                mon={month.value}
+                key={month.value}
+                year={selectedYear}
+              />
+            ))}
           </View>
-        )}
-        <FlatList
-          data={plans}
-          keyExtractor={(item, index) => `${index}${selectedMonth}`}
-          renderItem={(itemData) => (
-            <MonthDayPlan
-              id={itemData.index}
-              plans={itemData.item}
-              time={`${selectedMonth} ${itemData.index + 1}`}
-              onDel={() => dispatch(monthActions.clearPlan(itemData.index))}
-            />
-          )}
-        />
-      </SafeAreaView> */}
+          <View style={styles.col}>
+            {months.slice(6, 11).map((month) => (
+              <YearMonthPlan
+                title={month.name}
+                mon={month.value}
+                key={month.value}
+                year={selectedYear}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </SafeAreaView>
   );
 };
@@ -66,6 +78,15 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  monthsContainer: {
+    flexDirection: "row",
+    padding: 5,
+    justifyContent: "space-between",
+  },
+  col: {
+    flex: 0.49,
+  },
+});
 
 export default YearScreen;

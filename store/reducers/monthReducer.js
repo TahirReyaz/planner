@@ -7,6 +7,7 @@ import {
   DEL_PLAN_ITEM,
 } from "../actions/monthActions";
 
+const currentMonth = new Date().getMonth();
 const months = [
   { mon: "Jan", days: 31 },
   { mon: "Feb", days: 28 },
@@ -22,7 +23,7 @@ const months = [
   { mon: "Dec", days: 31 },
 ];
 const initialState = {
-  selectedMonth: "Jan",
+  selectedMonth: months[currentMonth].mon,
 };
 
 months.forEach((month) => {
