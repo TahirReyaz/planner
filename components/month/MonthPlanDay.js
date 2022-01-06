@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 
 import Colors from "../../constants/Colors";
-import MonthPlanItem from "./MonthPlanItem";
+import PlanItem from "../UI/PlanItem";
 import * as monthActions from "../../store/actions/monthActions";
 import NewMonthPlanForm from "./NewMonthPlanForm";
 
@@ -54,11 +54,12 @@ const MonthDayPlan = (props) => {
         <View style={styles.itemContainer}>
           {props.plans &&
             props.plans.map((plan) => (
-              <MonthPlanItem
+              <PlanItem
                 title={plan.task}
                 id={plan.id}
                 key={plan.id}
                 checked={plan.checked}
+                max={17}
                 onCheck={() =>
                   dispatch(monthActions.checkPlanItem(plan.id, props.id))
                 }

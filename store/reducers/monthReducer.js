@@ -1,4 +1,5 @@
 import { MonthPlanItem } from "../../models/month-plan";
+import { monthDays as months, currentMonth } from "../../constants/months";
 import {
   ADD_PLAN_ITEM,
   CHANGE_MONTH,
@@ -7,21 +8,6 @@ import {
   DEL_PLAN_ITEM,
 } from "../actions/monthActions";
 
-const currentMonth = new Date().getMonth();
-const months = [
-  { mon: "Jan", days: 31 },
-  { mon: "Feb", days: 28 },
-  { mon: "Mar", days: 31 },
-  { mon: "Apr", days: 30 },
-  { mon: "May", days: 31 },
-  { mon: "Jun", days: 30 },
-  { mon: "Jul", days: 31 },
-  { mon: "Aug", days: 31 },
-  { mon: "Sep", days: 30 },
-  { mon: "Oct", days: 31 },
-  { mon: "Nov", days: 30 },
-  { mon: "Dec", days: 31 },
-];
 const initialState = {
   selectedMonth: months[currentMonth].mon,
 };

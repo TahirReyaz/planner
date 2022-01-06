@@ -9,7 +9,8 @@ import NewPlanItemForm from "../UI/NewPlanItemForm";
 import PlanItem from "../UI/PlanItem";
 
 const YearMonthPlan = (props) => {
-  const plans = useSelector((state) => state.yearPlan[props.mon]);
+  const plans = useSelector((state) => state.yearPlan[props.year][props.index]);
+  // console.log(plans);
   // const dispatch = useDispatch();
 
   return (
@@ -32,7 +33,7 @@ const YearMonthPlan = (props) => {
       </View>
       {(!plans || plans.length === 0) && (
         <View>
-          <Text style={styles.text}>No plans for this day</Text>
+          <Text style={styles.text}>No plans for this month</Text>
         </View>
       )}
       <NewPlanItemForm
@@ -40,14 +41,15 @@ const YearMonthPlan = (props) => {
         // onAdd={(task) => dispatch(monthActions.addPlanItem(props.id, task))}
       />
 
-      <View style={styles.itemContainer}>
-        {props.plans &&
-          props.plans.map((plan) => (
+      <View>
+        {plans &&
+          plans.map((plan) => (
             <PlanItem
               title={plan.task}
               id={plan.id}
               key={plan.id}
               checked={plan.checked}
+              max={11}
               // onCheck={() =>
               //   dispatch(monthActions.checkPlanItem(plan.id, props.id))
               // }
@@ -72,10 +74,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginRight: 5,
-  },
-  itemContainer: {
-    // flexDirection: "row",
-    // flexWrap: "wrap",
   },
 });
 

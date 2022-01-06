@@ -7,25 +7,10 @@ import YearMonthPlan from "../components/year/YearMonthPlan";
 import * as yearActions from "../store/actions/yearActions";
 import defaultStyles from "../constants/default-styles";
 import years from "../constants/years";
-
-const months = [
-  { name: "January", value: "Jan" },
-  { name: "February", value: "Feb" },
-  { name: "March", value: "Mar" },
-  { name: "April", value: "Apr" },
-  { name: "May", value: "May" },
-  { name: "June", value: "Jun" },
-  { name: "July", value: "Jul" },
-  { name: "August", value: "Aug" },
-  { name: "September", value: "Sep" },
-  { name: "October", value: "Oct" },
-  { name: "November", value: "Nov" },
-  { name: "December", value: "Dec" },
-];
+import { monthNames as months } from "../constants/months";
 
 const YearScreen = (props) => {
   const selectedYear = useSelector((state) => state.yearPlan.selectedYear);
-  // const monthPlans = useSelector((state) => state.yearPlan[selectedYear]);
   const dispatch = useDispatch();
   const yearChangeHandler = (year) => {
     dispatch(yearActions.changeYear(year));
@@ -47,22 +32,22 @@ const YearScreen = (props) => {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.monthsContainer}>
           <View style={styles.col}>
-            {months.slice(0, 5).map((month) => (
+            {months.slice(0, 5).map((month, index) => (
               <YearMonthPlan
                 title={month.name}
-                mon={month.value}
-                key={month.value}
+                key={`${selectedYear}${month.value}`}
                 year={selectedYear}
+                index={index}
               />
             ))}
           </View>
           <View style={styles.col}>
-            {months.slice(6, 11).map((month) => (
+            {months.slice(6, 11).map((month, index) => (
               <YearMonthPlan
                 title={month.name}
-                mon={month.value}
-                key={month.value}
+                key={`${selectedYear}${month.value}`}
                 year={selectedYear}
+                index={index + 6}
               />
             ))}
           </View>
