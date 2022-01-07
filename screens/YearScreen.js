@@ -38,6 +38,7 @@ const YearScreen = (props) => {
                 key={`${selectedYear}${month.value}`}
                 year={selectedYear}
                 index={index}
+                onDel={() => dispatch(yearActions.clearPlan(index))}
               />
             ))}
           </View>
@@ -48,6 +49,7 @@ const YearScreen = (props) => {
                 key={`${selectedYear}${month.value}`}
                 year={selectedYear}
                 index={index + 6}
+                onDel={() => dispatch(yearActions.clearPlan(index + 6))}
               />
             ))}
           </View>

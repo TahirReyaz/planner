@@ -1,11 +1,11 @@
 import YearPlanItem from "../../models/year-plan";
 import years, { currentYear } from "../../constants/years";
 import {
-  ADD_PLAN_ITEM,
+  ADD_MONTH_PLAN_ITEM,
   CHANGE_YEAR,
-  CHECK_PLAN_ITEM,
-  CLEAR_PLAN,
-  DEL_PLAN_ITEM,
+  CHECK_MONTH_PLAN_ITEM,
+  CLEAR_MONTH_PLAN,
+  DEL_MONTH_PLAN_ITEM,
 } from "../actions/yearActions";
 
 const initialState = {
@@ -20,18 +20,20 @@ years.forEach((year) => {
 });
 
 initialState["2022"][0] = [
-  new YearPlanItem("Jan1p1", "Complete the app", true),
-  new YearPlanItem("Jan1p2", "Launch the app", false),
-  new YearPlanItem("Jan1p3", "Meh", false),
-  new YearPlanItem("Jan1p4", "Blah", false),
+  new YearPlanItem("2022p1", "Complete the app", true),
+  new YearPlanItem("2022p2", "Launch the app", false),
+  new YearPlanItem("2022p3", "Meh", false),
+  new YearPlanItem("2022p4", "Blah", false),
 ];
-// initialState.Jan[1] = [
-//   new MonthPlanItem("Jan2p1", "Learn to reduce size", true),
-//   new MonthPlanItem("Jan2p2", "Reduce size of the app", false),
-// ];
+initialState["2022"][7] = [
+  new YearPlanItem("2023p1", "Complete the app", true),
+  new YearPlanItem("2023p2", "Launch the app", false),
+  new YearPlanItem("2023p3", "Meh", false),
+  new YearPlanItem("2023p4", "Blah", false),
+];
 
 export default (state = initialState, action) => {
-  // const newMonthPlan = [...state[state.selectedYear]];
+  const newYearPlan = [...state[state.selectedYear]];
 
   switch (action.type) {
     case CHANGE_YEAR:
@@ -39,37 +41,38 @@ export default (state = initialState, action) => {
         ...state,
         selectedYear: action.year,
       };
-    // case CLEAR_PLAN:
-    //   newMonthPlan[action.index] = [];
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newMonthPlan,
-    //   };
-    // case CHECK_PLAN_ITEM:
-    //   const itemIndex = state[state.selectedYear][action.index].findIndex(
-    //     (plan) => plan.id === action.id
-    //   );
-    //   newMonthPlan[action.index][itemIndex].checked =
-    //     !newMonthPlan[action.index][itemIndex].checked;
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newMonthPlan,
-    //   };
-    // case DEL_PLAN_ITEM:
-    //   newMonthPlan[action.index] = newMonthPlan[action.index].filter(
-    //     (plan) => plan.id !== action.id
-    //   );
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newMonthPlan,
-    //   };
-    // case ADD_PLAN_ITEM:
-    //   const newPlanItem = new MonthPlanItem(action.id, action.task, false);
-    //   newMonthPlan[action.index].push(newPlanItem);
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newMonthPlan,
-    //   };
+    case CLEAR_MONTH_PLAN:
+      newYearPlan[action.index] = [];
+      return {
+        ...state,
+        [state.selectedYear]: newYearPlan,
+      };
+    case CHECK_MONTH_PLAN_ITEM:
+      const itemIndex = state[state.selectedYear][action.index].findIndex(
+        (plan) => plan.id === action.id
+      );
+      newYearPlan[action.index][itemIndex].checked =
+        !newYearPlan[action.index][itemIndex].checked;
+      return {
+        ...state,
+        [state.selectedYear]: newYearPlan,
+      };
+    case DEL_MONTH_PLAN_ITEM:
+      newYearPlan[action.index] = newYearPlan[action.index].filter(
+        (plan) => plan.id !== action.id
+      );
+      return {
+        ...state,
+        [state.selectedYear]: newYearPlan,
+      };
+    case ADD_MONTH_PLAN_ITEM:
+      console.log("iNside year reducer", action.task);
+      const newPlanItem = new YearPlanItem(action.id, action.task, false);
+      newYearPlan[action.index].push(newPlanItem);
+      return {
+        ...state,
+        [state.selectedYear]: newYearPlan,
+      };
     default:
       return state;
   }

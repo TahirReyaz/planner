@@ -3,15 +3,14 @@ import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 
-// import * as monthActions from "../../store/actions/monthActions";
+import * as yearActions from "../../store/actions/yearActions";
 import defaultStyles from "../../constants/default-styles";
 import NewPlanItemForm from "../UI/NewPlanItemForm";
 import PlanItem from "../UI/PlanItem";
 
 const YearMonthPlan = (props) => {
   const plans = useSelector((state) => state.yearPlan[props.year][props.index]);
-  // console.log(plans);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <View style={{ ...defaultStyles.styledContainer, marginBottom: 5 }}>
@@ -21,25 +20,24 @@ const YearMonthPlan = (props) => {
         </View>
 
         <View>
-          {props.plans && props.plans.length > 0 && (
+          {plans && plans.length > 0 && (
             <Ionicons
               name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
               size={23}
               color="red"
-              // onPress={props.onDel}
+              onPress={props.onDel}
             />
           )}
         </View>
       </View>
+      <NewPlanItemForm
+        onAdd={(task) => dispatch(yearActions.addPlanItem(props.index, task))}
+      />
       {(!plans || plans.length === 0) && (
         <View>
           <Text style={styles.text}>No plans for this month</Text>
         </View>
       )}
-      <NewPlanItemForm
-        onAdd={() => {}}
-        // onAdd={(task) => dispatch(monthActions.addPlanItem(props.id, task))}
-      />
 
       <View>
         {plans &&
@@ -47,17 +45,15 @@ const YearMonthPlan = (props) => {
             <PlanItem
               title={plan.task}
               id={plan.id}
-              key={plan.id}
+              key={`${props.year}${props.index}${plan.id}`}
               checked={plan.checked}
               max={11}
-              // onCheck={() =>
-              //   dispatch(monthActions.checkPlanItem(plan.id, props.id))
-              // }
-              // onDel={() =>
-              //   dispatch(monthActions.delPlanItem(plan.id, props.id))
-              // }
-              onCheck={() => {}}
-              onDel={() => {}}
+              onCheck={() =>
+                dispatch(yearActions.checkPlanItem(plan.id, props.index))
+              }
+              onDel={() =>
+                dispatch(yearActions.delPlanItem(plan.id, props.index))
+              }
             />
           ))}
       </View>
