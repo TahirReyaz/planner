@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import Colors from "../../constants/Colors";
 import PlanItem from "../UI/PlanItem";
 import * as monthActions from "../../store/actions/monthActions";
-import NewMonthPlanForm from "./NewMonthPlanForm";
+import NewPlanItemForm from "../UI/NewPlanItemForm";
 
 const MonthDayPlan = (props) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -69,7 +69,7 @@ const MonthDayPlan = (props) => {
               />
             ))}
           {showDetails && (
-            <NewMonthPlanForm
+            <NewPlanItemForm
               onAdd={(task) =>
                 dispatch(monthActions.addPlanItem(props.id, task))
               }
