@@ -16,6 +16,9 @@ import MonthPlanScreen, {
 import YearScreen, {
   screenOptions as YearScreenOptions,
 } from "../screens/YearScreen";
+import LifeScreen, {
+  screenOptions as LifeScreenOptions,
+} from "../screens/LifeScreen";
 import Colors from "../constants/Colors";
 
 const defaultNavigationOptions = {
@@ -122,6 +125,22 @@ export const MainNavigator = () => {
           ),
           headerShown: true,
           ...YearScreenOptions(),
+          ...defaultNavigationOptions,
+        }}
+      />
+      <Tab.Screen
+        name="Life"
+        component={LifeScreen}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+              size={23}
+              color={props.color}
+            />
+          ),
+          headerShown: true,
+          ...LifeScreenOptions(),
           ...defaultNavigationOptions,
         }}
       />
