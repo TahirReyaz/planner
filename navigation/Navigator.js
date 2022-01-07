@@ -78,7 +78,7 @@ export const MainNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "gray",
+        tabBarInactiveTintColor: Colors.lightGrey,
         tabBarStyle: { backgroundColor: Colors.primary },
         headerShown: false,
       }}

@@ -1,47 +1,43 @@
 import React from "react";
 import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
-// import { useSelector, useDispatch } from "react-redux";
+import defaultStyles from "../constants/default-styles";
+import { useSelector, useDispatch } from "react-redux";
 
-// import PlanContainer from "../components/UI/PlanContainer";
+import PlanContainer from "../components/UI/PlanContainer";
+import { currentYear } from "../constants/years";
 // import * as monthActions from "../store/actions/monthActions";
 
-const MonthPlanScreen = (props) => {
-  // const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
-  // const plans = useSelector((state) => state.monthPlan[selectedMonth]);
+const LifeScreen = (props) => {
+  const plansObject = useSelector((state) => state.lifePlan);
+  const plans = [];
+  for (const key in plansObject) {
+    plans.push(plansObject[key]);
+  }
   // const dispatch = useDispatch();
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.topMenu}>
+      <View style={defaultStyles.topMenu}>
         <Text>Keep Your Goals in your sight.</Text>
       </View>
       <SafeAreaView style={{ flex: 1 }}>
-        {/* <FlatList
+        <FlatList
           data={plans}
-          keyExtractor={(item, index) => `${index}${selectedMonth}`}
+          keyExtractor={(item, index) => `lifeYear${index}`}
           renderItem={(itemData) => (
             <PlanContainer
               id={itemData.index}
               plans={itemData.item}
-              time={`${selectedMonth} ${itemData.index + 1}`}
+              time={`${currentYear + itemData.index}`}
               onDel={() => dispatch(monthActions.clearPlan(itemData.index))}
             />
           )}
-        /> */}
-        <Text>Life Screen</Text>
+        />
       </SafeAreaView>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  topMenu: {
-    flexDirection: "row",
-    height: 50,
-    padding: 5,
-    backgroundColor: "white",
-    justifyContent: "space-between",
-  },
-});
+const styles = StyleSheet.create({});
 
 export const screenOptions = (navData) => {
   return {
@@ -49,4 +45,4 @@ export const screenOptions = (navData) => {
   };
 };
 
-export default MonthPlanScreen;
+export default LifeScreen;

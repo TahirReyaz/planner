@@ -61,14 +61,6 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({
-  topMenu: {
-    flexDirection: "row",
-    height: 50,
-    padding: 5,
-    backgroundColor: "white",
-    justifyContent: "space-between",
-  },
-});
+const styles = StyleSheet.create({});
 
 export default MonthPlanScreen;

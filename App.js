@@ -8,6 +8,7 @@ import AppNavigator from "./navigation/AppNavigator";
 import dayReducer from "./store/reducers/dayReducer";
 import monthReducer from "./store/reducers/monthReducer";
 import yearReducer from "./store/reducers/yearReducer";
+import lifeReducer from "./store/reducers/lifeReducer";
 
 enableScreens();
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   schedule: dayReducer,
   monthPlan: monthReducer,
   yearPlan: yearReducer,
+  lifePlan: lifeReducer,
 });
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
