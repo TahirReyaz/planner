@@ -5,13 +5,13 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 
 const uncheckedIcon = {
-  android: "md-checkmark",
-  ios: "ios-checkmark",
+  android: "md-checkmark-circle-outline",
+  ios: "ios-checkmark-circle-outline",
 };
 
 const checkedIcon = {
-  android: "md-create",
-  ios: "ios-create",
+  android: "md-checkmark-circle",
+  ios: "ios-checkmark-circle",
 };
 
 const PlanItem = (props) => {
@@ -40,7 +40,11 @@ const PlanItem = (props) => {
         )}
         <View>
           <Ionicons
-            name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
+            name={
+              Platform.OS === "android"
+                ? "md-remove-circle"
+                : "ios-remove-circle"
+            }
             size={20}
             color="black"
             onPress={props.onDel}
@@ -62,8 +66,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     padding: 2,
     backgroundColor: "white",
-    borderColor: Colors.primary,
-    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    borderWidth: 2,
     alignSelf: "flex-start",
   },
   row: {

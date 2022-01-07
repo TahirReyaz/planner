@@ -47,7 +47,7 @@ const DayDrawer = () => {
         options={{
           drawerIcon: (props) => (
             <Ionicons
-              name={Platform.OS === "android" ? "md-time" : "ios-time"}
+              name={Platform.OS === "android" ? "md-alarm" : "ios-alarm"}
               size={23}
               color={props.color}
             />
@@ -89,7 +89,7 @@ export const MainNavigator = () => {
         options={{
           tabBarIcon: (props) => (
             <Ionicons
-              name={Platform.OS === "android" ? "md-time" : "ios-time"}
+              name={Platform.OS === "android" ? "md-alarm" : "ios-alarm"}
               size={23}
               color={props.color}
             />
@@ -102,7 +102,7 @@ export const MainNavigator = () => {
         options={{
           tabBarIcon: (props) => (
             <Ionicons
-              name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+              name={Platform.OS === "android" ? "md-calendar" : "ios-calendar"}
               size={23}
               color={props.color}
             />
@@ -134,7 +134,7 @@ export const MainNavigator = () => {
         options={{
           tabBarIcon: (props) => (
             <Ionicons
-              name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+              name={Platform.OS === "android" ? "md-wine" : "ios-wine"}
               size={23}
               color={props.color}
             />

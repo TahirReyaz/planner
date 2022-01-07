@@ -8,6 +8,8 @@ import defaultStyles from "../../constants/default-styles";
 
 const PlanContainer = (props) => {
   const [showDetails, setShowDetails] = useState(false);
+  const showDetailsIcon =
+    props.plans && props.plans.length > 0 ? "md-caret-down" : "md-add-circle";
 
   return (
     <View style={{ ...defaultStyles.styledContainer, margin: 5 }}>
@@ -20,7 +22,9 @@ const PlanContainer = (props) => {
             <View>
               <Text style={styles.text}>
                 {props.plans && props.plans.length > 0
-                  ? props.plans[0].task
+                  ? props.plans[0].task.length < 21
+                    ? props.plans[0].task
+                    : props.plans[0].task.substring(0, 18) + "..."
                   : "No plans for this day"}
               </Text>
             </View>
@@ -37,10 +41,10 @@ const PlanContainer = (props) => {
             />
           )}
           <Ionicons
-            name={showDetails ? "md-caret-up" : "md-add-circle"}
+            name={showDetails ? "md-caret-up" : showDetailsIcon}
             size={25}
             color="grey"
-            style={{ marginHorizontal: 10 }}
+            style={{ marginLeft: 10 }}
             onPress={() => {
               setShowDetails((prevState) => !prevState);
             }}

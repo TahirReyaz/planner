@@ -94,11 +94,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     backgroundColor: "white",
-    borderBottomColor: Colors.primary,
-    borderLeftColor: Colors.primary,
-    borderBottomWidth: 5,
-    borderLeftWidth: 5,
-    borderBottomLeftRadius: 10,
+    borderRadius: 10,
     fontSize: 20,
   },
   errorContainer: {

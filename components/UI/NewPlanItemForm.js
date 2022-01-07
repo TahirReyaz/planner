@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import InputText from "../InputText";
+import Colors from "../../constants/Colors";
 
 const NewPlanItemForm = (props) => {
   const [task, setTask] = useState("");
@@ -30,7 +31,7 @@ const NewPlanItemForm = (props) => {
           keyboardType="default"
           error="Please enter a valid task!"
           onInputChange={textChangeHandler}
-          initialValue=""
+          initialValue="New Task"
           initiallyValid={false}
           required
         />
@@ -38,7 +39,7 @@ const NewPlanItemForm = (props) => {
 
       <Ionicons
         name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
-        size={25}
+        size={28}
         color="black"
         onPress={submitHandler}
       />
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
+    borderColor: Colors.primary,
+    borderRadius: 5,
+    borderWidth: 2,
   },
   input: {
     flex: 1,

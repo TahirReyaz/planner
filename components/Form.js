@@ -14,6 +14,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import Colors from "../constants/Colors";
 import InputText from "./InputText";
+import defaultStyles from "../constants/default-styles";
 
 const FORM_UPDATE = "UPDATE";
 
@@ -44,9 +45,9 @@ const Form = (props) => {
   const [show, setShow] = useState(false);
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
-      task: "",
+      task: "New Task",
       time: new Date(),
-      color: "green",
+      color: Colors.green,
     },
     inputValidities: {
       task: false,
@@ -128,9 +129,9 @@ const Form = (props) => {
       onValueChange={colorChangeHandler}
       mode="dropdown"
     >
-      <Picker.Item label="Green" value="green" color="green" />
-      <Picker.Item label="Yellow" value="yellow" color="yellow" />
-      <Picker.Item label="Red" value="red" color="red" />
+      <Picker.Item label="Regular" value={Colors.green} color={Colors.green} />
+      <Picker.Item label="Mild" value={Colors.yellow} color={Colors.yellow} />
+      <Picker.Item label="Urgent" value={Colors.red} color={Colors.red} />
     </Picker>
   );
 
@@ -155,13 +156,12 @@ const Form = (props) => {
           <Button title="ADD" color={Colors.primary} onPress={submitHandler} />
         </View>
       </View>
-      <View>
+      <View style={defaultStyles.styledContainer}>
         <InputText
-          label="Task"
           keyboardType="default"
           error="Please enter a valid task!"
           onInputChange={textChangeHandler}
-          initialValue=""
+          initialValue="New Task"
           initiallyValid={false}
           required
         />
