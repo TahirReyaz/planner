@@ -34,6 +34,7 @@ initialState["2022"][7] = [
 
 export default (state = initialState, action) => {
   const newYearPlan = [...state[state.selectedYear]];
+  let newMonthPlan;
 
   switch (action.type) {
     case CHANGE_YEAR:
@@ -48,11 +49,12 @@ export default (state = initialState, action) => {
         [state.selectedYear]: newYearPlan,
       };
     case CHECK_MONTH_PLAN_ITEM:
-      const itemIndex = state[state.selectedYear][action.index].findIndex(
+      const itemIndex = newYearPlan[action.index].findIndex(
         (plan) => plan.id === action.id
       );
-      newYearPlan[action.index][itemIndex].checked =
-        !newYearPlan[action.index][itemIndex].checked;
+      newMonthPlan = [...newYearPlan[action.index]];
+      newMonthPlan[itemIndex].checked = !newMonthPlan[itemIndex].checked;
+      newYearPlan[action.index] = newMonthPlan;
       return {
         ...state,
         [state.selectedYear]: newYearPlan,
@@ -67,8 +69,10 @@ export default (state = initialState, action) => {
       };
     case ADD_MONTH_PLAN_ITEM:
       console.log("iNside year reducer", action.task);
+      newMonthPlan = [...newYearPlan[action.index]];
       const newPlanItem = new PlanItem(action.id, action.task, false);
-      newYearPlan[action.index].push(newPlanItem);
+      newMonthPlan.push(newPlanItem);
+      newYearPlan[action.index] = newMonthPlan;
       return {
         ...state,
         [state.selectedYear]: newYearPlan,

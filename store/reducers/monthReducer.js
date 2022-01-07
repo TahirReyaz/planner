@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
         [state.selectedMonth]: newMonthPlan,
       };
     case CHECK_PLAN_ITEM:
-      const itemIndex = state[state.selectedMonth][action.index].findIndex(
+      const itemIndex = newMonthPlan[action.index].findIndex(
         (plan) => plan.id === action.id
       );
       newMonthPlan[action.index][itemIndex].checked =
