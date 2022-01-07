@@ -1,4 +1,4 @@
-import YearPlanItem from "../../models/year-plan";
+import PlanItem from "../../models/plan-item";
 import years, { currentYear } from "../../constants/years";
 import {
   ADD_MONTH_PLAN_ITEM,
@@ -20,16 +20,16 @@ years.forEach((year) => {
 });
 
 initialState["2022"][0] = [
-  new YearPlanItem("2022p1", "Complete the app", true),
-  new YearPlanItem("2022p2", "Launch the app", false),
-  new YearPlanItem("2022p3", "Meh", false),
-  new YearPlanItem("2022p4", "Blah", false),
+  new PlanItem("2022p1", "Complete the app", true),
+  new PlanItem("2022p2", "Launch the app", false),
+  new PlanItem("2022p3", "Meh", false),
+  new PlanItem("2022p4", "Blah", false),
 ];
 initialState["2022"][7] = [
-  new YearPlanItem("2023p1", "Complete the app", true),
-  new YearPlanItem("2023p2", "Launch the app", false),
-  new YearPlanItem("2023p3", "Meh", false),
-  new YearPlanItem("2023p4", "Blah", false),
+  new PlanItem("2023p1", "Complete the app", true),
+  new PlanItem("2023p2", "Launch the app", false),
+  new PlanItem("2023p3", "Meh", false),
+  new PlanItem("2023p4", "Blah", false),
 ];
 
 export default (state = initialState, action) => {
@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
       };
     case ADD_MONTH_PLAN_ITEM:
       console.log("iNside year reducer", action.task);
-      const newPlanItem = new YearPlanItem(action.id, action.task, false);
+      const newPlanItem = new PlanItem(action.id, action.task, false);
       newYearPlan[action.index].push(newPlanItem);
       return {
         ...state,

@@ -1,4 +1,4 @@
-import { MonthPlanItem } from "../../models/month-plan";
+import PlanItem from "../../models/plan-item";
 import { monthDays as months, currentMonth } from "../../constants/months";
 import {
   ADD_PLAN_ITEM,
@@ -21,14 +21,14 @@ months.forEach((month) => {
 });
 
 initialState.Jan[0] = [
-  new MonthPlanItem("Jan1p1", "Complete the app", true),
-  new MonthPlanItem("Jan1p2", "Launch the app", false),
-  new MonthPlanItem("Jan1p3", "Meh", false),
-  new MonthPlanItem("Jan1p4", "Blah", false),
+  new PlanItem("Jan1p1", "Complete the app", true),
+  new PlanItem("Jan1p2", "Launch the app", false),
+  new PlanItem("Jan1p3", "Meh", false),
+  new PlanItem("Jan1p4", "Blah", false),
 ];
 initialState.Jan[1] = [
-  new MonthPlanItem("Jan2p1", "Learn to reduce size", true),
-  new MonthPlanItem("Jan2p2", "Reduce size of the app", false),
+  new PlanItem("Jan2p1", "Learn to reduce size", true),
+  new PlanItem("Jan2p2", "Reduce size of the app", false),
 ];
 
 export default (state = initialState, action) => {
@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
         [state.selectedMonth]: newMonthPlan,
       };
     case ADD_PLAN_ITEM:
-      const newPlanItem = new MonthPlanItem(action.id, action.task, false);
+      const newPlanItem = new PlanItem(action.id, action.task, false);
       newMonthPlan[action.index].push(newPlanItem);
       return {
         ...state,
