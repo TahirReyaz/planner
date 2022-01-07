@@ -40,13 +40,22 @@ const MonthPlanScreen = (props) => {
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={plans}
-          keyExtractor={(item, index) => `${index}${selectedMonth}`}
+          keyExtractor={(item, index) => `monthDay${index}${selectedMonth}`}
           renderItem={(itemData) => (
             <PlanContainer
               id={itemData.index}
               plans={itemData.item}
               time={`${selectedMonth} ${itemData.index + 1}`}
-              onDel={() => dispatch(monthActions.clearPlan(itemData.index))}
+              onClear={() => dispatch(monthActions.clearPlan(itemData.index))}
+              onCheck={(id, index) =>
+                dispatch(monthActions.checkPlanItem(id, index))
+              }
+              onDel={(id, index) =>
+                dispatch(monthActions.delPlanItem(id, index))
+              }
+              onAdd={(task) =>
+                dispatch(monthActions.addPlanItem(itemData.index, task))
+              }
             />
           )}
         />

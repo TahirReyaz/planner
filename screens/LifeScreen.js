@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import PlanContainer from "../components/UI/PlanContainer";
 import { currentYear } from "../constants/years";
-// import * as monthActions from "../store/actions/monthActions";
+import * as lifeActions from "../store/actions/lifeActions";
 
 const LifeScreen = (props) => {
   const plansObject = useSelector((state) => state.lifePlan);
@@ -13,7 +13,7 @@ const LifeScreen = (props) => {
   for (const key in plansObject) {
     plans.push(plansObject[key]);
   }
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={defaultStyles.topMenu}>
@@ -28,7 +28,16 @@ const LifeScreen = (props) => {
               id={itemData.index}
               plans={itemData.item}
               time={`${currentYear + itemData.index}`}
-              onDel={() => dispatch(monthActions.clearPlan(itemData.index))}
+              onClear={() => dispatch(lifeActions.clearPlan(itemData.index))}
+              onCheck={(id, index) =>
+                dispatch(lifeActions.checkPlanItem(id, index))
+              }
+              onDel={(id, index) =>
+                dispatch(lifeActions.delPlanItem(id, index))
+              }
+              onAdd={(task) =>
+                dispatch(lifeActions.addPlanItem(itemData.index, task))
+              }
             />
           )}
         />

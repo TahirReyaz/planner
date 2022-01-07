@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
 
-import Colors from "../../constants/Colors";
 import PlanItem from "./PlanItem";
-import * as monthActions from "../../store/actions/monthActions";
 import NewPlanItemForm from "./NewPlanItemForm";
+import defaultStyles from "../../constants/default-styles";
 
 const PlanContainer = (props) => {
   const [showDetails, setShowDetails] = useState(false);
-  const dispatch = useDispatch();
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...defaultStyles.styledContainer, margin: 5 }}>
       <View style={styles.summaryContainer}>
         <View style={styles.timeNtitle}>
           <View>
@@ -36,12 +33,12 @@ const PlanContainer = (props) => {
               name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
               size={23}
               color="red"
-              onPress={props.onDel}
+              onPress={props.onClear}
             />
           )}
           <Ionicons
-            name={showDetails ? "md-caret-up" : "md-caret-down"}
-            size={20}
+            name={showDetails ? "md-caret-up" : "md-add-circle"}
+            size={25}
             color="grey"
             style={{ marginHorizontal: 10 }}
             onPress={() => {
@@ -57,20 +54,14 @@ const PlanContainer = (props) => {
               <PlanItem
                 title={plan.task}
                 id={plan.id}
-                key={plan.id}
+                key={`${props.time}${plan.id}`}
                 checked={plan.checked}
                 max={17}
-                onCheck={() =>
-                  dispatch(monthActions.checkPlanItem(plan.id, props.id))
-                }
-                onDel={() =>
-                  dispatch(monthActions.delPlanItem(plan.id, props.id))
-                }
+                onCheck={() => props.onCheck(plan.id, props.id)}
+                onDel={() => props.onDel(plan.id, props.id)}
               />
             ))}
-          <NewPlanItemForm
-            onAdd={(task) => dispatch(monthActions.addPlanItem(props.id, task))}
-          />
+          <NewPlanItemForm onAdd={(task) => props.onAdd(task)} />
         </View>
       )}
     </View>
@@ -78,16 +69,6 @@ const PlanContainer = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 5,
-    padding: 5,
-    backgroundColor: "white",
-    borderBottomColor: Colors.primary,
-    borderLeftColor: Colors.primary,
-    borderBottomWidth: 5,
-    borderLeftWidth: 5,
-    borderBottomLeftRadius: 10,
-  },
   summaryContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

@@ -1,11 +1,11 @@
 import PlanItem from "../../models/plan-item";
 import { lifeYears as years } from "../../constants/years";
 import {
-  ADD_MONTH_PLAN_ITEM,
-  CHECK_MONTH_PLAN_ITEM,
-  CLEAR_MONTH_PLAN,
-  DEL_MONTH_PLAN_ITEM,
-} from "../actions/yearActions";
+  ADD_YEAR_PLAN_ITEM,
+  CHECK_YEAR_PLAN_ITEM,
+  CLEAR_YEAR_PLAN,
+  DEL_YEAR_PLAN_ITEM,
+} from "../actions/lifeActions";
 
 const initialState = {};
 years.forEach((year) => {
@@ -26,41 +26,35 @@ initialState["2025"] = [
 ];
 
 export default (state = initialState, action) => {
-  // const newLifePlan = [...state[state.selectedYear]];
+  let newYearPlan = action.year ? [...state[action.year]] : [];
 
   switch (action.type) {
-    // case CLEAR_MONTH_PLAN:
-    //   newLifePlan[action.index] = [];
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newLifePlan,
-    //   };
-    // case CHECK_MONTH_PLAN_ITEM:
-    //   const itemIndex = state[state.selectedYear][action.index].findIndex(
-    //     (plan) => plan.id === action.id
-    //   );
-    //   newLifePlan[action.index][itemIndex].checked =
-    //     !newLifePlan[action.index][itemIndex].checked;
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newLifePlan,
-    //   };
-    // case DEL_MONTH_PLAN_ITEM:
-    //   newLifePlan[action.index] = newLifePlan[action.index].filter(
-    //     (plan) => plan.id !== action.id
-    //   );
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newLifePlan,
-    //   };
-    // case ADD_MONTH_PLAN_ITEM:
-    //   console.log("iNside year reducer", action.task);
-    //   const newPlanItem = new YearPlanItem(action.id, action.task, false);
-    //   newLifePlan[action.index].push(newPlanItem);
-    //   return {
-    //     ...state,
-    //     [state.selectedYear]: newLifePlan,
-    //   };
+    case CLEAR_YEAR_PLAN:
+      newYearPlan = [];
+      return {
+        ...state,
+        [action.year]: newYearPlan,
+      };
+    case CHECK_YEAR_PLAN_ITEM:
+      const itemIndex = newYearPlan.findIndex((plan) => plan.id === action.id);
+      newYearPlan[itemIndex].checked = !newYearPlan[itemIndex].checked;
+      return {
+        ...state,
+        [action.year]: newYearPlan,
+      };
+    case DEL_YEAR_PLAN_ITEM:
+      newYearPlan = newYearPlan.filter((plan) => plan.id !== action.id);
+      return {
+        ...state,
+        [action.year]: newYearPlan,
+      };
+    case ADD_YEAR_PLAN_ITEM:
+      const newPlanItem = new PlanItem(action.id, action.task, false);
+      newYearPlan.push(newPlanItem);
+      return {
+        ...state,
+        [action.year]: newYearPlan,
+      };
     default:
       return state;
   }
