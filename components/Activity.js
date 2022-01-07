@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+import defaultStyles from "../constants/default-styles";
+
 const Activity = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const styles = StyleSheet.create({
     container: {
       margin: 5,
-      padding: 5,
-      backgroundColor: "white",
-      borderBottomColor: props.color,
       borderLeftColor: props.color,
-      borderBottomWidth: 5,
-      borderLeftWidth: 5,
-      borderBottomLeftRadius: 10,
+      borderBottomColor: props.color,
     },
     summaryContainer: {
       flexDirection: "row",
@@ -36,7 +33,7 @@ const Activity = (props) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...defaultStyles.styledContainer, ...styles.container }}>
       <View style={styles.summaryContainer}>
         <View style={styles.timeNtitle}>
           <View>

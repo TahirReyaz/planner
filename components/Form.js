@@ -138,13 +138,16 @@ const Form = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
+        <TouchableOpacity
+          style={{ ...defaultStyles.styledContainer, marginVertical: 10 }}
+          onPress={() => setShow(true)}
+        >
           <Text>{moment(formState.inputValues.time).format("h:mm A")}</Text>
         </TouchableOpacity>
         {show && timePicker}
         <View
           style={{
-            ...styles.input,
+            ...defaultStyles.styledContainer,
             paddingHorizontal: 0,
             paddingVertical: 0,
             marginVertical: 0,
@@ -178,18 +181,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  input: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginVertical: 10,
-    backgroundColor: "white",
-    borderBottomColor: Colors.primary,
-    borderLeftColor: Colors.primary,
-    borderBottomWidth: 5,
-    borderLeftWidth: 5,
-    borderBottomLeftRadius: 10,
-    fontSize: 20,
   },
 });
 
