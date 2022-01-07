@@ -5,8 +5,8 @@ import moment from "moment";
 import { Picker } from "@react-native-picker/picker";
 
 import Colors from "../../constants/Colors";
-import Activity from "../../components/Activity";
-import Form from "../../components/Form";
+import Activity from "../../components/schedule/Activity";
+import NewActivityForm from "../../components/schedule/NewActivityForm";
 import * as dayActions from "../../store/actions/dayActions";
 import defaultStyles from "../../constants/default-styles";
 
@@ -52,7 +52,7 @@ const ScheduleScreen = (props) => {
       </View>
       {showForm && (
         <View style={styles.form}>
-          <Form onAdd={onAddHandler} />
+          <NewActivityForm onAdd={onAddHandler} />
         </View>
       )}
       {(!activities || activities.length === 0) && (

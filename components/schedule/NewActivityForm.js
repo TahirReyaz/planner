@@ -12,9 +12,9 @@ import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 
-import Colors from "../constants/Colors";
-import InputText from "./InputText";
-import defaultStyles from "../constants/default-styles";
+import Colors from "../../constants/Colors";
+import InputText from "../UI/InputText";
+import defaultStyles from "../../constants/default-styles";
 
 const FORM_UPDATE = "UPDATE";
 
@@ -41,7 +41,7 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const Form = (props) => {
+const NewActivityForm = (props) => {
   const [show, setShow] = useState(false);
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -184,4 +184,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Form;
+export default NewActivityForm;

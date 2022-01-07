@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import defaultStyles from "../constants/default-styles";
+import defaultStyles from "../../constants/default-styles";
 
 const Activity = (props) => {
   const [showDetails, setShowDetails] = useState(false);
