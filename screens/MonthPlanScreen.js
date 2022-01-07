@@ -3,7 +3,7 @@ import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector, useDispatch } from "react-redux";
 
-import MonthDayPlan from "../components/UI/MonthPlanDay";
+import PlanContainer from "../components/UI/PlanContainer";
 import * as monthActions from "../store/actions/monthActions";
 import defaultStyles from "../constants/default-styles";
 
@@ -42,7 +42,7 @@ const MonthPlanScreen = (props) => {
           data={plans}
           keyExtractor={(item, index) => `${index}${selectedMonth}`}
           renderItem={(itemData) => (
-            <MonthDayPlan
+            <PlanContainer
               id={itemData.index}
               plans={itemData.item}
               time={`${selectedMonth} ${itemData.index + 1}`}

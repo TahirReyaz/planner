@@ -4,11 +4,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 
 import Colors from "../../constants/Colors";
-import PlanItem from "../UI/PlanItem";
+import PlanItem from "./PlanItem";
 import * as monthActions from "../../store/actions/monthActions";
-import NewPlanItemForm from "../UI/NewPlanItemForm";
+import NewPlanItemForm from "./NewPlanItemForm";
 
-const MonthDayPlan = (props) => {
+const PlanContainer = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const dispatch = useDispatch();
 
@@ -68,13 +68,9 @@ const MonthDayPlan = (props) => {
                 }
               />
             ))}
-          {showDetails && (
-            <NewPlanItemForm
-              onAdd={(task) =>
-                dispatch(monthActions.addPlanItem(props.id, task))
-              }
-            />
-          )}
+          <NewPlanItemForm
+            onAdd={(task) => dispatch(monthActions.addPlanItem(props.id, task))}
+          />
         </View>
       )}
     </View>
@@ -116,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MonthDayPlan;
+export default PlanContainer;
