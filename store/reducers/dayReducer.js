@@ -1,9 +1,15 @@
 import ScheduleItem from "../../models/schedule";
-import { DEL_ACTIVITY, ADD_ACTIVITY, CHANGE_DAY } from "../actions/dayActions";
+import { currentDay } from "../../constants/days";
+import {
+  DEL_ACTIVITY,
+  ADD_ACTIVITY,
+  CHANGE_DAY,
+  SET_SCHEDULES,
+} from "../actions/dayActions";
 import Colors from "../../constants/Colors";
 
 const initialState = {
-  selectedDay: "Mon",
+  selectedDay: currentDay,
   schedules: {
     Mon: [
       new ScheduleItem("s1", "Lunch", "2020-08-22T05:15:30.000Z", Colors.green),
@@ -32,6 +38,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_SCHEDULES:
+      console.log(action.schedules);
+      return state;
+    // return {
+    //   places: action.places.map(
+    //     (pl) => new Place(pl.id.toString(), pl.title, pl.imageUri)
+    //   ),
+    // };
     case DEL_ACTIVITY:
       const newSchedule = state.schedules[state.selectedDay].filter(
         (activity) => activity.id !== action.actId

@@ -9,6 +9,13 @@ import dayReducer from "./store/reducers/dayReducer";
 import monthReducer from "./store/reducers/monthReducer";
 import yearReducer from "./store/reducers/yearReducer";
 import lifeReducer from "./store/reducers/lifeReducer";
+import { init } from "./helpers/db";
+
+init()
+  .then(() => {
+    console.log("Initaited");
+  })
+  .catch((err) => console.log(err));
 
 enableScreens();
 

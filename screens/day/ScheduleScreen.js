@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
@@ -18,11 +18,19 @@ const ScheduleScreen = (props) => {
   );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(dayActions.loadSchedules());
+  }, [dispatch]);
+
   const onAddHandler = (text, time, color) => {
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
   };
 
   const dayChangeHandler = (day) => {
+    const date = new Date();
+    console.log("current day:", date.getDay());
+    console.log("current day:", date.getUTCDay());
+
     dispatch(dayActions.changeDay(day));
   };
 
