@@ -6,35 +6,27 @@ import { currentYear } from "../../constants/years";
 
 export const checkPlanItem = (id, index) => {
   const year = currentYear + index;
-  return async (dispatch) => {
-    dispatch({ type: CHECK_YEAR_PLAN_ITEM, id, index, year: year.toString() });
-  };
+  return { type: CHECK_YEAR_PLAN_ITEM, id, index, year: year.toString() };
 };
 
 export const clearPlan = (index) => {
   const year = currentYear + index;
-  return async (dispatch) => {
-    dispatch({ type: CLEAR_YEAR_PLAN, index, year: year.toString() });
-  };
+  return { type: CLEAR_YEAR_PLAN, index, year: year.toString() };
 };
 
 export const delPlanItem = (id, index) => {
   const year = currentYear + index;
-  return async (dispatch) => {
-    dispatch({ type: DEL_YEAR_PLAN_ITEM, id, year: year.toString() });
-  };
+  return { type: DEL_YEAR_PLAN_ITEM, id, year: year.toString() };
 };
 
 export const addPlanItem = (index, task) => {
-  const id = Math.random().toString();
   const year = currentYear + index;
-  return async (dispatch) => {
-    dispatch({
-      type: ADD_YEAR_PLAN_ITEM,
-      index,
-      id,
-      task,
-      year: year.toString(),
-    });
+  const id = Math.random().toString();
+  return {
+    type: ADD_YEAR_PLAN_ITEM,
+    index,
+    id,
+    task,
+    year: year.toString(),
   };
 };

@@ -19,19 +19,6 @@ years.forEach((year) => {
   initialState[year] = monthsArray;
 });
 
-initialState["2022"][0] = [
-  new PlanItem("2022p1", "Complete the app", true),
-  new PlanItem("2022p2", "Launch the app", false),
-  new PlanItem("2022p3", "Meh", false),
-  new PlanItem("2022p4", "Blah", false),
-];
-initialState["2022"][7] = [
-  new PlanItem("2023p1", "Complete the app", true),
-  new PlanItem("2023p2", "Launch the app", false),
-  new PlanItem("2023p3", "Meh", false),
-  new PlanItem("2023p4", "Blah", false),
-];
-
 export default (state = initialState, action) => {
   const newYearPlan = [...state[state.selectedYear]];
   let newMonthPlan;
@@ -68,7 +55,6 @@ export default (state = initialState, action) => {
         [state.selectedYear]: newYearPlan,
       };
     case ADD_MONTH_PLAN_ITEM:
-      console.log("iNside year reducer", action.task);
       newMonthPlan = [...newYearPlan[action.index]];
       const newPlanItem = new PlanItem(action.id, action.task, false);
       newMonthPlan.push(newPlanItem);

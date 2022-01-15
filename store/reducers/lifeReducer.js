@@ -12,19 +12,6 @@ years.forEach((year) => {
   initialState[year] = [];
 });
 
-initialState["2022"] = [
-  new PlanItem("2022p1", "Complete the app", true),
-  new PlanItem("2022p2", "Launch the app", false),
-  new PlanItem("2022p3", "Meh", false),
-  new PlanItem("2022p4", "Blah", false),
-];
-initialState["2025"] = [
-  new PlanItem("2023p1", "Complete the app", true),
-  new PlanItem("2023p2", "Launch the app", false),
-  new PlanItem("2023p3", "Meh", false),
-  new PlanItem("2023p4", "Blah", false),
-];
-
 export default (state = initialState, action) => {
   let newYearPlan = action.year ? [...state[action.year]] : [];
 

@@ -1,48 +1,14 @@
-// import { REHYDRATE } from "redux-persist";
-
 import ScheduleItem from "../../models/schedule";
 import { currentDay } from "../../constants/days";
-import {
-  DEL_ACTIVITY,
-  ADD_ACTIVITY,
-  CHANGE_DAY,
-  SET_SCHEDULES,
-} from "../actions/dayActions";
-import Colors from "../../constants/Colors";
+import { DEL_ACTIVITY, ADD_ACTIVITY, CHANGE_DAY } from "../actions/dayActions";
 
 const initialState = {
   selectedDay: currentDay,
   schedules: {},
 };
 
-// Mon: [
-//   new ScheduleItem("s1", "Lunch", "2020-08-22T05:15:30.000Z", Colors.green),
-//   new ScheduleItem(
-//     "s2",
-//     "Dinnerdlfjg kfklfgjs;jfklg;j sklfjggldflgkkflfg sl;g;lkajladf  fsdkjflsj dfs fsjd lfsldfjs dfs",
-//     "2020-08-22T05:14:30.000Z",
-//     Colors.red
-//   ),
-//   new ScheduleItem(
-//     "s3",
-//     "Breakfast",
-//     "2020-07-22T05:16:30.000Z",
-//     Colors.green
-//   ),
-//   new ScheduleItem(
-//     "s4",
-//     "Supper",
-//     "2020-08-22T05:18:30.000Z",
-//     Colors.yellow
-//   ),
-//   new ScheduleItem("s5", "Snack", "2020-08-22T05:12:30.000Z", Colors.green),
-// ],
-
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   console.log(action);
-    //   return state;
     case DEL_ACTIVITY:
       const newSchedule = state.schedules[state.selectedDay].filter(
         (activity) => activity.id !== action.actId

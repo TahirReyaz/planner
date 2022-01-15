@@ -20,17 +20,6 @@ months.forEach((month) => {
   initialState[month.mon] = days;
 });
 
-initialState.Jan[0] = [
-  new PlanItem("Jan1p1", "Complete the app", true),
-  new PlanItem("Jan1p2", "Launch the app", false),
-  new PlanItem("Jan1p3", "Meh", false),
-  new PlanItem("Jan1p4", "Blah", false),
-];
-initialState.Jan[1] = [
-  new PlanItem("Jan2p1", "Learn to reduce size", true),
-  new PlanItem("Jan2p2", "Reduce size of the app", false),
-];
-
 export default (state = initialState, action) => {
   const newMonthPlan = [...state[state.selectedMonth]];
 

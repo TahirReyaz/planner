@@ -5,15 +5,11 @@ export const CHECK_PLAN_ITEM = "CHECK_PLAN_ITEM";
 export const DEL_PLAN_ITEM = "DEL_PLAN_ITEM";
 
 export const changeMonth = (month) => {
-  return async (dispatch) => {
-    dispatch({ type: CHANGE_MONTH, month });
-  };
+  return { type: CHANGE_MONTH, month };
 };
 
 export const checkPlanItem = (id, index) => {
-  return async (dispatch) => {
-    dispatch({ type: CHECK_PLAN_ITEM, id, index });
-  };
+  return { type: CHECK_PLAN_ITEM, id, index };
 };
 
 export const clearPlan = (index) => {
@@ -21,14 +17,10 @@ export const clearPlan = (index) => {
 };
 
 export const delPlanItem = (id, index) => {
-  return async (dispatch) => {
-    dispatch({ type: DEL_PLAN_ITEM, index, id });
-  };
+  return { type: DEL_PLAN_ITEM, index, id };
 };
 
 export const addPlanItem = (index, task) => {
   const id = Math.random().toString();
-  return async (dispatch) => {
-    dispatch({ type: ADD_PLAN_ITEM, index, id, task });
-  };
+  return { type: ADD_PLAN_ITEM, index, id, task };
 };
