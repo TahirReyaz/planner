@@ -18,9 +18,9 @@ const ScheduleScreen = (props) => {
   );
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(dayActions.loadSchedules());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(dayActions.loadSchedules());
+  // }, [dispatch]);
 
   const onAddHandler = (text, time, color) => {
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
@@ -48,7 +48,7 @@ const ScheduleScreen = (props) => {
           <Picker.Item label="Wednesday" value="Wed" />
           <Picker.Item label="Thursday" value="Thu" />
           <Picker.Item label="Friday" value="Fri" />
-          <Picker.Item label="Satday" value="Sat" />
+          <Picker.Item label="Saturday" value="Sat" />
           <Picker.Item label="Sunday" value="Sun" />
         </Picker>
 

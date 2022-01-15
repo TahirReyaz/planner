@@ -1,21 +1,24 @@
 import React from "react";
 import { enableScreens } from "react-native-screens";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
+import { persistStore, persistReducer } from "redux-persist";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AppNavigator from "./navigation/AppNavigator";
 import dayReducer from "./store/reducers/dayReducer";
 import monthReducer from "./store/reducers/monthReducer";
 import yearReducer from "./store/reducers/yearReducer";
 import lifeReducer from "./store/reducers/lifeReducer";
-import { init } from "./helpers/db";
+import { PersistGate } from "redux-persist/integration/react";
+// import { init } from "./helpers/db";
 
-init()
-  .then(() => {
-    console.log("Initaited");
-  })
-  .catch((err) => console.log(err));
+// init()
+//   .then(() => {
+//     console.log("Initaited");
+//   })
+//   .catch((err) => console.log(err));
 
 enableScreens();
 
@@ -25,12 +28,29 @@ const rootReducer = combineReducers({
   yearPlan: yearReducer,
   lifePlan: lifeReducer,
 });
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(persistedReducer);
+let persistor = persistStore(store);
+// const store = createStore(
+//   rootReducer,
+//   {},
+//   compose(applyMiddleware(ReduxThunk), autoRehydrate())
+// );
+
+// persistStore(store, { storage: AsyncStorage, whitelist: ["schedule"] });
 
 export default function App() {
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <PersistGate loading={null} persistor={persistor}>
+        <AppNavigator />
+      </PersistGate>
     </Provider>
   );
 }
