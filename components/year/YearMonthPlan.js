@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,9 @@ import PlanItem from "../UI/PlanItem";
 const YearMonthPlan = (props) => {
   const plans = useSelector((state) => state.yearPlan[props.year][props.index]);
   const dispatch = useDispatch();
+
+  const [showDetails, setShowDetails] = useState(false);
+  const showDetailsIcon = showDetails ? "md-caret-up" : "md-add-circle";
 
   return (
     <View style={{ ...defaultStyles.styledContainer, marginBottom: 5 }}>
@@ -28,17 +31,32 @@ const YearMonthPlan = (props) => {
               onPress={props.onDel}
             />
           )}
+          {plans.length === 0 && (
+            <Ionicons
+              name={showDetailsIcon}
+              size={23}
+              color="grey"
+              onPress={() => {
+                setShowDetails((prevState) => !prevState);
+              }}
+            />
+          )}
         </View>
       </View>
-      <NewPlanItemForm
-        onAdd={(task) => dispatch(yearActions.addPlanItem(props.index, task))}
-      />
-      {(!plans || plans.length === 0) && (
+      {(!plans || plans.length === 0) && !showDetails && (
         <View>
           <Text style={styles.text}>No plans for this month</Text>
         </View>
       )}
-
+      {showDetails && (
+        <View>
+          <NewPlanItemForm
+            onAdd={(task) =>
+              dispatch(yearActions.addPlanItem(props.index, task))
+            }
+          />
+        </View>
+      )}
       <View>
         {plans &&
           plans.map((plan) => (
