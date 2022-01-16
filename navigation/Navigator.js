@@ -10,6 +10,9 @@ import ScheduleScreen, {
 import ToggleDaysScreen, {
   screenOptions as toggleDaysScreenOptions,
 } from "../screens/day/ToggleDaysScreen";
+import GoalsScreen, {
+  screenOptions as goalsScreenOptions,
+} from "../screens/day/GoalsScreen";
 import MonthPlanScreen, {
   screenOptions as monthPlanScreenOptions,
 } from "../screens/MonthPlanScreen";
@@ -55,12 +58,29 @@ const DayDrawer = () => {
         }}
       />
       <DayDrawerNavigator.Screen
-        name="Toggle Days"
+        name="Schedule Settings"
         component={ToggleDaysScreen}
         options={{
           drawerIcon: (props) => (
             <Ionicons
               name={Platform.OS === "android" ? "md-list" : "ios-list"}
+              size={23}
+              color={props.color}
+            />
+          ),
+        }}
+      />
+      <DayDrawerNavigator.Screen
+        name="Goals"
+        component={GoalsScreen}
+        options={{
+          drawerIcon: (props) => (
+            <Ionicons
+              name={
+                Platform.OS === "android"
+                  ? "md-checkmark-circle-outline"
+                  : "ios-checkmark-circle-outline"
+              }
               size={23}
               color={props.color}
             />
@@ -118,7 +138,11 @@ export const MainNavigator = () => {
         options={{
           tabBarIcon: (props) => (
             <Ionicons
-              name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+              name={
+                Platform.OS === "android"
+                  ? "md-hourglass-outline"
+                  : "ios-hourglass-outline"
+              }
               size={23}
               color={props.color}
             />
