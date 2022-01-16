@@ -129,9 +129,11 @@ const NewActivityForm = (props) => {
       onValueChange={colorChangeHandler}
       mode="dropdown"
     >
-      <Picker.Item label="Regular" value={Colors.green} color={Colors.green} />
-      <Picker.Item label="Mild" value={Colors.yellow} color={Colors.yellow} />
-      <Picker.Item label="Urgent" value={Colors.red} color={Colors.red} />
+      <Picker.Item label="Green" value={Colors.green} color={Colors.green} />
+      <Picker.Item label="Blue" value={Colors.blue} color={Colors.blue} />
+      <Picker.Item label="Yellow" value={Colors.yellow} color={Colors.yellow} />
+      <Picker.Item label="Orange" value={Colors.orange} color={Colors.orange} />
+      <Picker.Item label="Red" value={Colors.red} color={Colors.red} />
     </Picker>
   );
 

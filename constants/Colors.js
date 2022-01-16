@@ -2,7 +2,9 @@ export default {
   primary: "#6C63FF",
   secondary: "#E4D00A",
   lightGrey: "#C3C3C3",
-  green: "green",
-  yellow: "#E4D00A",
-  red: "red",
+  green: "#a1e887",
+  yellow: "#e9c46a",
+  blue: "#2a9d8f",
+  orange: "#f4a261",
+  red: "#e76f51",
 };

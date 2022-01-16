@@ -18,10 +18,6 @@ const ScheduleScreen = (props) => {
   );
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(dayActions.loadSchedules());
-  // }, [dispatch]);
-
   const onAddHandler = (text, time, color) => {
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
   };

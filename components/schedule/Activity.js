@@ -50,20 +50,22 @@ const Activity = (props) => {
           )}
         </View>
         <View style={styles.buttonContainer}>
+          {props.title.length > 14 && (
+            <Ionicons
+              name={showDetails ? "md-caret-up" : "md-caret-down"}
+              size={25}
+              color="grey"
+              style={{ marginHorizontal: 10 }}
+              onPress={() => {
+                setShowDetails((prevState) => !prevState);
+              }}
+            />
+          )}
           <Ionicons
             name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
             size={23}
             color="red"
             onPress={props.onDel}
-          />
-          <Ionicons
-            name={showDetails ? "md-caret-up" : "md-caret-down"}
-            size={25}
-            color="grey"
-            style={{ marginHorizontal: 10 }}
-            onPress={() => {
-              setShowDetails((prevState) => !prevState);
-            }}
           />
         </View>
       </View>
