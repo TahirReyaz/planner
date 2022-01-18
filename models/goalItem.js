@@ -1,6 +1,7 @@
 class GoalItem {
-  constructor(title, objName, total, completed, color) {
-    this.title = title;
+  constructor(id, goal, objName, total, completed, color) {
+    this.id = id;
+    this.goal = goal;
     this.objName = objName;
     this.total = total;
     this.completed = completed;

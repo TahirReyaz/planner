@@ -40,7 +40,7 @@ const GoalItem = (props) => {
             color="grey"
             onPress={() => {}}
           />
-          <Text>{props.data.obj} out of</Text>
+          <Text>{props.data.objName} out of</Text>
           <Ionicons
             name={"md-remove-circle"}
             size={25}
