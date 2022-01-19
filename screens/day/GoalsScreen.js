@@ -1,25 +1,51 @@
-import React from "react";
-import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Button,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  FlatList,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import GoalItem from "../../components/goals/GoalItem";
 import NewGoalForm from "../../components/goals/NewGoalForm";
 import * as goalActions from "../../store/actions/goalsActions";
+import defaultStyles from "../../constants/default-styles";
+import Colors from "../../constants/Colors";
 
 const GoalsScreen = (props) => {
+  const [showForm, setShowForm] = useState(false);
   const goals = useSelector((state) => state.goals.goals);
   const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Text>Goal completion Screen</Text>
-      <Text>Clear Goals Screen</Text>
-      <Text>Complete Goals Screen</Text>
-      <NewGoalForm
-        onAdd={(goal, objName, total, completed, color) =>
-          dispatch(goalActions.addGoal(goal, objName, total, completed, color))
-        }
-      />
+      <View style={defaultStyles.topMenu}>
+        <View>
+          <Text>Goal completion Screen</Text>
+          <Text>Clear Goals Screen</Text>
+          <Text>Complete Goals Screen</Text>
+        </View>
+        <View>
+          <Button
+            title={!showForm ? "Add Task" : "Close Form"}
+            color={Colors.primary}
+            onPress={() => setShowForm((prevState) => !prevState)}
+          />
+        </View>
+      </View>
+      {showForm && (
+        <NewGoalForm
+          onAdd={(goal, objName, total, completed, color) =>
+            dispatch(
+              goalActions.addGoal(goal, objName, total, completed, color)
+            )
+          }
+        />
+      )}
+
       {goals && goals.length > 0 ? (
         <FlatList
           data={goals}

@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 5,
     backgroundColor: "white",
+    margin: 5,
   },
   row: {
     flexDirection: "row",
