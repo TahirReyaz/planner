@@ -21,7 +21,7 @@ export const delPlanItem = (id, index) => {
 
 export const addPlanItem = (index, task) => {
   const year = currentYear + index;
-  const id = Math.random().toString();
+  const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
   return {
     type: ADD_YEAR_PLAN_ITEM,
     index,

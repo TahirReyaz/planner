@@ -4,9 +4,11 @@ export const CHANGE_DAY = "CHANGE_DAY";
 export const SET_DAY = "SET_DAY";
 
 export const addActivity = (selectedDay, activity, time, color) => {
+  const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+
   return {
     type: ADD_ACTIVITY,
-    id: Math.random().toString(),
+    id,
     activity,
     time,
     color,

@@ -4,7 +4,6 @@ export const UPDATE_PROGRESS = "UPDATE_PROGRESS";
 
 export const addGoal = (goal, objName, total, completed, color) => {
   const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
-  console.log(id, goal);
   return {
     type: ADD_GOAL,
     id,
