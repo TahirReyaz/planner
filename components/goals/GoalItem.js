@@ -13,7 +13,12 @@ const GoalItem = (props) => {
       <View style={styles.titleNbuttons}>
         <Text style={styles.title}>{props.data.goal}</Text>
         <View style={styles.buttonContainer}>
-          <Ionicons name="md-trash" size={25} color="red" onPress={() => {}} />
+          <Ionicons
+            name="md-trash"
+            size={25}
+            color="red"
+            onPress={props.onDel}
+          />
           <Ionicons
             name={showDetails ? "md-caret-up" : "md-caret-down"}
             size={25}
@@ -31,28 +36,28 @@ const GoalItem = (props) => {
             name={"md-remove-circle"}
             size={25}
             color="grey"
-            onPress={() => {}}
+            onPress={props.onDecCompleted}
           />
           <Text>{props.data.completed}</Text>
           <Ionicons
             name={"md-add-circle"}
             size={25}
             color="grey"
-            onPress={() => {}}
+            onPress={props.onIncCompleted}
           />
           <Text>{props.data.objName} out of</Text>
           <Ionicons
             name={"md-remove-circle"}
             size={25}
             color="grey"
-            onPress={() => {}}
+            onPress={props.onDecTotal}
           />
           <Text>{props.data.total}</Text>
           <Ionicons
             name={"md-add-circle"}
             size={25}
             color="grey"
-            onPress={() => {}}
+            onPress={props.onIncTotal}
           />
         </View>
       )}

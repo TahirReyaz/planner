@@ -1,5 +1,5 @@
 import GoalItem from "../../models/goalItem";
-import { ADD_GOAL } from "../actions/goalsActions";
+import { ADD_GOAL, DEL_GOAL, UPDATE_PROGRESS } from "../actions/goalsActions";
 
 const initialState = {
   goals: [],
@@ -7,17 +7,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case DEL_ACTIVITY:
-    //   const newSchedule = state.schedules[state.selectedDay].filter(
-    //     (activity) => activity.id !== action.actId
-    //   );
-    //   return {
-    //     ...state,
-    //     schedules: {
-    //       ...state.schedules,
-    //       [state.selectedDay]: newSchedule,
-    //     },
-    //   };
+    case DEL_GOAL:
+      const newGoals = state.goals.filter((goal) => goal.id !== action.id);
+      return {
+        goals: newGoals,
+      };
     case ADD_GOAL:
       const newGoal = new GoalItem(
         action.id,
@@ -29,6 +23,44 @@ export default (state = initialState, action) => {
       );
       return {
         goals: state.goals.concat(newGoal),
+      };
+    case UPDATE_PROGRESS:
+      const selectedGoalIndex = state.goals.findIndex(
+        (goal) => goal.id === action.id
+      );
+      const selectedGoal = state.goals[selectedGoalIndex];
+      if (action.valueType === "total") {
+        if (action.change === "inc") {
+          selectedGoal.total++;
+        } else if (
+          selectedGoal.total > 1 &&
+          selectedGoal.total > selectedGoal.completed &&
+          action.change === "dec"
+        ) {
+          selectedGoal.total--;
+        }
+      } else if (action.valueType === "completed") {
+        if (
+          action.change === "inc" &&
+          selectedGoal.total > selectedGoal.completed
+        ) {
+          selectedGoal.completed++;
+        } else if (selectedGoal.completed > 0 && action.change === "dec") {
+          selectedGoal.completed--;
+        }
+      }
+      const updatedGoal = new GoalItem(
+        selectedGoal.id,
+        selectedGoal.goal,
+        selectedGoal.objName,
+        selectedGoal.total,
+        selectedGoal.completed,
+        selectedGoal.color
+      );
+      const updatedGoals = [...state.goals];
+      updatedGoals[selectedGoalIndex] = updatedGoal;
+      return {
+        goals: updatedGoals,
       };
     default:
       return state;

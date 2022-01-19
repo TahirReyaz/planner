@@ -5,42 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import GoalItem from "../../components/goals/GoalItem";
 import NewGoalForm from "../../components/goals/NewGoalForm";
 import * as goalActions from "../../store/actions/goalsActions";
-import Colors from "../../constants/Colors";
-
-// const GOALS = [
-//   {
-//     id: "g1",
-//     title: "React.js",
-//     obj: "Modules",
-//     total: 30,
-//     completed: 25,
-//     color: Colors.green,
-//   },
-//   {
-//     id: "g2",
-//     title: "React.js",
-//     obj: "Modules",
-//     total: 30,
-//     completed: 25,
-//     color: Colors.neonGreen,
-//   },
-//   {
-//     id: "g3",
-//     title: "React.js",
-//     obj: "Modules",
-//     total: 30,
-//     completed: 25,
-//     color: Colors.neonGreen,
-//   },
-//   {
-//     id: "g4",
-//     title: "React.js",
-//     obj: "Modules",
-//     total: 30,
-//     completed: 25,
-//     color: Colors.neonGreen,
-//   },
-// ];
 
 const GoalsScreen = (props) => {
   const goals = useSelector((state) => state.goals.goals);
@@ -52,15 +16,47 @@ const GoalsScreen = (props) => {
       <Text>Clear Goals Screen</Text>
       <Text>Complete Goals Screen</Text>
       <NewGoalForm
-        onAdd={(goal, objName, total, completed, color) => {
-          dispatch(goalActions.addGoal(goal, objName, total, completed, color));
-        }}
+        onAdd={(goal, objName, total, completed, color) =>
+          dispatch(goalActions.addGoal(goal, objName, total, completed, color))
+        }
       />
       {goals && goals.length > 0 ? (
         <FlatList
           data={goals}
           renderItem={(itemData) => (
-            <GoalItem data={itemData.item} key={itemData.item.id} />
+            <GoalItem
+              data={itemData.item}
+              key={itemData.item.id}
+              onDel={() => dispatch(goalActions.delGoal(itemData.item.id))}
+              onDecTotal={() =>
+                dispatch(
+                  goalActions.updateProgress(itemData.item.id, "total", "dec")
+                )
+              }
+              onIncTotal={() =>
+                dispatch(
+                  goalActions.updateProgress(itemData.item.id, "total", "inc")
+                )
+              }
+              onDecCompleted={() =>
+                dispatch(
+                  goalActions.updateProgress(
+                    itemData.item.id,
+                    "completed",
+                    "dec"
+                  )
+                )
+              }
+              onIncCompleted={() =>
+                dispatch(
+                  goalActions.updateProgress(
+                    itemData.item.id,
+                    "completed",
+                    "inc"
+                  )
+                )
+              }
+            />
           )}
         />
       ) : (
