@@ -6,7 +6,7 @@ import Colors from "../../constants/Colors";
 import InputText from "../UI/InputText";
 import defaultStyles from "../../constants/default-styles";
 
-const FORM_UPDATE = "UPDATE";
+const FORM_UPDATE = "FORM_UPDATE";
 const FORM_RESET = "FORM_RESET";
 
 const initialFormState = {
@@ -46,7 +46,6 @@ const formReducer = (state, action) => {
       inputValidities: updatedValidities,
     };
   } else if (action.type === FORM_RESET) {
-    console.log("inside reset");
     return initialFormState;
   }
   return state;
@@ -85,7 +84,6 @@ const NewGoalForm = (props) => {
       ]);
       return;
     }
-    console.log(formState.inputValues);
     onAdd(
       formState.inputValues.goal,
       formState.inputValues.objName,

@@ -16,7 +16,22 @@ import Colors from "../../constants/Colors";
 import InputText from "../UI/InputText";
 import defaultStyles from "../../constants/default-styles";
 
-const FORM_UPDATE = "UPDATE";
+const FORM_UPDATE = "FORM_UPDATE";
+const FORM_RESET = "FORM_RESET";
+
+const initialFormState = {
+  inputValues: {
+    task: "New Task",
+    time: new Date(),
+    color: Colors.green,
+  },
+  inputValidities: {
+    task: false,
+    time: true,
+    color: true,
+  },
+  formIsValid: false,
+};
 
 const formReducer = (state, action) => {
   if (action.type === FORM_UPDATE) {
@@ -37,25 +52,18 @@ const formReducer = (state, action) => {
       inputValues: updatedValues,
       inputValidities: updatedValidities,
     };
+  } else if (action.type === FORM_RESET) {
+    return initialFormState;
   }
   return state;
 };
 
 const NewActivityForm = (props) => {
   const [show, setShow] = useState(false);
-  const [formState, dispatchFormState] = useReducer(formReducer, {
-    inputValues: {
-      task: "New Task",
-      time: new Date(),
-      color: Colors.green,
-    },
-    inputValidities: {
-      task: false,
-      time: true,
-      color: true,
-    },
-    formIsValid: false,
-  });
+  const [formState, dispatchFormState] = useReducer(
+    formReducer,
+    initialFormState
+  );
 
   const textChangeHandler = useCallback(
     (value, validity) => {
@@ -110,6 +118,7 @@ const NewActivityForm = (props) => {
       formState.inputValues.time,
       formState.inputValues.color
     );
+    dispatchFormState({ type: FORM_RESET });
   }, [formState, onAdd]);
 
   const timePicker = (
@@ -166,9 +175,10 @@ const NewActivityForm = (props) => {
           keyboardType="default"
           error="Please enter a valid task!"
           onInputChange={textChangeHandler}
-          initialValue="New Task"
-          initiallyValid={false}
+          value={formState.inputValues.task}
+          initiallyValid={true}
           required
+          multiline
         />
       </View>
     </View>

@@ -12,7 +12,7 @@ const YearMonthPlan = (props) => {
   const plans = useSelector((state) => state.yearPlan[props.year][props.index]);
   const dispatch = useDispatch();
 
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(plans && plans.length !== 0);
   const showDetailsIcon = showDetails ? "md-caret-up" : "md-add-circle";
 
   return (
