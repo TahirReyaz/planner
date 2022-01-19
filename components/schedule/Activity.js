@@ -42,9 +42,11 @@ const Activity = (props) => {
           {!showDetails && (
             <View>
               <Text style={styles.text}>
-                {props.title.length < 15
-                  ? props.title
-                  : props.title.substring(0, 15) + "..."}
+                {props.title.includes("\n") === false
+                  ? props.title.length < 15
+                    ? props.title
+                    : props.title.substring(0, 15) + "..."
+                  : props.title.substring(0, props.title.indexOf("\n")) + "..."}
               </Text>
             </View>
           )}
