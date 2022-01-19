@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 
 const InputText = (props) => {
-  const [value, setValue] = useState(
-    props.initialValue ? props.initialValue : ""
-  );
-  const [validity, setValidity] = useState(props.initiallyValid);
+  const value = props.value ? props.value : "";
+
+  const validity = props.initiallyValid;
   const { onInputChange } = props;
 
   const onTextChange = (text) => {
-    console.log(text);
     let isValid = true;
     if (props.required && text.trim().length === 0) {
       isValid = false;
@@ -23,23 +21,17 @@ const InputText = (props) => {
     if (props.minLength != null && text.length < props.minLength) {
       isValid = false;
     }
-    setValue(text);
-    setValidity(isValid);
-  };
-
-  const lostFocusHandler = () => {
-    onInputChange(value, validity);
+    onInputChange(text, validity);
   };
 
   return (
     <View style={styles.formControl}>
       {props.label && <Text style={styles.label}>{props.label}</Text>}
       <TextInput
+        style={props.inputStyle}
         {...props}
-        style={styles.input}
         value={value}
         onChangeText={onTextChange}
-        onBlur={lostFocusHandler}
       />
       {!validity && (
         <View style={styles.errorContainer}>
@@ -55,14 +47,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   label: {
-    marginVertical: 8,
-  },
-  input: {
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-    backgroundColor: "white",
-    borderRadius: 10,
-    fontSize: 20,
+    marginVertical: 0,
   },
   errorContainer: {
     marginVertical: 5,

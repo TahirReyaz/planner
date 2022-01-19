@@ -7,7 +7,25 @@ import InputText from "../UI/InputText";
 import defaultStyles from "../../constants/default-styles";
 
 const FORM_UPDATE = "UPDATE";
+const FORM_RESET = "FORM_RESET";
 
+const initialFormState = {
+  inputValues: {
+    goal: "New Goal",
+    objName: "Chapter",
+    total: "1",
+    completed: "1",
+    color: Colors.neonGreen,
+  },
+  inputValidities: {
+    goal: true,
+    objName: true,
+    total: true,
+    completed: true,
+    color: true,
+  },
+  formIsValid: true,
+};
 const formReducer = (state, action) => {
   if (action.type === FORM_UPDATE) {
     const updatedValues = {
@@ -27,59 +45,40 @@ const formReducer = (state, action) => {
       inputValues: updatedValues,
       inputValidities: updatedValidities,
     };
+  } else if (action.type === FORM_RESET) {
+    console.log("inside reset");
+    return initialFormState;
   }
   return state;
 };
 
 const NewGoalForm = (props) => {
-  console.log("in new goals form");
-  const [formState, dispatchFormState] = useReducer(formReducer, {
-    inputValues: {
-      goal: "New Goal",
-      objName: "Chapter",
-      total: "1",
-      completed: "1",
-      color: Colors.neonGreen,
-    },
-    inputValidities: {
-      goal: true,
-      objName: true,
-      total: true,
-      completed: true,
-      color: true,
-    },
-    formIsValid: true,
-  });
-
-  const textChangeHandler = useCallback(
-    (input, value, validity) => {
-      console.log(value, input);
-      dispatchFormState({
-        type: FORM_UPDATE,
-        value,
-        isValid: validity,
-        input,
-      });
-    },
-    [dispatchFormState]
+  const [formState, dispatchFormState] = useReducer(
+    formReducer,
+    initialFormState
   );
 
-  const colorChangeHandler = useCallback(
-    (value, index) => {
-      dispatchFormState({
-        type: FORM_UPDATE,
-        value,
-        isValid: true,
-        input: "color",
-      });
-    },
-    [dispatchFormState]
-  );
+  const textChangeHandler = (input, value, validity) => {
+    dispatchFormState({
+      type: FORM_UPDATE,
+      value,
+      isValid: validity,
+      input,
+    });
+  };
+
+  const colorChangeHandler = (value, index) => {
+    dispatchFormState({
+      type: FORM_UPDATE,
+      value,
+      isValid: true,
+      input: "color",
+    });
+  };
 
   const { onAdd } = props;
 
   const submitHandler = useCallback(() => {
-    console.log("in submit handler");
     if (!formState.formIsValid) {
       Alert.alert("Wrong Input", "Please check errors in the form", [
         { text: "OK" },
@@ -94,6 +93,7 @@ const NewGoalForm = (props) => {
       formState.inputValues.completed,
       formState.inputValues.color
     );
+    dispatchFormState({ type: FORM_RESET });
   }, [formState, onAdd]);
 
   const colorPicker = (
@@ -118,12 +118,14 @@ const NewGoalForm = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <View style={defaultStyles.styledContainer}>
+        <View>
           <InputText
+            inputStyle={defaultStyles.styledInput}
+            label="Goal"
             keyboardType="default"
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "goal")}
-            initialValue={formState.inputValues.goal}
+            value={formState.inputValues.goal}
             initiallyValid={true}
             required
           />
@@ -133,12 +135,14 @@ const NewGoalForm = (props) => {
         </View>
       </View>
       <View style={styles.row}>
-        <View style={defaultStyles.styledContainer}>
+        <View>
           <InputText
+            inputStyle={defaultStyles.styledInput}
+            label="Task name"
             keyboardType="default"
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "objName")}
-            initialValue={formState.inputValues.objName}
+            value={formState.inputValues.objName}
             initiallyValid={true}
             required
           />
@@ -156,24 +160,28 @@ const NewGoalForm = (props) => {
         </View>
       </View>
       <View style={styles.row}>
-        <View style={defaultStyles.styledContainer}>
+        <View>
           <InputText
+            inputStyle={defaultStyles.styledInput}
+            label="Total Tasks"
             keyboardType="numeric"
             min={1}
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "total")}
-            initialValue={formState.inputValues.total}
+            value={formState.inputValues.total}
             initiallyValid={true}
             required
           />
         </View>
-        <View style={defaultStyles.styledContainer}>
+        <View>
           <InputText
+            inputStyle={defaultStyles.styledInput}
+            label="Completed Tasks"
             keyboardType="number-pad"
             min={1}
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "completed")}
-            initialValue={formState.inputValues.completed}
+            value={formState.inputValues.completed}
             initiallyValid={true}
             required
           />

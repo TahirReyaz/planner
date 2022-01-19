@@ -6,7 +6,7 @@ import InputText from "./InputText";
 import Colors from "../../constants/Colors";
 
 const NewPlanItemForm = (props) => {
-  const [task, setTask] = useState("");
+  const [task, setTask] = useState("New Task");
   const [isValid, setIsValid] = useState(false);
 
   const textChangeHandler = (value, validity) => {
@@ -26,23 +26,25 @@ const NewPlanItemForm = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.input}>
+      <View>
         <InputText
+          inputStyle={styles.input}
           keyboardType="default"
-          error="Please enter a valid task!"
+          error="Enter a valid task!"
           onInputChange={textChangeHandler}
-          initialValue="New Task"
-          initiallyValid={false}
+          value={task}
+          initiallyValid={true}
           required
         />
       </View>
-
-      <Ionicons
-        name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
-        size={28}
-        color="black"
-        onPress={submitHandler}
-      />
+      <View>
+        <Ionicons
+          name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
+          size={28}
+          color="black"
+          onPress={submitHandler}
+        />
+      </View>
     </View>
   );
 };
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    paddingHorizontal: 5,
   },
 });
 

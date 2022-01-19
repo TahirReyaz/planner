@@ -25,12 +25,15 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 10,
     padding: 5,
   },
-  // openSans: {
-  //   fontFamily: 'open-sans'
-  // },
-  // title: {
-  //   fontSize: 20,
-  //   marginVertical: 10,
-  //   fontFamily: 'open-sans-bold'
-  // }
+  styledInput: {
+    backgroundColor: "white",
+    borderBottomColor: Colors.primary,
+    borderLeftColor: Colors.primary,
+    borderBottomWidth: 5,
+    borderLeftWidth: 5,
+    borderBottomLeftRadius: 10,
+    paddingHorizontal: 10,
+    paddingBottom: 4,
+    fontSize: 20,
+  },
 });
