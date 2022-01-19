@@ -1,9 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import GoalItem from "../../components/goals/GoalItem";
 import NewGoalForm from "../../components/goals/NewGoalForm";
+import * as goalActions from "../../store/actions/goalsActions";
 import Colors from "../../constants/Colors";
 
 // const GOALS = [
@@ -43,13 +44,18 @@ import Colors from "../../constants/Colors";
 
 const GoalsScreen = (props) => {
   const goals = useSelector((state) => state.goals.goals);
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Text>Goal completion Screen</Text>
       <Text>Clear Goals Screen</Text>
       <Text>Complete Goals Screen</Text>
-      <NewGoalForm onAdd={() => {}} />
+      <NewGoalForm
+        onAdd={(goal, objName, total, completed, color) => {
+          dispatch(goalActions.addGoal(goal, objName, total, completed, color));
+        }}
+      />
       {goals && goals.length > 0 ? (
         <FlatList
           data={goals}

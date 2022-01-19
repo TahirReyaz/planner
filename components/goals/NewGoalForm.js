@@ -31,27 +31,28 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const NewActivityForm = (props) => {
+const NewGoalForm = (props) => {
+  console.log("in new goals form");
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
-      goal: "New Task",
-      objName: "Object name",
-      total: 1,
-      completed: 1,
+      goal: "New Goal",
+      objName: "Chapter",
+      total: "1",
+      completed: "1",
       color: Colors.neonGreen,
     },
     inputValidities: {
-      goal: false,
-      objName: false,
-      total: false,
+      goal: true,
+      objName: true,
+      total: true,
       completed: true,
       color: true,
     },
-    formIsValid: false,
+    formIsValid: true,
   });
 
   const textChangeHandler = useCallback(
-    (value, validity, input) => {
+    (input, value, validity) => {
       console.log(value, input);
       dispatchFormState({
         type: FORM_UPDATE,
@@ -78,12 +79,14 @@ const NewActivityForm = (props) => {
   const { onAdd } = props;
 
   const submitHandler = useCallback(() => {
+    console.log("in submit handler");
     if (!formState.formIsValid) {
       Alert.alert("Wrong Input", "Please check errors in the form", [
         { text: "OK" },
       ]);
       return;
     }
+    console.log(formState.inputValues);
     onAdd(
       formState.inputValues.goal,
       formState.inputValues.objName,
@@ -120,8 +123,8 @@ const NewActivityForm = (props) => {
             keyboardType="default"
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "goal")}
-            initialValue="New Task"
-            initiallyValid={false}
+            initialValue={formState.inputValues.goal}
+            initiallyValid={true}
             required
           />
         </View>
@@ -135,8 +138,8 @@ const NewActivityForm = (props) => {
             keyboardType="default"
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "objName")}
-            initialValue="New Task"
-            initiallyValid={false}
+            initialValue={formState.inputValues.objName}
+            initiallyValid={true}
             required
           />
         </View>
@@ -159,8 +162,8 @@ const NewActivityForm = (props) => {
             min={1}
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "total")}
-            initialValue="1"
-            initiallyValid={false}
+            initialValue={formState.inputValues.total}
+            initiallyValid={true}
             required
           />
         </View>
@@ -170,8 +173,8 @@ const NewActivityForm = (props) => {
             min={1}
             error="Please enter a valid task!"
             onInputChange={textChangeHandler.bind(this, "completed")}
-            initialValue="1"
-            initiallyValid={false}
+            initialValue={formState.inputValues.completed}
+            initiallyValid={true}
             required
           />
         </View>
@@ -188,7 +191,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginVertical: 5,
   },
 });
 
-export default NewActivityForm;
+export default NewGoalForm;

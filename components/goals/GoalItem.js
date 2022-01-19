@@ -11,7 +11,7 @@ const GoalItem = (props) => {
   return (
     <View style={{ ...styles.container, ...defaultStyles.styledContainer }}>
       <View style={styles.titleNbuttons}>
-        <Text style={styles.title}>{props.data.title}</Text>
+        <Text style={styles.title}>{props.data.goal}</Text>
         <View style={styles.buttonContainer}>
           <Ionicons name="md-trash" size={25} color="red" onPress={() => {}} />
           <Ionicons

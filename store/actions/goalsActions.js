@@ -5,7 +5,7 @@ export const DEC_TOTAL = "DEC_TOTAL";
 export const INC_COMPLETED = "INC_COMPLETED";
 export const DEC_COMPLETED = "DEC_COMPLETED";
 
-export const addActivity = (goal, objName, total, completed, color) => {
+export const addGoal = (goal, objName, total, completed, color) => {
   const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
   console.log(id, goal);
   return {
@@ -19,6 +19,6 @@ export const addActivity = (goal, objName, total, completed, color) => {
   };
 };
 
-export const delActivity = (id) => {
+export const delGoal = (id) => {
   return { type: DEL_GOAL, id };
 };
