@@ -44,6 +44,7 @@ const MonthPlanScreen = (props) => {
           renderItem={(itemData) => (
             <PlanContainer
               id={itemData.index}
+              type="day"
               plans={itemData.item}
               time={`${selectedMonth} ${itemData.index + 1}`}
               onClear={() => dispatch(monthActions.clearPlan(itemData.index))}

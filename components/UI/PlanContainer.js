@@ -16,7 +16,7 @@ const PlanContainer = (props) => {
       <View style={styles.summaryContainer}>
         <View style={styles.timeNtitle}>
           <View>
-            <Text style={styles.text}>{props.time}</Text>
+            <Text style={styles.time}>{props.time}</Text>
           </View>
           {!showDetails && (
             <View>
@@ -25,7 +25,7 @@ const PlanContainer = (props) => {
                   ? props.plans[0].task.length < 21
                     ? props.plans[0].task
                     : props.plans[0].task.substring(0, 18) + "..."
-                  : "No plans for this day"}
+                  : `No plans for this ${props.type}`}
               </Text>
             </View>
           )}
@@ -86,6 +86,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    marginRight: 5,
+  },
+  time: {
+    fontSize: 16,
+    fontWeight: "bold",
     marginRight: 5,
   },
   buttonContainer: {

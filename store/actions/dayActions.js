@@ -1,7 +1,6 @@
 export const DEL_ACTIVITY = "DEL_ACTIVITY";
 export const ADD_ACTIVITY = "ADD_ACTIVITY";
 export const CHANGE_DAY = "CHANGE_DAY";
-export const SET_DAY = "SET_DAY";
 
 export const addActivity = (selectedDay, activity, time, color) => {
   const id = Date.now().toString(36) + Math.random().toString(36).substr(2);

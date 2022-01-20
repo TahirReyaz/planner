@@ -17,7 +17,7 @@ const LifeScreen = (props) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={defaultStyles.topMenu}>
-        <Text>Keep Your Goals in your sight.</Text>
+        <Text style={styles.topText}>Don't lose sight of your goals.</Text>
       </View>
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
@@ -26,6 +26,7 @@ const LifeScreen = (props) => {
           renderItem={(itemData) => (
             <PlanContainer
               id={itemData.index}
+              type={"year"}
               plans={itemData.item}
               time={`${currentYear + itemData.index}`}
               onClear={() => dispatch(lifeActions.clearPlan(itemData.index))}
@@ -46,7 +47,12 @@ const LifeScreen = (props) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  topText: {
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+});
 
 export const screenOptions = (navData) => {
   return {

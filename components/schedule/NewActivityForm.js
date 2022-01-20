@@ -30,7 +30,7 @@ const initialFormState = {
     time: true,
     color: true,
   },
-  formIsValid: false,
+  formIsValid: true,
 };
 
 const formReducer = (state, action) => {

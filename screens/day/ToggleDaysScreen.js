@@ -1,29 +1,21 @@
-import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  SafeAreaView
-} from 'react-native';
+import React from "react";
+import { View, StyleSheet, Text, SafeAreaView, Button } from "react-native";
 
-const ToggleDaysScreen = props => {
-
+const ToggleDaysScreen = (props) => {
   return (
     <SafeAreaView>
-      <Text>Toggle Days Screen</Text>
+      <Text>Schedule Settings</Text>
+      <Button title="Refresh schedule notifications" />
     </SafeAreaView>
   );
 };
 
-export const screenOptions = navData => {
+export const screenOptions = (navData) => {
   return {
-    headerTitle: 'Toggle Days',
-  }
+    headerTitle: "Toggle Days",
+  };
 };
 
-
-const styles = StyleSheet.create({
-  
-});
+const styles = StyleSheet.create({});
 
 export default ToggleDaysScreen;

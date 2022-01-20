@@ -8,7 +8,9 @@ import Colors from "../../constants/Colors";
 import Activity from "../../components/schedule/Activity";
 import NewActivityForm from "../../components/schedule/NewActivityForm";
 import * as dayActions from "../../store/actions/dayActions";
+import * as notificationActions from "../../store/actions/notificationsActions";
 import defaultStyles from "../../constants/default-styles";
+import NotificationItem from "../../models/notification-item";
 
 const ScheduleScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
@@ -16,17 +18,38 @@ const ScheduleScreen = (props) => {
   const activities = useSelector(
     (state) => state.schedule.schedules[selectedDay]
   );
+  const notifications = useSelector(
+    (state) => state.notifications[selectedDay]
+  );
   const dispatch = useDispatch();
+
+  console.log(activities);
+  console.log(notifications);
+
+  const scheduleCreator = () => {
+    let newNotifications = [];
+    for (let i = 0; i < activities.length - 1; i++) {
+      const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+      const newNotification = new NotificationItem(
+        id,
+        activities[i].activity,
+        activities[i].time,
+        activities[i + 1].activity,
+        activities[i + 1].time
+      );
+      newNotifications.push(newNotification);
+    }
+    dispatch(
+      notificationActions.setNotifications(selectedDay, newNotifications)
+    );
+  };
 
   const onAddHandler = (text, time, color) => {
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
+    scheduleCreator();
   };
 
   const dayChangeHandler = (day) => {
-    const date = new Date();
-    console.log("current day:", date.getDay());
-    console.log("current day:", date.getUTCDay());
-
     dispatch(dayActions.changeDay(day));
   };
 
@@ -39,6 +62,7 @@ const ScheduleScreen = (props) => {
           onValueChange={dayChangeHandler}
           mode="dropdown"
         >
+          <Picker.Item label="Everyday" value="Everyday" />
           <Picker.Item label="Monday" value="Mon" />
           <Picker.Item label="Tuesday" value="Tue" />
           <Picker.Item label="Wednesday" value="Wed" />
