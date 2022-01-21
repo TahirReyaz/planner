@@ -23,9 +23,6 @@ const ScheduleScreen = (props) => {
   );
   const dispatch = useDispatch();
 
-  console.log(activities);
-  console.log(notifications);
-
   const scheduleCreator = () => {
     let newNotifications = [];
     for (let i = 0; i < activities.length - 1; i++) {
@@ -98,7 +95,10 @@ const ScheduleScreen = (props) => {
             title={itemData.item.activity}
             time={moment(itemData.item.time).format("h:mm A")}
             color={itemData.item.color}
-            onDel={() => dispatch(dayActions.delActivity(itemData.item.id))}
+            onDel={() => {
+              dispatch(dayActions.delActivity(itemData.item.id));
+              scheduleCreator();
+            }}
           />
         )}
       />

@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import ScheduleItem from "../../models/schedule";
 import { DEL_ACTIVITY, ADD_ACTIVITY, CHANGE_DAY } from "../actions/dayActions";
 
@@ -31,10 +33,12 @@ export default (state = initialState, action) => {
       newSchedule = [...state.schedules[selectedDay], newActivity];
       // console.log("New", newSchedule);
       const sortedSchedule = newSchedule.sort((activityA, activityB) => {
+        const activityATime = moment(activityA.time).format("HH:mm");
+        const activityBTime = moment(activityB.time).format("HH:mm");
         // console.log(activityB.activity, activityA.activity);
-        if (activityA.time < activityB.time) {
+        if (activityATime < activityBTime) {
           return -1;
-        } else if (activityA.time > activityB.time) {
+        } else if (activityATime > activityBTime) {
           return 1;
         }
         return 0;

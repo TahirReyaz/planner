@@ -53,7 +53,10 @@ const formReducer = (state, action) => {
       inputValidities: updatedValidities,
     };
   } else if (action.type === FORM_RESET) {
-    return initialFormState;
+    return {
+      ...initialFormState,
+      inputValues: { ...initialFormState.inputValues, time: new Date() },
+    };
   }
   return state;
 };
