@@ -1,7 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Platform, Button } from "react-native";
 import { useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
+import { Ionicons } from "@expo/vector-icons";
 // import * as TaskManager from "expo-task-manager";
 import moment from "moment";
 import Colors from "../../constants/Colors";
@@ -66,20 +67,20 @@ const ToggleDaysScreen = (props) => {
   };
 
   return (
-    <View>
-      <Text>Schedule Settings</Text>
+    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
       <View style={styles.btnContainer}>
         <Button
           title="Refresh schedule notifications"
           onPress={scheduleNotificationsHandler}
           color={Colors.primary}
         />
-        <Button
-          title="Cancel Notifications"
-          onPress={cancelNotificationsHandler}
-          color={Colors.primary}
-          style={{ marginTop: 10 }}
-        />
+        <View style={{ marginTop: 10 }}>
+          <Button
+            title="Cancel Notifications"
+            onPress={cancelNotificationsHandler}
+            color={Colors.primary}
+          />
+        </View>
       </View>
     </View>
   );
@@ -87,7 +88,14 @@ const ToggleDaysScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "Toggle Days",
+    headerTitle: "Notification Settings",
+    drawerIcon: (props) => (
+      <Ionicons
+        name={Platform.OS === "android" ? "md-alarm" : "ios-alarm"}
+        size={23}
+        color={props.color}
+      />
+    ),
   };
 };
 

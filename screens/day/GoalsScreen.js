@@ -6,8 +6,10 @@ import {
   Text,
   SafeAreaView,
   FlatList,
+  Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 import GoalItem from "../../components/goals/GoalItem";
 import NewGoalForm from "../../components/goals/NewGoalForm";
@@ -103,6 +105,17 @@ const GoalsScreen = (props) => {
 export const screenOptions = (navData) => {
   return {
     headerTitle: "Goals",
+    drawerIcon: (props) => (
+      <Ionicons
+        name={
+          Platform.OS === "android"
+            ? "md-checkmark-circle-outline"
+            : "ios-checkmark-circle-outline"
+        }
+        size={23}
+        color={props.color}
+      />
+    ),
   };
 };
 

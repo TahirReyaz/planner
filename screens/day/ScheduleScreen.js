@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Button, FlatList } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Platform,
+  Button,
+  FlatList,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { Picker } from "@react-native-picker/picker";
+import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
 import Activity from "../../components/schedule/Activity";
@@ -109,6 +117,13 @@ const ScheduleScreen = (props) => {
 export const screenOptions = (navData) => {
   return {
     headerTitle: "Schedule",
+    drawerIcon: (props) => (
+      <Ionicons
+        name={Platform.OS === "android" ? "md-list" : "ios-list"}
+        size={23}
+        color={props.color}
+      />
+    ),
   };
 };
 
