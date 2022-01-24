@@ -15,18 +15,28 @@ const PlanContainer = (props) => {
     <View style={{ ...defaultStyles.styledContainer, margin: 5 }}>
       <View style={styles.summaryContainer}>
         <View style={styles.timeNtitle}>
-          <View>
+          <View
+            style={{
+              ...styles.timeContainer,
+              flexDirection: showDetails ? "row" : "column",
+            }}
+          >
             <Text style={styles.time}>{props.time}</Text>
+            {props.day && <Text style={styles.time}>{props.day}</Text>}
           </View>
           {!showDetails && (
             <View>
-              <Text style={styles.text}>
-                {props.plans && props.plans.length > 0
-                  ? props.plans[0].task.length < 21
+              {props.plans && props.plans.length > 0 ? (
+                <Text style={styles.text}>
+                  {props.plans[0].task.length < 21
                     ? props.plans[0].task
-                    : props.plans[0].task.substring(0, 18) + "..."
-                  : `No plans for this ${props.type}`}
-              </Text>
+                    : props.plans[0].task.substring(0, 18) + "..."}
+                </Text>
+              ) : (
+                <Text
+                  style={{ ...styles.text, color: "grey" }}
+                >{`No plans for this ${props.type}`}</Text>
+              )}
             </View>
           )}
         </View>
@@ -84,14 +94,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
+  timeContainer: {
+    alignItems: "center",
+  },
   text: {
     fontSize: 20,
     marginRight: 5,
   },
   time: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     marginRight: 5,
+    lineHeight: 14,
   },
   buttonContainer: {
     flexDirection: "row",

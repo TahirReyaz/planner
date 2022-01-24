@@ -1,19 +1,24 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector, useDispatch } from "react-redux";
 
 import PlanContainer from "../components/UI/PlanContainer";
 import * as monthActions from "../store/actions/monthActions";
 import defaultStyles from "../constants/default-styles";
+import { monthDays } from "../constants/months";
+import { weekDays } from "../constants/days";
 
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
   const plans = useSelector((state) => state.monthPlan[selectedMonth]);
   const dispatch = useDispatch();
+  const month = monthDays.find((month) => month.mon === selectedMonth);
+
   const monthChangeHandler = (month) => {
     dispatch(monthActions.changeMonth(month));
   };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={defaultStyles.topMenu}>
@@ -47,6 +52,7 @@ const MonthPlanScreen = (props) => {
               type="day"
               plans={itemData.item}
               time={`${selectedMonth} ${itemData.index + 1}`}
+              day={weekDays[(month.firstDay + (itemData.index % 7)) % 7]}
               onClear={() => dispatch(monthActions.clearPlan(itemData.index))}
               onCheck={(id, index) =>
                 dispatch(monthActions.checkPlanItem(id, index))
@@ -70,7 +76,5 @@ export const screenOptions = (navData) => {
     headerTitle: "Planner",
   };
 };
-
-const styles = StyleSheet.create({});
 
 export default MonthPlanScreen;
