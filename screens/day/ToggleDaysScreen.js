@@ -1,8 +1,23 @@
 import React from "react";
-import { View, StyleSheet, Text, SafeAreaView, Button } from "react-native";
+import { View, StyleSheet, Text, Button } from "react-native";
 import { useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
+// import * as TaskManager from "expo-task-manager";
 import moment from "moment";
+import Colors from "../../constants/Colors";
+
+// const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
+
+// TaskManager.defineTask(
+//   BACKGROUND_NOTIFICATION_TASK,
+//   ({ data, error, executionInfo }) => {
+//     console.log("Received a notification in the background!");
+//     console.log(data);
+//     console.log(executionInfo);
+//     console.log(error);
+//     // Do something with the notification data
+//   }
+// );
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -41,6 +56,7 @@ const ToggleDaysScreen = (props) => {
         trigger,
       });
     });
+    // Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
   };
 
   const cancelNotificationsHandler = async () => {
@@ -50,17 +66,22 @@ const ToggleDaysScreen = (props) => {
   };
 
   return (
-    <SafeAreaView>
+    <View>
       <Text>Schedule Settings</Text>
-      <Button
-        title="Refresh schedule notifications"
-        onPress={scheduleNotificationsHandler}
-      />
-      <Button
-        title="Cancel Notifications"
-        onPress={cancelNotificationsHandler}
-      />
-    </SafeAreaView>
+      <View style={styles.btnContainer}>
+        <Button
+          title="Refresh schedule notifications"
+          onPress={scheduleNotificationsHandler}
+          color={Colors.primary}
+        />
+        <Button
+          title="Cancel Notifications"
+          onPress={cancelNotificationsHandler}
+          color={Colors.primary}
+          style={{ marginTop: 10 }}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -70,6 +91,11 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btnContainer: {
+    flexDirection: "column",
+    width: "50%",
+  },
+});
 
 export default ToggleDaysScreen;

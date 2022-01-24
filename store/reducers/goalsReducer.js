@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
         action.objName,
         action.total,
         action.completed,
+        1,
         action.color
       );
       return {
@@ -42,11 +43,20 @@ export default (state = initialState, action) => {
       } else if (action.valueType === "completed") {
         if (
           action.change === "inc" &&
-          selectedGoal.total > selectedGoal.completed
+          selectedGoal.total > selectedGoal.completed + selectedGoal.step
         ) {
-          selectedGoal.completed++;
-        } else if (selectedGoal.completed > 0 && action.change === "dec") {
-          selectedGoal.completed--;
+          selectedGoal.completed += selectedGoal.step;
+        } else if (
+          selectedGoal.completed - selectedGoal.step > 0 &&
+          action.change === "dec"
+        ) {
+          selectedGoal.completed -= selectedGoal.step;
+        }
+      } else if (action.valueType === "step") {
+        if (action.change === "inc" && selectedGoal.total > selectedGoal.step) {
+          selectedGoal.step++;
+        } else if (selectedGoal.step > 1 && action.change === "dec") {
+          selectedGoal.step--;
         }
       }
       const updatedGoal = new GoalItem(
@@ -55,6 +65,7 @@ export default (state = initialState, action) => {
         selectedGoal.objName,
         selectedGoal.total,
         selectedGoal.completed,
+        selectedGoal.step,
         selectedGoal.color
       );
       const updatedGoals = [...state.goals];

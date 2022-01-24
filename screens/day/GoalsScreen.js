@@ -23,14 +23,10 @@ const GoalsScreen = (props) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={defaultStyles.topMenu}>
-        <View>
-          <Text>Goal completion Screen</Text>
-          <Text>Clear Goals Screen</Text>
-          <Text>Complete Goals Screen</Text>
-        </View>
+        <View></View>
         <View>
           <Button
-            title={!showForm ? "Add Task" : "Close Form"}
+            title={!showForm ? "Add Goal" : "Close Form"}
             color={Colors.primary}
             onPress={() => setShowForm((prevState) => !prevState)}
           />
@@ -82,11 +78,23 @@ const GoalsScreen = (props) => {
                   )
                 )
               }
+              onDecStep={() =>
+                dispatch(
+                  goalActions.updateProgress(itemData.item.id, "step", "dec")
+                )
+              }
+              onIncStep={() =>
+                dispatch(
+                  goalActions.updateProgress(itemData.item.id, "step", "inc")
+                )
+              }
             />
           )}
         />
       ) : (
-        <Text>No goals. Set some!!</Text>
+        <View style={styles.fallback}>
+          <Text style={styles.fallbackText}>No goals added. Add some!!</Text>
+        </View>
       )}
     </SafeAreaView>
   );
@@ -98,6 +106,16 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  fallback: {
+    padding: 5,
+    marginHorizontal: 5,
+    backgroundColor: "white",
+  },
+  fallbackText: {
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+});
 
 export default GoalsScreen;

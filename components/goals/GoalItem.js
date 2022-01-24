@@ -31,34 +31,53 @@ const GoalItem = (props) => {
         </View>
       </View>
       {showDetails && (
-        <View style={styles.controls}>
-          <Ionicons
-            name={"md-remove-circle"}
-            size={25}
-            color="grey"
-            onPress={props.onDecCompleted}
-          />
-          <Text>{props.data.completed}</Text>
-          <Ionicons
-            name={"md-add-circle"}
-            size={25}
-            color="grey"
-            onPress={props.onIncCompleted}
-          />
-          <Text>{props.data.objName} out of</Text>
-          <Ionicons
-            name={"md-remove-circle"}
-            size={25}
-            color="grey"
-            onPress={props.onDecTotal}
-          />
-          <Text>{props.data.total}</Text>
-          <Ionicons
-            name={"md-add-circle"}
-            size={25}
-            color="grey"
-            onPress={props.onIncTotal}
-          />
+        <View>
+          <View style={styles.controlRow}>
+            <Ionicons
+              name={"md-remove-circle"}
+              size={25}
+              color="grey"
+              onPress={props.onDecCompleted}
+            />
+            <Text>{props.data.completed}</Text>
+            <Ionicons
+              name={"md-add-circle"}
+              size={25}
+              color="grey"
+              onPress={props.onIncCompleted}
+            />
+            <Text>{props.data.objName} out of</Text>
+            <Ionicons
+              name={"md-remove-circle"}
+              size={25}
+              color="grey"
+              onPress={props.onDecTotal}
+            />
+            <Text>{props.data.total}</Text>
+            <Ionicons
+              name={"md-add-circle"}
+              size={25}
+              color="grey"
+              onPress={props.onIncTotal}
+            />
+          </View>
+          <View style={{ ...styles.controlRow, justifyContent: "center" }}>
+            <Ionicons
+              name={"md-remove-circle"}
+              size={25}
+              color="grey"
+              onPress={props.onDecStep}
+            />
+            <Text style={{ marginHorizontal: 10 }}>
+              {props.data.step} {props.data.step === 1 ? "step" : "steps"}
+            </Text>
+            <Ionicons
+              name={"md-add-circle"}
+              size={25}
+              color="grey"
+              onPress={props.onIncStep}
+            />
+          </View>
         </View>
       )}
       <PercentageBar
@@ -80,7 +99,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
   },
-  controls: {
+  controlRow: {
     flexDirection: "row",
     justifyContent: "space-around",
     marginVertical: 5,
