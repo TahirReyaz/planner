@@ -10,7 +10,7 @@ import ScheduleScreen, {
 } from "../screens/day/ScheduleScreen";
 import NotificationSettingsScreen, {
   screenOptions as notificationSettingsScreenOptions,
-} from "../screens/day/ToggleDaysScreen";
+} from "../screens/day/NotificationSettingsScreen";
 import GoalsScreen, {
   screenOptions as goalsScreenOptions,
 } from "../screens/day/GoalsScreen";

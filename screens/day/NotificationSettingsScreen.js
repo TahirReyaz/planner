@@ -29,7 +29,7 @@ Notifications.setNotificationHandler({
   },
 });
 
-const ToggleDaysScreen = (props) => {
+const NotificationSettingsScreen = (props) => {
   const notifications = useSelector((state) => state.notifications["Everyday"]);
 
   const scheduleNotificationsHandler = () => {
@@ -70,7 +70,7 @@ const ToggleDaysScreen = (props) => {
     <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
       <View style={styles.btnContainer}>
         <Button
-          title="Refresh schedule notifications"
+          title="Refresh scheduled notifications"
           onPress={scheduleNotificationsHandler}
           color={Colors.primary}
         />
@@ -106,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ToggleDaysScreen;
+export default NotificationSettingsScreen;
