@@ -31,11 +31,9 @@ export default (state = initialState, action) => {
         action.color
       );
       newSchedule = [...state.schedules[selectedDay], newActivity];
-      // console.log("New", newSchedule);
       const sortedSchedule = newSchedule.sort((activityA, activityB) => {
         const activityATime = moment(activityA.time).format("HH:mm");
         const activityBTime = moment(activityB.time).format("HH:mm");
-        // console.log(activityB.activity, activityA.activity);
         if (activityATime < activityBTime) {
           return -1;
         } else if (activityATime > activityBTime) {
@@ -43,7 +41,6 @@ export default (state = initialState, action) => {
         }
         return 0;
       });
-      // console.log("Sorted", sortedSchedule);
 
       return {
         ...state,

@@ -53,9 +53,14 @@ const formReducer = (state, action) => {
       inputValidities: updatedValidities,
     };
   } else if (action.type === FORM_RESET) {
+    const newTime = new Date(state.inputValues.time);
+    newTime.setMinutes(newTime.getMinutes() + 1);
     return {
       ...initialFormState,
-      inputValues: { ...initialFormState.inputValues, time: new Date() },
+      inputValues: {
+        ...initialFormState.inputValues,
+        time: newTime,
+      },
     };
   }
   return state;
