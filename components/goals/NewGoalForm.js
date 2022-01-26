@@ -171,7 +171,7 @@ const NewGoalForm = (props) => {
               paddingVertical: 0,
               marginVertical: 0,
               height: 40,
-              width: 100,
+              width: 120,
               marginTop: 5,
             }}
           >
@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     elevation: 3,
+    flexGrow: 0.6,
   },
   row: {
     flexDirection: "row",

@@ -17,8 +17,8 @@ export default (state = initialState, action) => {
         action.id,
         action.goal,
         action.objName,
-        action.total,
-        action.completed,
+        +action.total,
+        +action.completed,
         1,
         action.color
       );

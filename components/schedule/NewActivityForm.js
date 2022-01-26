@@ -177,7 +177,7 @@ const NewActivityForm = (props) => {
             paddingVertical: 0,
             marginVertical: 0,
             height: 40,
-            width: 100,
+            width: 120,
             marginTop: 5,
           }}
         >

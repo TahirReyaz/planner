@@ -25,12 +25,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.tahirreyaz.rn.planner",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.0.3",
       "supportsTablet": true
     },
     "android": {
       "package": "com.tahirreyaz.rn.planner",
-      "versionCode": 1,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
