@@ -100,11 +100,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    fontFamily: "montserrat",
     marginRight: 5,
   },
   time: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "montserrat-bold",
     marginRight: 5,
     lineHeight: 14,
   },

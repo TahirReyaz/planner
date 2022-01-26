@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PlanContainer from "../components/UI/PlanContainer";
 import { currentYear } from "../constants/years";
 import * as lifeActions from "../store/actions/lifeActions";
+import Colors from "../constants/Colors";
 
 const LifeScreen = (props) => {
   const plansObject = useSelector((state) => state.lifePlan);
@@ -17,7 +18,10 @@ const LifeScreen = (props) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={defaultStyles.topMenu}>
-        <Text style={styles.topText}>Don't lose sight of your goals.</Text>
+        <Text style={styles.topText}>
+          Don't lose sight of your{" "}
+          <Text style={{ color: Colors.primary }}>Goals</Text>
+        </Text>
       </View>
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
@@ -49,8 +53,8 @@ const LifeScreen = (props) => {
 
 const styles = StyleSheet.create({
   topText: {
-    fontSize: 25,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: "montserrat-bold",
   },
 });
 

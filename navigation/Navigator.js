@@ -42,6 +42,9 @@ const defaultDrawerScreenOptions = {
     backgroundColor: Platform.OS === "android" ? Colors.primary : "",
   },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
+  headerTitleStyle: {
+    fontFamily: "montserrat-bold",
+  },
 };
 
 const Tab = createBottomTabNavigator();
@@ -126,6 +129,7 @@ const MainNavigator = () => {
           name="Planner"
           component={TabNavigator}
           options={{
+            headerTitle: "PLANNER",
             drawerIcon: (props) => (
               <Ionicons
                 name={Platform.OS === "android" ? "md-list" : "ios-list"}

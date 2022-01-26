@@ -23,7 +23,7 @@ const features = [
 const aboutApp = [
   "Made with React Native",
   "Expo managed workflow",
-  "Storing plans on device using redux-persist and AsyncStorage",
+  "Storage of plans on device using redux-persist and AsyncStorage",
 ];
 const upcomingFeatures = [
   "Proper working notifications instead of demo notifications",
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 28,
-    fontWeight: "bold",
+    fontFamily: "montserrat-bold",
     color: Colors.primary,
     marginVertical: 10,
     textDecorationLine: "underline",
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
   },
   listItem: { marginLeft: 20, marginVertical: 4 },
   listText: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontFamily: "montserrat-bold",
     color: "black",
     textShadowColor: "white",
     textShadowOffset: { width: 0, height: 1 },
@@ -116,12 +116,12 @@ const styles = StyleSheet.create({
   },
   madeByText: {
     fontSize: 28,
-    fontWeight: "bold",
+    fontFamily: "montserrat-bold",
     color: "black",
   },
   linkText: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "montserrat-bold",
     textAlign: "right",
     textDecorationLine: "underline",
   },
@@ -129,14 +129,10 @@ const styles = StyleSheet.create({
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "About",
+    headerTitle: "ABOUT",
     drawerIcon: (props) => (
       <Ionicons
-        name={
-          Platform.OS === "android"
-            ? "md-checkmark-circle-outline"
-            : "ios-checkmark-circle-outline"
-        }
+        name={Platform.OS === "android" ? "md-cafe" : "ios-cafe"}
         size={23}
         color={props.color}
       />

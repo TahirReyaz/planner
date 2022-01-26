@@ -104,7 +104,7 @@ const GoalsScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "Goals",
+    headerTitle: "GOALS",
     drawerIcon: (props) => (
       <Ionicons
         name={

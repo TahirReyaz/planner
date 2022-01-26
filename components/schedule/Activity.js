@@ -21,9 +21,15 @@ const Activity = (props) => {
       flexDirection: "row",
       justifyContent: "flex-start",
     },
+    time: {
+      fontSize: 16,
+      fontFamily: "montserrat-bold",
+      marginRight: 5,
+      marginTop: 5,
+    },
     text: {
       fontSize: 20,
-      marginRight: 5,
+      fontFamily: "montserrat",
     },
     buttonContainer: {
       flexDirection: "row",
@@ -38,7 +44,7 @@ const Activity = (props) => {
       <View style={styles.summaryContainer}>
         <View style={styles.timeNtitle}>
           <View>
-            <Text style={styles.text}>{props.time}</Text>
+            <Text style={styles.time}>{props.time}</Text>
           </View>
           {!showDetails && (
             <View>
