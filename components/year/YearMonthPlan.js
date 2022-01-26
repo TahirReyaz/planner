@@ -7,6 +7,7 @@ import * as yearActions from "../../store/actions/yearActions";
 import defaultStyles from "../../constants/default-styles";
 import NewPlanItemForm from "../UI/NewPlanItemForm";
 import PlanItem from "../UI/PlanItem";
+import Colors from "../../constants/Colors";
 
 const YearMonthPlan = (props) => {
   const plans = useSelector((state) => state.yearPlan[props.year][props.index]);
@@ -27,7 +28,7 @@ const YearMonthPlan = (props) => {
             <Ionicons
               name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
               size={23}
-              color="red"
+              color={Colors.red}
               onPress={props.onDel}
             />
           )}

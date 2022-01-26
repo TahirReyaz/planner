@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import PlanItem from "./PlanItem";
 import NewPlanItemForm from "./NewPlanItemForm";
 import defaultStyles from "../../constants/default-styles";
+import Colors from "../../constants/Colors";
 
 const PlanContainer = (props) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -46,7 +47,7 @@ const PlanContainer = (props) => {
             <Ionicons
               name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
               size={23}
-              color="red"
+              color={Colors.red}
               onPress={props.onClear}
             />
           )}

@@ -97,7 +97,9 @@ const NewGoalForm = (props) => {
   const colorPicker = (
     <Picker
       selectedValue={formState.inputValues.color}
-      style={{ width: 100 }}
+      style={{
+        marginTop: -8,
+      }}
       onValueChange={colorChangeHandler}
       mode="dropdown"
     >
@@ -128,7 +130,7 @@ const NewGoalForm = (props) => {
             required
           />
         </View>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
           <Button title="ADD" color={Colors.primary} onPress={submitHandler} />
         </View>
       </View>
@@ -148,10 +150,13 @@ const NewGoalForm = (props) => {
 
         <View
           style={{
-            ...defaultStyles.styledContainer,
+            ...defaultStyles.styledInput,
             paddingHorizontal: 0,
             paddingVertical: 0,
             marginVertical: 0,
+            height: 40,
+            width: 100,
+            marginTop: 5,
           }}
         >
           {colorPicker}
@@ -194,6 +199,11 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: "white",
     margin: 5,
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 3,
   },
   row: {
     flexDirection: "row",

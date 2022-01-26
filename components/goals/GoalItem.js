@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import defaultStyles from "../../constants/default-styles";
 import PercentageBar from "./PercentageBar";
+import Colors from "../../constants/Colors";
 
 const GoalItem = (props) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -16,7 +17,7 @@ const GoalItem = (props) => {
           <Ionicons
             name="md-trash"
             size={25}
-            color="red"
+            color={Colors.red}
             onPress={props.onDel}
           />
           <Ionicons

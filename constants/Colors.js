@@ -7,5 +7,5 @@ export default {
   yellow: "#e9c46a",
   blue: "#2a9d8f",
   orange: "#f4a261",
-  red: "#e76f51",
+  red: "#dc5454",
 };

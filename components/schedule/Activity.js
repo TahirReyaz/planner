@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import defaultStyles from "../../constants/default-styles";
+import Colors from "../../constants/Colors";
 
 const Activity = (props) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -66,7 +67,7 @@ const Activity = (props) => {
           <Ionicons
             name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
             size={23}
-            color="red"
+            color={Colors.red}
             onPress={props.onDel}
           />
         </View>

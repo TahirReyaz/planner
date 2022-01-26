@@ -142,9 +142,11 @@ const NewActivityForm = (props) => {
   const colorPicker = (
     <Picker
       selectedValue={formState.inputValues.color}
-      style={{ width: 100 }}
       onValueChange={colorChangeHandler}
       mode="dropdown"
+      style={{
+        marginTop: -8,
+      }}
     >
       <Picker.Item label="Green" value={Colors.green} color={Colors.green} />
       <Picker.Item label="Blue" value={Colors.blue} color={Colors.blue} />
@@ -158,7 +160,11 @@ const NewActivityForm = (props) => {
     <View style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity
-          style={{ ...defaultStyles.styledContainer, marginVertical: 10 }}
+          style={{
+            ...defaultStyles.styledInput,
+            marginVertical: 10,
+            paddingTop: 5,
+          }}
           onPress={() => setShow(true)}
         >
           <Text>{moment(formState.inputValues.time).format("h:mm A")}</Text>
@@ -166,20 +172,24 @@ const NewActivityForm = (props) => {
         {show && timePicker}
         <View
           style={{
-            ...defaultStyles.styledContainer,
+            ...defaultStyles.styledInput,
             paddingHorizontal: 0,
             paddingVertical: 0,
             marginVertical: 0,
+            height: 40,
+            width: 100,
+            marginTop: 5,
           }}
         >
           {colorPicker}
         </View>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
           <Button title="ADD" color={Colors.primary} onPress={submitHandler} />
         </View>
       </View>
-      <View style={defaultStyles.styledContainer}>
+      <View>
         <InputText
+          style={defaultStyles.styledInput}
           keyboardType="default"
           error="Please enter a valid task!"
           onInputChange={textChangeHandler}
@@ -197,6 +207,11 @@ const styles = StyleSheet.create({
   container: {
     padding: 5,
     backgroundColor: "white",
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 3,
   },
   row: {
     flexDirection: "row",
