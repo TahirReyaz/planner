@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 
 import ScheduleScreen, {
   screenOptions as schedScreenOptions,
@@ -155,6 +156,7 @@ const MainNavigator = () => {
           options={aboutScreenOptions()}
         />
       </DayDrawerNavigator.Navigator>
+      <StatusBar style="dark" />
     </NavigationContainer>
   );
 };
