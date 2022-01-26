@@ -95,7 +95,10 @@ const GoalsScreen = (props) => {
         />
       ) : (
         <View style={styles.fallback}>
-          <Text style={styles.fallbackText}>No goals added. Add some!!</Text>
+          <Text style={styles.fallbackText}>
+            No goals added.
+            <Text style={{ color: Colors.primary }}> Add some!!</Text>
+          </Text>
         </View>
       )}
     </SafeAreaView>
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
   },
   fallbackText: {
     fontSize: 25,
-    fontWeight: "bold",
+    fontFamily: "montserrat-bold",
   },
 });
 

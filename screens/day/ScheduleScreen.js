@@ -91,7 +91,8 @@ const ScheduleScreen = (props) => {
       {(!activities || activities.length === 0) && (
         <View style={styles.fallback}>
           <Text style={styles.fallbackText}>
-            Schedule not set yet. Add some activities
+            Schedule not set yet. Add some{" "}
+            <Text style={{ color: Colors.primary }}>tasks</Text>
           </Text>
         </View>
       )}
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
   },
   fallbackText: {
     fontSize: 25,
-    fontWeight: "bold",
+    fontFamily: "montserrat-bold",
   },
 });
 
