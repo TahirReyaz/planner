@@ -46,6 +46,7 @@ const AboutScreen = (props) => {
           resizeMode: "cover",
           bottom: 0,
           top: undefined,
+          opacity: 0.6,
         }}
       >
         <ScrollView>
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   listItem: { marginLeft: 20, marginVertical: 4 },
   listText: {
     fontSize: 16,
-    fontFamily: "montserrat-bold",
+    fontFamily: "montserrat",
     color: "black",
     textShadowColor: "white",
     textShadowOffset: { width: 0, height: 1 },
@@ -118,10 +119,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontFamily: "montserrat-bold",
     color: "black",
+    marginTop: 20,
   },
   linkText: {
-    fontSize: 20,
-    fontFamily: "montserrat-bold",
+    fontSize: 16,
+    fontFamily: "montserrat",
     textAlign: "right",
     textDecorationLine: "underline",
   },
