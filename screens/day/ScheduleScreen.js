@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -31,27 +31,29 @@ const ScheduleScreen = (props) => {
   );
   const dispatch = useDispatch();
 
-  const scheduleCreator = () => {
-    let newNotifications = [];
-    for (let i = 0; i < activities.length - 1; i++) {
-      const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
-      const newNotification = new NotificationItem(
-        id,
-        activities[i].activity,
-        activities[i].time,
-        activities[i + 1].activity,
-        activities[i + 1].time
+  useEffect(() => {
+    if (activities) {
+      let newNotifications = [];
+      for (let i = 0; i < activities.length - 1; i++) {
+        const id =
+          Date.now().toString(36) + Math.random().toString(36).substr(2);
+        const newNotification = new NotificationItem(
+          id,
+          activities[i].activity,
+          activities[i].time,
+          activities[i + 1].activity,
+          activities[i + 1].time
+        );
+        newNotifications.push(newNotification);
+      }
+      dispatch(
+        notificationActions.setNotifications(selectedDay, newNotifications)
       );
-      newNotifications.push(newNotification);
     }
-    dispatch(
-      notificationActions.setNotifications(selectedDay, newNotifications)
-    );
-  };
+  }, [selectedDay, activities, dispatch]);
 
   const onAddHandler = (text, time, color) => {
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
-    scheduleCreator();
   };
 
   const dayChangeHandler = (day) => {
@@ -91,8 +93,8 @@ const ScheduleScreen = (props) => {
       {(!activities || activities.length === 0) && (
         <View style={styles.fallback}>
           <Text style={styles.fallbackText}>
-            Schedule not set yet. Add some{" "}
-            <Text style={{ color: Colors.primary }}>tasks</Text>
+            Schedule not set yet. Add some
+            <Text style={{ color: Colors.primary }}> tasks</Text>
           </Text>
         </View>
       )}

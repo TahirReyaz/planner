@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Platform, Button } from "react-native";
+import { View, StyleSheet, Platform, Button, Text } from "react-native";
 import { useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { Ionicons } from "@expo/vector-icons";
@@ -75,20 +75,29 @@ const NotificationSettingsScreen = (props) => {
         backgroundColor: "#FFFFFF",
       }}
     >
-      <View style={styles.btnContainer}>
-        <Button
-          title="Refresh scheduled notifications"
-          onPress={scheduleNotificationsHandler}
-          color={Colors.primary}
-        />
-        <View style={{ marginTop: 10 }}>
+      {notifications && notifications.length > 0 ? (
+        <View style={styles.btnContainer}>
           <Button
-            title="Cancel Notifications"
-            onPress={cancelNotificationsHandler}
+            title="Refresh scheduled notifications"
+            onPress={scheduleNotificationsHandler}
             color={Colors.primary}
           />
+          <View style={{ marginTop: 10 }}>
+            <Button
+              title="Cancel Notifications"
+              onPress={cancelNotificationsHandler}
+              color={Colors.primary}
+            />
+          </View>
         </View>
-      </View>
+      ) : (
+        <View style={styles.fallback}>
+          <Text style={styles.fallbackText}>
+            Schedule not set yet. Add multiple
+            <Text style={{ color: Colors.primary }}> tasks</Text>
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -110,6 +119,15 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "column",
     width: "50%",
+  },
+  fallback: {
+    padding: 5,
+    marginHorizontal: 5,
+    backgroundColor: "white",
+  },
+  fallbackText: {
+    fontSize: 25,
+    fontFamily: "montserrat-bold",
   },
 });
 
