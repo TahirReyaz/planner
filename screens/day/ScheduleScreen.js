@@ -117,13 +117,6 @@ const ScheduleScreen = (props) => {
 export const screenOptions = (navData) => {
   return {
     headerTitle: "Schedule",
-    drawerIcon: (props) => (
-      <Ionicons
-        name={Platform.OS === "android" ? "md-list" : "ios-list"}
-        size={23}
-        color={props.color}
-      />
-    ),
   };
 };
 

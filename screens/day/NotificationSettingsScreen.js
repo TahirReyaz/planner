@@ -96,6 +96,7 @@ const NotificationSettingsScreen = (props) => {
 export const screenOptions = (navData) => {
   return {
     headerTitle: "Notification Settings",
+    headerShown: true,
     drawerIcon: (props) => (
       <Ionicons
         name={Platform.OS === "android" ? "md-alarm" : "ios-alarm"}

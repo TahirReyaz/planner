@@ -18,14 +18,18 @@ import MonthPlanScreen, {
   screenOptions as monthPlanScreenOptions,
 } from "../screens/MonthPlanScreen";
 import YearScreen, {
-  screenOptions as YearScreenOptions,
+  screenOptions as yearScreenOptions,
 } from "../screens/YearScreen";
 import LifeScreen, {
-  screenOptions as LifeScreenOptions,
+  screenOptions as lifeScreenOptions,
 } from "../screens/LifeScreen";
 import Colors from "../constants/Colors";
+import AboutScreen, {
+  screenOptions as aboutScreenOptions,
+} from "../screens/AboutScreen";
 
 const defaultNavigationOptions = {
+  headerShown: false,
   headerStyle: {
     backgroundColor: Platform.OS === "android" ? Colors.primary : "",
   },
@@ -40,111 +44,113 @@ const defaultDrawerScreenOptions = {
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
 };
 
-const DayDrawerNavigator = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
-const DayDrawer = () => {
+const TabNavigator = () => {
   return (
-    <DayDrawerNavigator.Navigator screenOptions={defaultDrawerScreenOptions}>
-      <DayDrawerNavigator.Screen
-        name="Schedule"
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: Colors.lightGrey,
+        tabBarStyle: { backgroundColor: Colors.primary },
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name="Day"
         component={ScheduleScreen}
-        options={schedScreenOptions()}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={Platform.OS === "android" ? "md-alarm" : "ios-alarm"}
+              size={23}
+              color={props.color}
+            />
+          ),
+        }}
       />
-      <DayDrawerNavigator.Screen
-        name="Schedule Settings"
-        component={NotificationSettingsScreen}
-        options={notificationSettingsScreenOptions()}
+      <Tab.Screen
+        name="Month"
+        component={MonthPlanScreen}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={Platform.OS === "android" ? "md-calendar" : "ios-calendar"}
+              size={23}
+              color={props.color}
+            />
+          ),
+        }}
       />
-      <DayDrawerNavigator.Screen
-        name="Goals"
-        component={GoalsScreen}
-        options={goalsScreenOptions()}
+      <Tab.Screen
+        name="Year"
+        component={YearScreen}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={
+                Platform.OS === "android"
+                  ? "md-hourglass-outline"
+                  : "ios-hourglass-outline"
+              }
+              size={23}
+              color={props.color}
+            />
+          ),
+        }}
       />
-    </DayDrawerNavigator.Navigator>
+      <Tab.Screen
+        name="Life"
+        component={LifeScreen}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={Platform.OS === "android" ? "md-wine" : "ios-wine"}
+              size={23}
+              color={props.color}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
-const Tab = createBottomTabNavigator();
+const DayDrawerNavigator = createDrawerNavigator();
 
 const MainNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: Colors.lightGrey,
-          tabBarStyle: { backgroundColor: Colors.primary },
-          headerShown: false,
-        }}
-      >
-        <Tab.Screen
-          name="Day"
-          component={DayDrawer}
+      <DayDrawerNavigator.Navigator screenOptions={defaultDrawerScreenOptions}>
+        <DayDrawerNavigator.Screen
+          name="Planner"
+          component={TabNavigator}
           options={{
-            tabBarIcon: (props) => (
+            drawerIcon: (props) => (
               <Ionicons
-                name={Platform.OS === "android" ? "md-alarm" : "ios-alarm"}
+                name={Platform.OS === "android" ? "md-list" : "ios-list"}
                 size={23}
                 color={props.color}
               />
             ),
           }}
         />
-        <Tab.Screen
-          name="Month"
-          component={MonthPlanScreen}
-          options={{
-            tabBarIcon: (props) => (
-              <Ionicons
-                name={
-                  Platform.OS === "android" ? "md-calendar" : "ios-calendar"
-                }
-                size={23}
-                color={props.color}
-              />
-            ),
-            headerShown: true,
-            ...monthPlanScreenOptions(),
-            ...defaultNavigationOptions,
-          }}
+        <DayDrawerNavigator.Screen
+          name="Notification Settings"
+          component={NotificationSettingsScreen}
+          options={notificationSettingsScreenOptions()}
         />
-        <Tab.Screen
-          name="Year"
-          component={YearScreen}
-          options={{
-            tabBarIcon: (props) => (
-              <Ionicons
-                name={
-                  Platform.OS === "android"
-                    ? "md-hourglass-outline"
-                    : "ios-hourglass-outline"
-                }
-                size={23}
-                color={props.color}
-              />
-            ),
-            headerShown: true,
-            ...YearScreenOptions(),
-            ...defaultNavigationOptions,
-          }}
+        <DayDrawerNavigator.Screen
+          name="Goals"
+          component={GoalsScreen}
+          options={goalsScreenOptions()}
         />
-        <Tab.Screen
-          name="Life"
-          component={LifeScreen}
-          options={{
-            tabBarIcon: (props) => (
-              <Ionicons
-                name={Platform.OS === "android" ? "md-wine" : "ios-wine"}
-                size={23}
-                color={props.color}
-              />
-            ),
-            headerShown: true,
-            ...LifeScreenOptions(),
-            ...defaultNavigationOptions,
-          }}
+        <DayDrawerNavigator.Screen
+          name="About"
+          component={AboutScreen}
+          options={aboutScreenOptions()}
         />
-      </Tab.Navigator>
+      </DayDrawerNavigator.Navigator>
     </NavigationContainer>
   );
 };
