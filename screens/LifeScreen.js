@@ -15,7 +15,7 @@ const LifeScreen = (props) => {
   }
   const dispatch = useDispatch();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={defaultStyles.topMenu}>
         <Text style={styles.topText}>Don't lose sight of your goals.</Text>
       </View>

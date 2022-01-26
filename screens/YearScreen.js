@@ -16,7 +16,7 @@ const YearScreen = (props) => {
     dispatch(yearActions.changeYear(year));
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={defaultStyles.topMenu}>
         <Picker
           selectedValue={selectedYear}

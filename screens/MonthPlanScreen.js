@@ -20,7 +20,7 @@ const MonthPlanScreen = (props) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={defaultStyles.topMenu}>
         <Picker
           selectedValue={selectedMonth}

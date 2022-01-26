@@ -67,7 +67,14 @@ const NotificationSettingsScreen = (props) => {
   };
 
   return (
-    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+      }}
+    >
       <View style={styles.btnContainer}>
         <Button
           title="Refresh scheduled notifications"

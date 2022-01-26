@@ -130,7 +130,7 @@ export const screenOptions = (navData) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#E5E5E5",
+    backgroundColor: "#FFFFFF",
   },
   form: {
     padding: 5,
