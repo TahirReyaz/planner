@@ -1,5 +1,12 @@
 import React, { useReducer, useCallback } from "react";
-import { View, StyleSheet, Text, Button, Platform, Alert } from "react-native";
+import {
+  View,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Button,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 import Colors from "../../constants/Colors";
@@ -58,9 +65,13 @@ const NewGoalForm = (props) => {
   );
 
   const textChangeHandler = (input, value, validity) => {
+    let validatedValue = value;
+    if (input === "total" || input === "completed") {
+      validatedValue = value.replace(/[^0-9]/g, "");
+    }
     dispatchFormState({
       type: FORM_UPDATE,
-      value,
+      value: validatedValue,
       isValid: validity,
       input,
     });
@@ -85,8 +96,8 @@ const NewGoalForm = (props) => {
       return;
     }
     onAdd(
-      formState.inputValues.goal,
-      formState.inputValues.objName,
+      formState.inputValues.goal.trim(),
+      formState.inputValues.objName.trim(),
       formState.inputValues.total,
       formState.inputValues.completed,
       formState.inputValues.color
@@ -116,81 +127,87 @@ const NewGoalForm = (props) => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>
-        <View>
-          <InputText
-            inputStyle={defaultStyles.styledInput}
-            label="Goal"
-            keyboardType="default"
-            error="Please enter a valid task!"
-            onInputChange={textChangeHandler.bind(this, "goal")}
-            value={formState.inputValues.goal}
-            initiallyValid={true}
-            required
-          />
+    <ScrollView style={styles.container}>
+      <KeyboardAvoidingView>
+        <View style={styles.row}>
+          <View>
+            <InputText
+              inputStyle={defaultStyles.styledInput}
+              label="Goal"
+              keyboardType="default"
+              error="Please enter a valid task!"
+              onInputChange={textChangeHandler.bind(this, "goal")}
+              value={formState.inputValues.goal}
+              initiallyValid={true}
+              required
+            />
+          </View>
+          <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
+            <Button
+              title="ADD"
+              color={Colors.primary}
+              onPress={submitHandler}
+            />
+          </View>
         </View>
-        <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
-          <Button title="ADD" color={Colors.primary} onPress={submitHandler} />
-        </View>
-      </View>
-      <View style={styles.row}>
-        <View>
-          <InputText
-            inputStyle={defaultStyles.styledInput}
-            label="Task name"
-            keyboardType="default"
-            error="Please enter a valid task!"
-            onInputChange={textChangeHandler.bind(this, "objName")}
-            value={formState.inputValues.objName}
-            initiallyValid={true}
-            required
-          />
-        </View>
+        <View style={styles.row}>
+          <View>
+            <InputText
+              inputStyle={defaultStyles.styledInput}
+              label="Task name"
+              keyboardType="default"
+              error="Please enter a valid task!"
+              onInputChange={textChangeHandler.bind(this, "objName")}
+              value={formState.inputValues.objName}
+              initiallyValid={true}
+              required
+            />
+          </View>
 
-        <View
-          style={{
-            ...defaultStyles.styledInput,
-            paddingHorizontal: 0,
-            paddingVertical: 0,
-            marginVertical: 0,
-            height: 40,
-            width: 100,
-            marginTop: 5,
-          }}
-        >
-          {colorPicker}
+          <View
+            style={{
+              ...defaultStyles.styledInput,
+              paddingHorizontal: 0,
+              paddingVertical: 0,
+              marginVertical: 0,
+              height: 40,
+              width: 100,
+              marginTop: 5,
+            }}
+          >
+            {colorPicker}
+          </View>
         </View>
-      </View>
-      <View style={styles.row}>
-        <View>
-          <InputText
-            inputStyle={defaultStyles.styledInput}
-            label={`Total ${formState.inputValues.objName}`}
-            keyboardType="number-pad"
-            min={1}
-            error="Please enter a valid task!"
-            onInputChange={textChangeHandler.bind(this, "total")}
-            value={formState.inputValues.total}
-            initiallyValid={true}
-            required
-          />
+        <View style={styles.row}>
+          <View>
+            <InputText
+              inputStyle={defaultStyles.styledInput}
+              label={`Total ${formState.inputValues.objName}`}
+              keyboardType="number-pad"
+              min={1}
+              error="Please enter a valid task!"
+              onInputChange={textChangeHandler.bind(this, "total")}
+              value={formState.inputValues.total}
+              initiallyValid={true}
+              required
+            />
+          </View>
+          <View>
+            <InputText
+              inputStyle={defaultStyles.styledInput}
+              label={`Completed ${formState.inputValues.objName}`}
+              keyboardType="number-pad"
+              min={1}
+              error="Please enter a valid task!"
+              onInputChange={textChangeHandler.bind(this, "completed")}
+              value={formState.inputValues.completed}
+              initiallyValid={true}
+              required
+            />
+          </View>
         </View>
-        <View>
-          <InputText
-            inputStyle={defaultStyles.styledInput}
-            label={`Completed ${formState.inputValues.objName}`}
-            keyboardType="number-pad"
-            min={1}
-            error="Please enter a valid task!"
-            onInputChange={textChangeHandler.bind(this, "completed")}
-            value={formState.inputValues.completed}
-            initiallyValid={true}
-            required
-          />
-        </View>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 

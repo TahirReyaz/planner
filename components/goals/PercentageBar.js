@@ -7,7 +7,7 @@ const PercentageBar = (props) => {
     container: {
       margin: 5,
       height: 50,
-      backgroundColor: Colors.lightGrey,
+      backgroundColor: Colors.lighterGrey,
       borderRadius: 10,
       overflow: "hidden",
     },
