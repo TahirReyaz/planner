@@ -19,7 +19,7 @@ const FORM_RESET = "FORM_RESET";
 const initialFormState = {
   inputValues: {
     goal: "New Goal",
-    objName: "Chapters",
+    objName: "Chapter",
     total: "1",
     completed: "1",
     color: Colors.neonGreen,
@@ -182,7 +182,7 @@ const NewGoalForm = (props) => {
           <View>
             <InputText
               inputStyle={defaultStyles.styledInput}
-              label={`Total ${formState.inputValues.objName}`}
+              label={`Total ${formState.inputValues.objName}s`}
               keyboardType="number-pad"
               min={1}
               error="Please enter a valid task!"
@@ -195,7 +195,7 @@ const NewGoalForm = (props) => {
           <View>
             <InputText
               inputStyle={defaultStyles.styledInput}
-              label={`Completed ${formState.inputValues.objName}`}
+              label={`Completed ${formState.inputValues.objName}s`}
               keyboardType="number-pad"
               min={1}
               error="Please enter a valid task!"

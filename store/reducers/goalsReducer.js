@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
       } else if (action.valueType === "completed") {
         if (
           action.change === "inc" &&
-          selectedGoal.total > selectedGoal.completed + selectedGoal.step
+          selectedGoal.total >= selectedGoal.completed + selectedGoal.step
         ) {
           selectedGoal.completed += selectedGoal.step;
         } else if (

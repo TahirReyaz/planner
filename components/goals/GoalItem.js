@@ -34,50 +34,59 @@ const GoalItem = (props) => {
       {showDetails && (
         <View>
           <View style={styles.controlRow}>
-            <Ionicons
-              name={"md-remove-circle"}
-              size={25}
-              color="grey"
-              onPress={props.onDecCompleted}
-            />
-            <Text>{props.data.completed}</Text>
-            <Ionicons
-              name={"md-add-circle"}
-              size={25}
-              color="grey"
-              onPress={props.onIncCompleted}
-            />
-            <Text>{props.data.objName} out of</Text>
-            <Ionicons
-              name={"md-remove-circle"}
-              size={25}
-              color="grey"
-              onPress={props.onDecTotal}
-            />
-            <Text>{props.data.total}</Text>
-            <Ionicons
-              name={"md-add-circle"}
-              size={25}
-              color="grey"
-              onPress={props.onIncTotal}
-            />
+            <View style={styles.incDec}>
+              <Ionicons
+                name={"md-remove-circle"}
+                size={25}
+                color="grey"
+                onPress={props.onDecCompleted}
+              />
+              <Text>{props.data.completed}</Text>
+              <Ionicons
+                name={"md-add-circle"}
+                size={25}
+                color="grey"
+                onPress={props.onIncCompleted}
+              />
+            </View>
+            <Text>
+              {props.data.objName}
+              {props.data.completed === 1 ? "" : "s"} out of
+            </Text>
+            <View style={styles.incDec}>
+              <Ionicons
+                name={"md-remove-circle"}
+                size={25}
+                color="grey"
+                onPress={props.onDecTotal}
+              />
+              <Text>{props.data.total}</Text>
+              <Ionicons
+                name={"md-add-circle"}
+                size={25}
+                color="grey"
+                onPress={props.onIncTotal}
+              />
+            </View>
           </View>
           <View style={{ ...styles.controlRow, justifyContent: "center" }}>
-            <Ionicons
-              name={"md-remove-circle"}
-              size={25}
-              color="grey"
-              onPress={props.onDecStep}
-            />
-            <Text style={{ marginHorizontal: 10 }}>
-              {props.data.step} {props.data.step === 1 ? "step" : "steps"}
-            </Text>
-            <Ionicons
-              name={"md-add-circle"}
-              size={25}
-              color="grey"
-              onPress={props.onIncStep}
-            />
+            <Text>Change by </Text>
+            <View style={styles.incDec}>
+              <Ionicons
+                name={"md-remove-circle"}
+                size={25}
+                color="grey"
+                onPress={props.onDecStep}
+              />
+              <Text style={{ marginHorizontal: 10 }}>{props.data.step}</Text>
+              <Ionicons
+                name={"md-add-circle"}
+                size={25}
+                color="grey"
+                onPress={props.onIncStep}
+              />
+            </View>
+            <Text> {props.data.step === 1 ? "step" : "steps"}</Text>
           </View>
         </View>
       )}
@@ -99,6 +108,17 @@ const styles = StyleSheet.create({
   title: { fontSize: 20 },
   buttonContainer: {
     flexDirection: "row",
+  },
+  incDec: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: 100,
+    borderColor: Colors.primary,
+    borderRadius: 5,
+    borderWidth: 2,
+    marginHorizontal: 2,
+    paddingHorizontal: 5,
   },
   controlRow: {
     flexDirection: "row",
