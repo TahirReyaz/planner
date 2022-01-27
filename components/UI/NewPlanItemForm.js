@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import InputText from "./InputText";
@@ -7,7 +7,7 @@ import Colors from "../../constants/Colors";
 
 const NewPlanItemForm = (props) => {
   const [task, setTask] = useState("New Task");
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(true);
 
   const textChangeHandler = (value, validity) => {
     setTask(value);
@@ -26,25 +26,22 @@ const NewPlanItemForm = (props) => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <InputText
-          inputStyle={styles.input}
-          keyboardType="default"
-          error="Enter a valid task!"
-          onInputChange={textChangeHandler}
-          value={task}
-          initiallyValid={true}
-          required
-        />
-      </View>
-      <View>
-        <Ionicons
-          name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
-          size={28}
-          color="black"
-          onPress={submitHandler}
-        />
-      </View>
+      <InputText
+        inputStyle={styles.input}
+        containerStyle={styles.inputContainer}
+        keyboardType="default"
+        error="Enter a valid task!"
+        onInputChange={textChangeHandler}
+        value={task}
+        initiallyValid={true}
+        required
+      />
+      <Ionicons
+        name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
+        size={28}
+        color="black"
+        onPress={submitHandler}
+      />
     </View>
   );
 };
@@ -60,8 +57,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
   },
-  input: {
+  inputContainer: {
     flex: 1,
+  },
+  input: {
+    width: "90%",
     paddingHorizontal: 5,
   },
 });

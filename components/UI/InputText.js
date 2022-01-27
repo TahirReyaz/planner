@@ -25,7 +25,7 @@ const InputText = (props) => {
   };
 
   return (
-    <View style={styles.formControl}>
+    <View style={{ ...styles.formControl, ...props.containerStyle }}>
       {props.label && <Text style={styles.label}>{props.label}</Text>}
       <TextInput
         style={props.inputStyle}

@@ -171,7 +171,7 @@ const NewGoalForm = (props) => {
               paddingVertical: 0,
               marginVertical: 0,
               height: 40,
-              width: 120,
+              width: 150,
               marginTop: 5,
             }}
           >
