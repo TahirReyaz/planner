@@ -108,7 +108,6 @@ const ScheduleScreen = (props) => {
             color={itemData.item.color}
             onDel={() => {
               dispatch(dayActions.delActivity(itemData.item.id));
-              scheduleCreator();
             }}
           />
         )}
