@@ -26,6 +26,7 @@ const LifeScreen = (props) => {
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={plans}
+          removeClippedSubviews={false}
           keyExtractor={(item, index) => `lifeYear${index}`}
           renderItem={(itemData) => (
             <PlanContainer

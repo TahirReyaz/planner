@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
+import { View, SafeAreaView, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -45,6 +45,7 @@ const MonthPlanScreen = (props) => {
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={plans}
+          removeClippedSubviews={false}
           keyExtractor={(item, index) => `monthDay${index}${selectedMonth}`}
           renderItem={(itemData) => (
             <PlanContainer
