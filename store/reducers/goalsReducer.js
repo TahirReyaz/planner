@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
         ) {
           selectedGoal.completed += selectedGoal.step;
         } else if (
-          selectedGoal.completed - selectedGoal.step > 0 &&
+          selectedGoal.completed - selectedGoal.step >= 0 &&
           action.change === "dec"
         ) {
           selectedGoal.completed -= selectedGoal.step;
