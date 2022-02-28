@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     marginHorizontal: 5,
+    fontFamily: "montserrat",
   },
 });
 
