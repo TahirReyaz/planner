@@ -86,7 +86,11 @@ const GoalItem = (props) => {
                 onPress={props.onIncStep}
               />
             </View>
-            <Text> {props.data.step === 1 ? "step" : "steps"}</Text>
+            <Text>
+              {" "}
+              {props.data.objName}
+              {props.data.step === 1 ? "" : "s"}
+            </Text>
           </View>
         </View>
       )}
