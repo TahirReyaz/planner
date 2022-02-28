@@ -28,6 +28,7 @@ import Colors from "../constants/Colors";
 import AboutScreen, {
   screenOptions as aboutScreenOptions,
 } from "../screens/AboutScreen";
+import PlannedGoalsScreen from "../screens/day/PlannedGoalsScreen";
 
 const defaultNavigationOptions = {
   headerShown: false,
@@ -120,6 +121,52 @@ const TabNavigator = () => {
   );
 };
 
+const GoalsTab = createBottomTabNavigator();
+
+const GoalsTabNavigator = () => {
+  return (
+    <GoalsTab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: Colors.lightGrey,
+        tabBarStyle: { backgroundColor: Colors.primary },
+        headerShown: false,
+      }}
+    >
+      <GoalsTab.Screen
+        name="Progressive Goals"
+        component={GoalsScreen}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={
+                Platform.OS === "android"
+                  ? "md-checkmark-done-circle"
+                  : "ios-checkmark-done-circle"
+              }
+              size={23}
+              color={props.color}
+            />
+          ),
+        }}
+      />
+      <GoalsTab.Screen
+        name="Planned Goals"
+        component={PlannedGoalsScreen}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name={Platform.OS === "android" ? "md-list" : "ios-list"}
+              size={23}
+              color={props.color}
+            />
+          ),
+        }}
+      />
+    </GoalsTab.Navigator>
+  );
+};
+
 const DayDrawerNavigator = createDrawerNavigator();
 
 const MainNavigator = () => {
@@ -147,8 +194,21 @@ const MainNavigator = () => {
         />
         <DayDrawerNavigator.Screen
           name="Goals"
-          component={GoalsScreen}
-          options={goalsScreenOptions()}
+          component={GoalsTabNavigator}
+          options={{
+            headerTitle: "GOALS",
+            drawerIcon: (props) => (
+              <Ionicons
+                name={
+                  Platform.OS === "android"
+                    ? "md-checkmark-circle"
+                    : "ios-checkmark-circle"
+                }
+                size={23}
+                color={props.color}
+              />
+            ),
+          }}
         />
         <DayDrawerNavigator.Screen
           name="About"

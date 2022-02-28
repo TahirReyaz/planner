@@ -8,23 +8,32 @@ import {
   FlatList,
   Platform,
 } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 
-import GoalItem from "../../components/goals/GoalItem";
-import NewGoalForm from "../../components/goals/NewGoalForm";
-import * as goalActions from "../../store/actions/goalsActions";
+// import GoalItem from "../../components/goals/GoalItem";
+// import NewGoalForm from "../../components/goals/NewGoalForm";
+// import * as goalActions from "../../store/actions/goalsActions";
 import defaultStyles from "../../constants/default-styles";
 import Colors from "../../constants/Colors";
 
-const GoalsScreen = (props) => {
-  const [showForm, setShowForm] = useState(false);
-  const goals = useSelector((state) => state.goals.goals);
-  const dispatch = useDispatch();
+const PlannedGoalsScreen = (props) => {
+  // const [showForm, setShowForm] = useState(false);
+  // const goals = useSelector((state) => state.goals.goals);
+  // const dispatch = useDispatch();
+
+  const goals = false;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-      <View style={defaultStyles.topMenu}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {/* <View style={defaultStyles.topMenu}>
         <View></View>
         <View>
           <Button
@@ -33,8 +42,8 @@ const GoalsScreen = (props) => {
             onPress={() => setShowForm((prevState) => !prevState)}
           />
         </View>
-      </View>
-      {showForm && (
+      </View> */}
+      {/* {showForm && (
         <NewGoalForm
           onAdd={(goal, objName, total, completed, color) =>
             dispatch(
@@ -42,7 +51,7 @@ const GoalsScreen = (props) => {
             )
           }
         />
-      )}
+      )} */}
 
       {goals && goals.length > 0 ? (
         <FlatList
@@ -96,8 +105,8 @@ const GoalsScreen = (props) => {
       ) : (
         <View style={styles.fallback}>
           <Text style={styles.fallbackText}>
-            No goals added.
-            <Text style={{ color: Colors.primary }}> Add some!!</Text>
+            Coming
+            <Text style={{ color: Colors.primary }}> soon...</Text>
           </Text>
         </View>
       )}
@@ -107,7 +116,7 @@ const GoalsScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "GOALS",
+    headerTitle: "PLANNED GOALS",
   };
 };
 
@@ -123,4 +132,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GoalsScreen;
+export default PlannedGoalsScreen;
