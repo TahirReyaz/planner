@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   titleNbuttons: { flexDirection: "row", justifyContent: "space-between" },
-  title: { fontSize: 20 },
+  title: { fontSize: 20, fontFamily: "montserrat" },
   buttonContainer: {
     flexDirection: "row",
   },

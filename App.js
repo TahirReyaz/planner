@@ -13,6 +13,7 @@ import monthReducer from "./store/reducers/monthReducer";
 import yearReducer from "./store/reducers/yearReducer";
 import lifeReducer from "./store/reducers/lifeReducer";
 import goalsReducer from "./store/reducers/goalsReducer";
+import plannedGoalsReducer from "./store/reducers/plannedGoalsReducer";
 import notificationsReducer from "./store/reducers/notificationsReducer";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   yearPlan: yearReducer,
   lifePlan: lifeReducer,
   goals: goalsReducer,
+  plannedGoals: plannedGoalsReducer,
   notifications: notificationsReducer,
 });
 

@@ -8,21 +8,19 @@ import {
   FlatList,
   Platform,
 } from "react-native";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 
-// import GoalItem from "../../components/goals/GoalItem";
+import PlannedGoalContainer from "../../components/goals/PlannedGoalContainer";
 import NewPlannedGoalForm from "../../components/goals/NewPlannedGoalForm";
-// import * as goalActions from "../../store/actions/goalsActions";
+import * as plannedGoalsActions from "../../store/actions/plannedGoalsActions";
 import defaultStyles from "../../constants/default-styles";
 import Colors from "../../constants/Colors";
 
 const PlannedGoalsScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
-  // const goals = useSelector((state) => state.goals.goals);
-  // const dispatch = useDispatch();
-
-  const goals = false;
+  const goals = useSelector((state) => state.plannedGoals.goals);
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView
@@ -43,13 +41,8 @@ const PlannedGoalsScreen = (props) => {
       </View>
       {showForm && (
         <NewPlannedGoalForm
-          onAdd={
-            (goal, color) => {
-              console.log(goal, color);
-            }
-            // dispatch(
-            //   goalActions.addGoal(goal, color)
-            // )
+          onAdd={(goal, color) =>
+            dispatch(plannedGoalsActions.addGoal(goal, color))
           }
         />
       )}
@@ -57,29 +50,23 @@ const PlannedGoalsScreen = (props) => {
       {goals && goals.length > 0 ? (
         <FlatList
           data={goals}
+          keyExtractor={(item, index) => `plannedGoal${index}`}
           renderItem={(itemData) => (
-            <GoalItem
-              data={itemData.item}
-              key={itemData.item.id}
-              onDel={() => dispatch(goalActions.delGoal(itemData.item.id))}
-              onDelTask={() =>
-                dispatch(
-                  goalActions.updateProgress(itemData.item.id, "total", "dec")
-                )
+            <PlannedGoalContainer
+              tasks={itemData.item.tasks}
+              title={itemData.item.title}
+              color={itemData.item.color}
+              onDel={() =>
+                dispatch(plannedGoalsActions.delGoal(itemData.index))
               }
-              onAddTask={() =>
-                dispatch(
-                  goalActions.updateProgress(itemData.item.id, "total", "inc")
-                )
+              onCheckTask={(id, index) =>
+                dispatch(plannedGoalsActions.checkTask(id, index))
               }
-              onCheckTask={() =>
-                dispatch(
-                  goalActions.updateProgress(
-                    itemData.item.id,
-                    "completed",
-                    "dec"
-                  )
-                )
+              onDelTask={(id, index) =>
+                dispatch(plannedGoalsActions.delTask(id, index))
+              }
+              onAddTask={(task) =>
+                dispatch(plannedGoalsActions.addTask(itemData.index, task))
               }
             />
           )}
