@@ -59,7 +59,7 @@ const NotificationSettingsScreen = () => {
       ) : (
         <View style={styles.fallback}>
           <Text style={styles.fallbackText}>
-            Schedule not set yet. Add multiple
+            Schedule not set yet. Add some
             <Text style={{ color: Colors.primary }}> tasks</Text>
           </Text>
         </View>

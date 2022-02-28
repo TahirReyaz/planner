@@ -33,19 +33,39 @@ const ScheduleScreen = (props) => {
 
   useEffect(() => {
     if (activities) {
-      let newNotifications = [];
-      for (let i = 0; i < activities.length - 1; i++) {
+      let newNotifications = [],
+        newNotification;
+
+      if (activities.length === 1) {
         const id =
           Date.now().toString(36) + Math.random().toString(36).substr(2);
-        const newNotification = new NotificationItem(
+        newNotification = new NotificationItem(
           id,
-          activities[i].activity,
-          activities[i].time,
-          activities[i + 1].activity,
-          activities[i + 1].time
+          activities[0].activity,
+          activities[0].time,
+          "No more tasks",
+          activities[0].time
         );
         newNotifications.push(newNotification);
+      } else {
+        for (let i = 0; i < activities.length; i++) {
+          const id =
+            Date.now().toString(36) + Math.random().toString(36).substr(2);
+          newNotification = new NotificationItem(
+            id,
+            activities[i].activity,
+            activities[i].time,
+            i < activities.length - 1
+              ? activities[i + 1].activity
+              : activities[0].activity,
+            i < activities.length - 1
+              ? activities[i + 1].time
+              : activities[0].time
+          );
+          newNotifications.push(newNotification);
+        }
       }
+
       dispatch(
         notificationActions.setNotifications(selectedDay, newNotifications)
       );
