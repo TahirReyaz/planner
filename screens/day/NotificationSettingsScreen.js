@@ -127,30 +127,34 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 const scheduleNotificationsHandler = async (notifications, expoPushToken) => {
-  let trigger;
-  notifications.forEach(async (notification) => {
-    trigger = new Date(Date.now());
-    const triggerTime = new Date(notification.currentTime);
-    trigger.setHours(triggerTime.getHours());
-    trigger.setMinutes(triggerTime.getMinutes());
-    trigger.setSeconds(0);
+  let trigger, i;
+  // Set notifications for a week
+  for (i = 0; i < 7; i++) {
+    notifications.forEach(async (notification) => {
+      trigger = new Date(Date.now());
+      const triggerTime = new Date(notification.currentTime);
+      trigger.setDate(trigger.getDate() + i);
+      trigger.setHours(triggerTime.getHours());
+      trigger.setMinutes(triggerTime.getMinutes());
+      trigger.setSeconds(0);
 
-    console.log(trigger.toLocaleTimeString());
+      console.log(trigger.toLocaleString());
 
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title:
-          moment(notification.currentTime).format("h:mm A") +
-          ": " +
-          notification.currentTitle,
-        body:
-          moment(notification.nextTime).format("h:mm A") +
-          ": " +
-          notification.nextTitle,
-      },
-      trigger,
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title:
+            moment(notification.currentTime).format("h:mm A") +
+            ": " +
+            notification.currentTitle,
+          body:
+            moment(notification.nextTime).format("h:mm A") +
+            ": " +
+            notification.nextTitle,
+        },
+        trigger,
+      });
     });
-  });
+  }
 };
 
 export default NotificationSettingsScreen;
