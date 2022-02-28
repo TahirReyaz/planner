@@ -11,7 +11,7 @@ import PercentageBar from "./PercentageBar";
 const PlannedGoalContainer = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const showDetailsIcon =
-    props.plans && props.plans.length > 0 ? "md-caret-down" : "md-add-circle";
+    props.tasks && props.tasks.length > 0 ? "md-caret-down" : "md-add-circle";
 
   return (
     <View style={{ ...defaultStyles.styledContainer, margin: 5 }}>
@@ -44,27 +44,29 @@ const PlannedGoalContainer = (props) => {
       </View>
       {showDetails && (
         <View style={styles.itemContainer}>
-          {props.plans &&
-            props.plans.map((plan) => (
+          {props.tasks &&
+            props.tasks.map((task) => (
               <PlanItem
-                title={plan.task}
-                id={plan.id}
-                key={`${props.time}${plan.id}`}
-                checked={plan.checked}
+                title={task.task}
+                id={task.id}
+                key={task.id}
+                checked={task.checked}
                 max={17}
-                onCheck={() => props.onCheckTask(plan.id, props.id)}
-                onDel={() => props.onDelTask(plan.id, props.id)}
+                onCheck={() => props.onCheckTask(task.id)}
+                onDel={() => props.onDelTask(task.id)}
               />
             ))}
           <NewPlanItemForm onAdd={(task) => props.onAddTask(task)} />
         </View>
       )}
-      <PercentageBar
-        color={props.color}
-        percentage={((props.tasks.length * 100) / props.tasks.length).toFixed(
-          1
-        )}
-      />
+      {props.tasks.length !== 0 && (
+        <PercentageBar
+          color={props.color}
+          percentage={((props.tasks.length * 100) / props.tasks.length).toFixed(
+            1
+          )}
+        />
+      )}
     </View>
   );
 };
@@ -73,9 +75,6 @@ const styles = StyleSheet.create({
   summaryContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-  },
-  timeContainer: {
     alignItems: "center",
   },
   title: {

@@ -12,12 +12,11 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  const newMonthPlan = [...state.goals];
-  let newGoal;
+  const newGoals = [...state.goals];
 
   switch (action.type) {
     case ADD_GOAL:
-      newGoal = {
+      const newGoal = {
         title: action.goal,
         tasks: [],
       };
@@ -26,35 +25,35 @@ export default (state = initialState, action) => {
         goals: state.goals ? state.goals.concat(newGoal) : [{ ...newGoal }],
       };
     case DEL_GOAL:
-      newMonthPlan[action.index] = [];
+      newGoals.pop((goal) => goal.index === action.index);
       return {
         ...state,
-        [state.selectedMonth]: newMonthPlan,
+        goals: newGoals,
       };
     case CHECK_TASK:
-      const itemIndex = newMonthPlan[action.index].findIndex(
-        (plan) => plan.id === action.id
+      const itemIndex = newGoals[action.index].tasks.findIndex(
+        (task) => task.id === action.id
       );
-      newMonthPlan[action.index][itemIndex].checked =
-        !newMonthPlan[action.index][itemIndex].checked;
+      newGoals[action.index].tasks[itemIndex].checked =
+        !newGoals[action.index].tasks[itemIndex].checked;
       return {
         ...state,
-        [state.selectedMonth]: newMonthPlan,
+        goals: newGoals,
       };
     case DEL_TASK:
-      newMonthPlan[action.index] = newMonthPlan[action.index].filter(
-        (plan) => plan.id !== action.id
+      newGoals[action.index].tasks = newGoals[action.index].tasks.filter(
+        (task) => task.id !== action.id
       );
       return {
         ...state,
-        [state.selectedMonth]: newMonthPlan,
+        goals: newGoals,
       };
     case ADD_TASK:
       const newPlanItem = new PlanItem(action.id, action.task, false);
-      newMonthPlan[action.index].push(newPlanItem);
+      newGoals[action.index].tasks.push(newPlanItem);
       return {
         ...state,
-        [state.selectedMonth]: newMonthPlan,
+        goals: newGoals,
       };
     default:
       return state;

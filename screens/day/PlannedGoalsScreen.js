@@ -59,11 +59,11 @@ const PlannedGoalsScreen = (props) => {
               onDel={() =>
                 dispatch(plannedGoalsActions.delGoal(itemData.index))
               }
-              onCheckTask={(id, index) =>
-                dispatch(plannedGoalsActions.checkTask(id, index))
+              onCheckTask={(id) =>
+                dispatch(plannedGoalsActions.checkTask(id, itemData.index))
               }
-              onDelTask={(id, index) =>
-                dispatch(plannedGoalsActions.delTask(id, index))
+              onDelTask={(id) =>
+                dispatch(plannedGoalsActions.delTask(id, itemData.index))
               }
               onAddTask={(task) =>
                 dispatch(plannedGoalsActions.addTask(itemData.index, task))
