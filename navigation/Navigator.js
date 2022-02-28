@@ -30,16 +30,14 @@ import AboutScreen, {
 } from "../screens/AboutScreen";
 import PlannedGoalsScreen from "../screens/day/PlannedGoalsScreen";
 
-const defaultNavigationOptions = {
-  headerShown: false,
-  headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.primary : "",
-  },
-  headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
-};
-
 const defaultDrawerScreenOptions = {
-  drawerActiveTintColor: Colors.secondary,
+  drawerType: "slide",
+  drawerActiveTintColor: "white",
+  drawerActiveBackgroundColor: Colors.primary,
+  drawerLabelStyle: {
+    fontSize: 16,
+    fontFamily: "montserrat",
+  },
   headerStyle: {
     backgroundColor: Platform.OS === "android" ? Colors.primary : "",
   },
@@ -49,19 +47,24 @@ const defaultDrawerScreenOptions = {
   },
 };
 
-const Tab = createBottomTabNavigator();
+const defaultTabScreenOptions = {
+  tabBarActiveTintColor: Colors.primary,
+  tabBarInactiveTintColor: Colors.lightGrey,
+  tabBarItemStyle: { margin: 4, borderRadius: 5 },
+  tabBarStyle: { backgroundColor: Colors.primary },
+  tabBarLabelStyle: { fontSize: 16, fontFamily: "montserrat" },
+  tabBarLabelPosition: "beside-icon",
+  tabBarActiveBackgroundColor: "white",
+  headerShown: false,
+  tabBarHideOnKeyboard: true,
+};
 
-const TabNavigator = () => {
+const PlannerTab = createBottomTabNavigator();
+
+const PlannerNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: Colors.lightGrey,
-        tabBarStyle: { backgroundColor: Colors.primary },
-        headerShown: false,
-      }}
-    >
-      <Tab.Screen
+    <PlannerTab.Navigator screenOptions={defaultTabScreenOptions}>
+      <PlannerTab.Screen
         name="Day"
         component={ScheduleScreen}
         options={{
@@ -74,7 +77,7 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      <PlannerTab.Screen
         name="Month"
         component={MonthPlanScreen}
         options={{
@@ -87,7 +90,7 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      <PlannerTab.Screen
         name="Year"
         component={YearScreen}
         options={{
@@ -104,7 +107,7 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      <PlannerTab.Screen
         name="Life"
         component={LifeScreen}
         options={{
@@ -117,7 +120,7 @@ const TabNavigator = () => {
           ),
         }}
       />
-    </Tab.Navigator>
+    </PlannerTab.Navigator>
   );
 };
 
@@ -125,14 +128,7 @@ const GoalsTab = createBottomTabNavigator();
 
 const GoalsTabNavigator = () => {
   return (
-    <GoalsTab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: Colors.lightGrey,
-        tabBarStyle: { backgroundColor: Colors.primary },
-        headerShown: false,
-      }}
-    >
+    <GoalsTab.Navigator screenOptions={defaultTabScreenOptions}>
       <GoalsTab.Screen
         name="Progressive Goals"
         component={GoalsScreen}
@@ -175,7 +171,7 @@ const MainNavigator = () => {
       <DayDrawerNavigator.Navigator screenOptions={defaultDrawerScreenOptions}>
         <DayDrawerNavigator.Screen
           name="Planner"
-          component={TabNavigator}
+          component={PlannerNavigator}
           options={{
             headerTitle: "PLANNER",
             drawerIcon: (props) => (

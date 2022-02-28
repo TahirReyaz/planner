@@ -18,7 +18,8 @@ const features = [
   "Add your schedule and plans for different days, months and years.",
   "Get notified for every new schedule event.",
   "Set goals and update their progress.",
-  "Everything you save is stored on your phone to maintain privacy.",
+  "The data you enter is not sent to any server",
+  "Everything you enter is stored on your phone to maintain privacy.",
 ];
 const aboutApp = [
   "Made with React Native",
@@ -28,7 +29,6 @@ const aboutApp = [
 const upcomingFeatures = [
   "Proper working notifications instead of demo notifications",
   "Huge reduction in App size",
-  "Task based goals",
   "Animations for better user experience",
 ];
 
