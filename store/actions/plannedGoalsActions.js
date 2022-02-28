@@ -4,8 +4,8 @@ export const ADD_TASK = "ADD_TASK";
 export const CHECK_TASK = "CHECK_TASK";
 export const DEL_TASK = "DEL_TASK";
 
-export const addGoal = (goal) => {
-  return { type: ADD_GOAL, goal };
+export const addGoal = (goal, color) => {
+  return { type: ADD_GOAL, goal, color };
 };
 
 export const checkTask = (id, index) => {

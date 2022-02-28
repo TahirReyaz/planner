@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
     case ADD_GOAL:
       const newGoal = {
         title: action.goal,
+        color: action.color,
         tasks: [],
       };
       return {

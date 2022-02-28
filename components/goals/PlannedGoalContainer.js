@@ -13,6 +13,9 @@ const PlannedGoalContainer = (props) => {
   const showDetailsIcon =
     props.tasks && props.tasks.length > 0 ? "md-caret-down" : "md-add-circle";
 
+  let completedTasksLength = 0;
+  props.tasks.forEach((task) => task.checked && completedTasksLength++);
+
   return (
     <View style={{ ...defaultStyles.styledContainer, margin: 5 }}>
       <View style={styles.summaryContainer}>
@@ -62,9 +65,10 @@ const PlannedGoalContainer = (props) => {
       {props.tasks.length !== 0 && (
         <PercentageBar
           color={props.color}
-          percentage={((props.tasks.length * 100) / props.tasks.length).toFixed(
-            1
-          )}
+          percentage={(
+            (completedTasksLength * 100) /
+            props.tasks.length
+          ).toFixed(1)}
         />
       )}
     </View>
