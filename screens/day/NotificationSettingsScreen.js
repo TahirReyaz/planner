@@ -1,64 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Platform, Button, Text } from "react-native";
 import { useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { Ionicons } from "@expo/vector-icons";
-// import * as TaskManager from "expo-task-manager";
 import moment from "moment";
 import Colors from "../../constants/Colors";
 
-// const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
-
-// TaskManager.defineTask(
-//   BACKGROUND_NOTIFICATION_TASK,
-//   ({ data, error, executionInfo }) => {
-//     console.log("Received a notification in the background!");
-//     console.log(data);
-//     console.log(executionInfo);
-//     console.log(error);
-//     // Do something with the notification data
-//   }
-// );
-
 Notifications.setNotificationHandler({
-  handleNotification: async () => {
-    return {
-      shouldShowAlert: true,
-      shouldPlaySound: false,
-    };
-  },
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
 });
 
-const NotificationSettingsScreen = (props) => {
+const NotificationSettingsScreen = () => {
   const notifications = useSelector((state) => state.notifications["Everyday"]);
+  const [expoPushToken, setExpoPushToken] = useState("");
 
-  const scheduleNotificationsHandler = () => {
-    let trigger;
-    notifications.forEach((notification) => {
-      trigger = new Date(Date.now());
-      const triggerTime = new Date(notification.currentTime);
-      trigger.setHours(triggerTime.getHours());
-      trigger.setMinutes(triggerTime.getMinutes());
-      trigger.setSeconds(0);
-
-      console.log(trigger.toLocaleTimeString());
-
-      Notifications.scheduleNotificationAsync({
-        content: {
-          title:
-            moment(notification.currentTime).format("h:mm A") +
-            ": " +
-            notification.currentTitle,
-          body:
-            moment(notification.nextTime).format("h:mm A") +
-            ": " +
-            notification.nextTitle,
-        },
-        trigger,
-      });
-    });
-    // Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
-  };
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
+  }, []);
 
   const cancelNotificationsHandler = async () => {
     const cancellation =
@@ -79,7 +43,9 @@ const NotificationSettingsScreen = (props) => {
         <View style={styles.btnContainer}>
           <Button
             title="Refresh scheduled notifications"
-            onPress={scheduleNotificationsHandler}
+            onPress={() =>
+              scheduleNotificationsHandler(notifications, expoPushToken)
+            }
             color={Colors.primary}
           />
           <View style={{ marginTop: 10 }}>
@@ -130,5 +96,61 @@ const styles = StyleSheet.create({
     fontFamily: "montserrat-bold",
   },
 });
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  // if (Constants.isDevice) {
+  const { status: existingStatus } = await Notifications.getPermissionsAsync();
+  let finalStatus = existingStatus;
+  if (existingStatus !== "granted") {
+    const { status } = await Notifications.requestPermissionsAsync();
+    finalStatus = status;
+  }
+  if (finalStatus !== "granted") {
+    alert("Failed to get push token for push notification!");
+    return;
+  }
+  token = (await Notifications.getExpoPushTokenAsync()).data;
+  console.log(token); // } else {
+  //   alert("Must use physical device for Push Notifications");
+  // }
+
+  if (Platform.OS === "android") {
+    Notifications.setNotificationChannelAsync("everyday", {
+      name: "everyday",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: Colors.primary,
+    });
+  }
+
+  return token;
+}
+const scheduleNotificationsHandler = async (notifications, expoPushToken) => {
+  let trigger;
+  notifications.forEach(async (notification) => {
+    trigger = new Date(Date.now());
+    const triggerTime = new Date(notification.currentTime);
+    trigger.setHours(triggerTime.getHours());
+    trigger.setMinutes(triggerTime.getMinutes());
+    trigger.setSeconds(0);
+
+    console.log(trigger.toLocaleTimeString());
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title:
+          moment(notification.currentTime).format("h:mm A") +
+          ": " +
+          notification.currentTitle,
+        body:
+          moment(notification.nextTime).format("h:mm A") +
+          ": " +
+          notification.nextTitle,
+      },
+      trigger,
+    });
+  });
+};
 
 export default NotificationSettingsScreen;

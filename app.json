@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Planner",
-    "slug": "planner",
+    "name": "Planner Pro",
+    "slug": "planner-pro",
     "version": "1.0.0",
     "orientation": "portrait",
     "plugins": [
@@ -24,13 +24,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.tahirreyaz.rn.planner",
-      "buildNumber": "1.0.6",
+      "bundleIdentifier": "com.tahirreyaz.rn.plannerpro",
+      "buildNumber": "1.0.8",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.tahirreyaz.rn.planner",
-      "versionCode": 6,
+      "package": "com.tahirreyaz.rn.plannerpro",
+      "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
