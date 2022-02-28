@@ -12,13 +12,13 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 // import GoalItem from "../../components/goals/GoalItem";
-// import NewGoalForm from "../../components/goals/NewGoalForm";
+import NewPlannedGoalForm from "../../components/goals/NewPlannedGoalForm";
 // import * as goalActions from "../../store/actions/goalsActions";
 import defaultStyles from "../../constants/default-styles";
 import Colors from "../../constants/Colors";
 
 const PlannedGoalsScreen = (props) => {
-  // const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   // const goals = useSelector((state) => state.goals.goals);
   // const dispatch = useDispatch();
 
@@ -29,11 +29,9 @@ const PlannedGoalsScreen = (props) => {
       style={{
         flex: 1,
         backgroundColor: "#FFFFFF",
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
-      {/* <View style={defaultStyles.topMenu}>
+      <View style={defaultStyles.topMenu}>
         <View></View>
         <View>
           <Button
@@ -42,16 +40,19 @@ const PlannedGoalsScreen = (props) => {
             onPress={() => setShowForm((prevState) => !prevState)}
           />
         </View>
-      </View> */}
-      {/* {showForm && (
-        <NewGoalForm
-          onAdd={(goal, objName, total, completed, color) =>
-            dispatch(
-              goalActions.addGoal(goal, objName, total, completed, color)
-            )
+      </View>
+      {showForm && (
+        <NewPlannedGoalForm
+          onAdd={
+            (goal, color) => {
+              console.log(goal, color);
+            }
+            // dispatch(
+            //   goalActions.addGoal(goal, color)
+            // )
           }
         />
-      )} */}
+      )}
 
       {goals && goals.length > 0 ? (
         <FlatList
@@ -61,17 +62,17 @@ const PlannedGoalsScreen = (props) => {
               data={itemData.item}
               key={itemData.item.id}
               onDel={() => dispatch(goalActions.delGoal(itemData.item.id))}
-              onDecTotal={() =>
+              onDelTask={() =>
                 dispatch(
                   goalActions.updateProgress(itemData.item.id, "total", "dec")
                 )
               }
-              onIncTotal={() =>
+              onAddTask={() =>
                 dispatch(
                   goalActions.updateProgress(itemData.item.id, "total", "inc")
                 )
               }
-              onDecCompleted={() =>
+              onCheckTask={() =>
                 dispatch(
                   goalActions.updateProgress(
                     itemData.item.id,
@@ -80,33 +81,14 @@ const PlannedGoalsScreen = (props) => {
                   )
                 )
               }
-              onIncCompleted={() =>
-                dispatch(
-                  goalActions.updateProgress(
-                    itemData.item.id,
-                    "completed",
-                    "inc"
-                  )
-                )
-              }
-              onDecStep={() =>
-                dispatch(
-                  goalActions.updateProgress(itemData.item.id, "step", "dec")
-                )
-              }
-              onIncStep={() =>
-                dispatch(
-                  goalActions.updateProgress(itemData.item.id, "step", "inc")
-                )
-              }
             />
           )}
         />
       ) : (
         <View style={styles.fallback}>
           <Text style={styles.fallbackText}>
-            Coming
-            <Text style={{ color: Colors.primary }}> soon...</Text>
+            No planned goals yet.
+            <Text style={{ color: Colors.primary }}> Add some!!</Text>
           </Text>
         </View>
       )}
