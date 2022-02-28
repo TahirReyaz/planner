@@ -18,7 +18,7 @@ const NewPlannedGoalForm = (props) => {
   const [validity, setValidity] = useState(true);
   const [color, setColor] = useState(Colors.neonGreen);
 
-  const textChangeHandler = (textValidity, value) => {
+  const textChangeHandler = (value, textValidity) => {
     setValidity(textValidity);
     setGoal(value);
   };
