@@ -27,7 +27,7 @@ const aboutApp = [
   "Storage of plans on device using redux-persist and AsyncStorage",
 ];
 const upcomingFeatures = [
-  "Proper working notifications instead of demo notifications",
+  "Saved Information will persist even when app is uninstalled and installed",
   "Huge reduction in App size",
   "Animations for better user experience",
 ];
