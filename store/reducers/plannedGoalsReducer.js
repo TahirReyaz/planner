@@ -1,10 +1,10 @@
 import PlanItem from "../../models/plan-item";
 import {
-  ADD_GOAL,
-  DEL_GOAL,
-  ADD_TASK,
-  CHECK_TASK,
-  DEL_TASK,
+  ADD_PLANNED_GOAL,
+  DEL_PLANNED_GOAL,
+  ADD_PLANNED_GOAL_TASK,
+  CHECK_PLANNED_GOAL_TASK,
+  DEL_PLANNED_GOAL_TASK,
 } from "../actions/plannedGoalsActions";
 
 const initialState = {
@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
   const newGoals = [...state.goals];
 
   switch (action.type) {
-    case ADD_GOAL:
+    case ADD_PLANNED_GOAL:
       const newGoal = {
         title: action.goal,
         color: action.color,
@@ -25,13 +25,13 @@ export default (state = initialState, action) => {
         ...state,
         goals: state.goals ? state.goals.concat(newGoal) : [{ ...newGoal }],
       };
-    case DEL_GOAL:
+    case DEL_PLANNED_GOAL:
       newGoals.pop((goal) => goal.index === action.index);
       return {
         ...state,
         goals: newGoals,
       };
-    case CHECK_TASK:
+    case CHECK_PLANNED_GOAL_TASK:
       const itemIndex = newGoals[action.index].tasks.findIndex(
         (task) => task.id === action.id
       );
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
         ...state,
         goals: newGoals,
       };
-    case DEL_TASK:
+    case DEL_PLANNED_GOAL_TASK:
       newGoals[action.index].tasks = newGoals[action.index].tasks.filter(
         (task) => task.id !== action.id
       );
@@ -49,7 +49,7 @@ export default (state = initialState, action) => {
         ...state,
         goals: newGoals,
       };
-    case ADD_TASK:
+    case ADD_PLANNED_GOAL_TASK:
       const newPlanItem = new PlanItem(action.id, action.task, false);
       newGoals[action.index].tasks.push(newPlanItem);
       return {

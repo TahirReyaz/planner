@@ -1,5 +1,9 @@
 import GoalItem from "../../models/goalItem";
-import { ADD_GOAL, DEL_GOAL, UPDATE_PROGRESS } from "../actions/goalsActions";
+import {
+  ADD_PROG_GOAL,
+  DEL_PROG_GOAL,
+  UPDATE_PROGRESS,
+} from "../actions/goalsActions";
 
 const initialState = {
   goals: [],
@@ -7,12 +11,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case DEL_GOAL:
+    case DEL_PROG_GOAL:
       const newGoals = state.goals.filter((goal) => goal.id !== action.id);
       return {
         goals: newGoals,
       };
-    case ADD_GOAL:
+    case ADD_PROG_GOAL:
+      console.log("inside progressive reducer");
       const newGoal = new GoalItem(
         action.id,
         action.goal,
