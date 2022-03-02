@@ -52,7 +52,7 @@ const defaultTabScreenOptions = {
   tabBarInactiveTintColor: Colors.lightGrey,
   tabBarItemStyle: { margin: 4, borderRadius: 5 },
   tabBarStyle: { backgroundColor: Colors.primary },
-  tabBarLabelStyle: { fontSize: 16, fontFamily: "montserrat" },
+  tabBarLabelStyle: { fontSize: 15, fontFamily: "montserrat" },
   tabBarLabelPosition: "beside-icon",
   tabBarActiveBackgroundColor: "white",
   headerShown: false,
@@ -84,7 +84,7 @@ const PlannerNavigator = () => {
           tabBarIcon: (props) => (
             <Ionicons
               name={Platform.OS === "android" ? "md-calendar" : "ios-calendar"}
-              size={23}
+              size={20}
               color={props.color}
             />
           ),
