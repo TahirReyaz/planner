@@ -6,10 +6,8 @@ import {
   Text,
   SafeAreaView,
   FlatList,
-  Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { Ionicons } from "@expo/vector-icons";
 
 import GoalItem from "../../components/goals/GoalItem";
 import NewGoalForm from "../../components/goals/NewGoalForm";
