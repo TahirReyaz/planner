@@ -1,16 +1,11 @@
 import React, { useReducer, useCallback } from "react";
-import {
-  View,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Button,
-  Alert,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
 import InputText from "../UI/InputText";
+import MyButton from "../UI/MyButton";
 import defaultStyles from "../../constants/default-styles";
 
 const FORM_UPDATE = "FORM_UPDATE";
@@ -127,87 +122,93 @@ const NewGoalForm = (props) => {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <KeyboardAvoidingView>
-        <View style={styles.row}>
-          <View>
-            <InputText
-              inputStyle={defaultStyles.styledInput}
-              label="Goal"
-              keyboardType="default"
-              error="Please enter a valid task!"
-              onInputChange={textChangeHandler.bind(this, "goal")}
-              value={formState.inputValues.goal}
-              initiallyValid={true}
-              required
-            />
-          </View>
-          <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
-            <Button
-              title="ADD"
-              color={Colors.primary}
-              onPress={submitHandler}
-            />
-          </View>
+    <View style={styles.container}>
+      <View style={styles.row}>
+        <View>
+          <InputText
+            inputStyle={defaultStyles.styledInput}
+            label="Goal"
+            keyboardType="default"
+            error="Please enter a valid goal!"
+            onInputChange={textChangeHandler.bind(this, "goal")}
+            value={formState.inputValues.goal}
+            initiallyValid={true}
+            required
+          />
         </View>
-        <View style={styles.row}>
-          <View>
-            <InputText
-              inputStyle={defaultStyles.styledInput}
-              label="Task name"
-              keyboardType="default"
-              error="Please enter a valid task!"
-              onInputChange={textChangeHandler.bind(this, "objName")}
-              value={formState.inputValues.objName}
-              initiallyValid={true}
-              required
-            />
-          </View>
+        <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
+          <MyButton
+            title="ADD"
+            color={Colors.primary}
+            onPress={submitHandler}
+            icon={
+              <Ionicons
+                name="md-add"
+                size={25}
+                color="white"
+                style={{ marginLeft: 5, marginRight: -5 }}
+              />
+            }
+          />
+        </View>
+      </View>
+      <View style={styles.row}>
+        <View>
+          <InputText
+            inputStyle={defaultStyles.styledInput}
+            label="Task name"
+            keyboardType="default"
+            error="Please enter a valid task name!"
+            onInputChange={textChangeHandler.bind(this, "objName")}
+            value={formState.inputValues.objName}
+            initiallyValid={true}
+            required
+          />
+        </View>
 
-          <View
-            style={{
-              ...defaultStyles.styledInput,
-              paddingHorizontal: 0,
-              paddingVertical: 0,
-              marginVertical: 0,
-              height: 40,
-              width: 150,
-              marginTop: 5,
-            }}
-          >
-            {colorPicker}
-          </View>
+        <View
+          style={{
+            ...defaultStyles.styledInput,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            marginVertical: 0,
+            height: 40,
+            width: 150,
+            marginTop: 5,
+          }}
+        >
+          {colorPicker}
         </View>
-        <View style={styles.row}>
-          <View>
-            <InputText
-              inputStyle={defaultStyles.styledInput}
-              label={`Total ${formState.inputValues.objName}s`}
-              keyboardType="number-pad"
-              min={1}
-              error="Please enter a valid task!"
-              onInputChange={textChangeHandler.bind(this, "total")}
-              value={formState.inputValues.total}
-              initiallyValid={true}
-              required
-            />
-          </View>
-          <View>
-            <InputText
-              inputStyle={defaultStyles.styledInput}
-              label={`Completed ${formState.inputValues.objName}s`}
-              keyboardType="number-pad"
-              min={1}
-              error="Please enter a valid task!"
-              onInputChange={textChangeHandler.bind(this, "completed")}
-              value={formState.inputValues.completed}
-              initiallyValid={true}
-              required
-            />
-          </View>
+      </View>
+      <View style={styles.row}>
+        <View>
+          <InputText
+            inputStyle={defaultStyles.styledInput}
+            label={`Total ${formState.inputValues.objName}s`}
+            keyboardType="number-pad"
+            min={1}
+            error="Must be greater than 0!"
+            onInputChange={textChangeHandler.bind(this, "total")}
+            value={formState.inputValues.total}
+            initiallyValid={true}
+            required
+          />
         </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+        <View>
+          <InputText
+            inputStyle={defaultStyles.styledInput}
+            label={`Completed ${formState.inputValues.objName}s`}
+            keyboardType="number-pad"
+            min={1}
+            error="Must be a positive number!"
+            onInputChange={textChangeHandler.bind(this, "completed")}
+            value={formState.inputValues.completed}
+            initiallyValid={true}
+            required
+          />
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     elevation: 3,
-    flexGrow: 0.6,
+    flexGrow: 0.4,
   },
   row: {
     flexDirection: "row",

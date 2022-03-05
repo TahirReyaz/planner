@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 
 const InputText = (props) => {
   const value = props.value ? props.value : "";
+  const { onInputChange, initiallyValid } = props;
 
-  const validity = props.initiallyValid;
-  const { onInputChange } = props;
+  useEffect(() => {
+    setValidity(initiallyValid);
+    console.log("effect", validity);
+  }, [initiallyValid, setValidity]);
+  const [validity, setValidity] = useState(initiallyValid);
 
   const onTextChange = (text) => {
     let isValid = true;
@@ -21,6 +25,7 @@ const InputText = (props) => {
     if (props.minLength != null && text.length < props.minLength) {
       isValid = false;
     }
+    setValidity(isValid);
     onInputChange(text, validity);
   };
 
@@ -28,11 +33,12 @@ const InputText = (props) => {
     <View style={{ ...styles.formControl, ...props.containerStyle }}>
       {props.label && <Text style={styles.label}>{props.label}</Text>}
       <TextInput
-        style={props.inputStyle}
+        style={[props.inputStyle, { fontFamily: "montserrat" }]}
         {...props}
         value={value}
         onChangeText={onTextChange}
       />
+      {console.log(validity)}
       {!validity && (
         <View style={styles.errorContainer}>
           <Text style={styles.error}>{props.error}</Text>
@@ -48,6 +54,7 @@ const styles = StyleSheet.create({
   },
   label: {
     marginVertical: 0,
+    fontFamily: "montserrat",
   },
   errorContainer: {
     marginVertical: 5,
@@ -55,6 +62,7 @@ const styles = StyleSheet.create({
   error: {
     fontSize: 13,
     color: "red",
+    fontFamily: "montserrat",
   },
 });
 

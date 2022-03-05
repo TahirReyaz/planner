@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Button,
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  FlatList,
-} from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 
 import PlannedGoalContainer from "../../components/goals/PlannedGoalContainer";
@@ -14,6 +8,7 @@ import NewPlannedGoalForm from "../../components/goals/NewPlannedGoalForm";
 import * as plannedGoalsActions from "../../store/actions/plannedGoalsActions";
 import defaultStyles from "../../constants/default-styles";
 import Colors from "../../constants/Colors";
+import MyButton from "../../components/UI/MyButton";
 
 const PlannedGoalsScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
@@ -30,10 +25,18 @@ const PlannedGoalsScreen = (props) => {
       <View style={defaultStyles.topMenu}>
         <View></View>
         <View>
-          <Button
-            title={!showForm ? "Add Goal" : "Close Form"}
+          <MyButton
+            title={!showForm ? "ADD GOAL" : "CLOSE FORM"}
             color={Colors.primary}
             onPress={() => setShowForm((prevState) => !prevState)}
+            icon={
+              <Ionicons
+                name={showForm ? "md-chevron-up" : "md-chevron-down"}
+                size={25}
+                color="white"
+                style={{ marginLeft: 5, marginRight: -5 }}
+              />
+            }
           />
         </View>
       </View>

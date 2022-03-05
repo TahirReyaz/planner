@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   Text,
-  Button,
   Platform,
   TouchableOpacity,
   Alert,
@@ -11,10 +10,12 @@ import {
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
+import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
 import InputText from "../UI/InputText";
 import defaultStyles from "../../constants/default-styles";
+import MyButton from "../UI/MyButton";
 
 const FORM_UPDATE = "FORM_UPDATE";
 const FORM_RESET = "FORM_RESET";
@@ -167,7 +168,13 @@ const NewActivityForm = (props) => {
           }}
           onPress={() => setShow(true)}
         >
-          <Text>{moment(formState.inputValues.time).format("h:mm A")}</Text>
+          <Text
+            style={{
+              fontFamily: "montserrat",
+            }}
+          >
+            {moment(formState.inputValues.time).format("h:mm A")}
+          </Text>
         </TouchableOpacity>
         {show && timePicker}
         <View
@@ -184,12 +191,25 @@ const NewActivityForm = (props) => {
           {colorPicker}
         </View>
         <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
-          <Button title="ADD" color={Colors.primary} onPress={submitHandler} />
+          <MyButton
+            title="ADD"
+            color={Colors.primary}
+            onPress={submitHandler}
+            icon={
+              <Ionicons
+                name="md-add"
+                size={25}
+                color="white"
+                style={{ marginLeft: 5, marginRight: -5 }}
+              />
+            }
+          />
         </View>
       </View>
       <View>
         <InputText
-          style={defaultStyles.styledInput}
+          inputStyle={defaultStyles.styledInput}
+          label="Task"
           keyboardType="default"
           error="Please enter a valid task!"
           onInputChange={textChangeHandler}

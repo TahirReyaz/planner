@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
+
 import Colors from "../../constants/Colors";
+import MyButton from "../../components/UI/MyButton";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -41,16 +43,16 @@ const NotificationSettingsScreen = () => {
     >
       {notifications && notifications.length > 0 ? (
         <View style={styles.btnContainer}>
-          <Button
-            title="Refresh scheduled notifications"
+          <MyButton
+            title="REFRESH SCHEDULED NOTIFICATIONS"
             onPress={() =>
               scheduleNotificationsHandler(notifications, expoPushToken)
             }
             color={Colors.primary}
           />
           <View style={{ marginTop: 10 }}>
-            <Button
-              title="Cancel Notifications"
+            <MyButton
+              title="CANCEL NOTIFICATIONS"
               onPress={cancelNotificationsHandler}
               color={Colors.primary}
             />
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "column",
     width: "50%",
+    height: 50,
   },
   fallback: {
     padding: 5,

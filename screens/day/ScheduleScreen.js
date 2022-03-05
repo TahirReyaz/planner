@@ -19,6 +19,7 @@ import * as dayActions from "../../store/actions/dayActions";
 import * as notificationActions from "../../store/actions/notificationsActions";
 import defaultStyles from "../../constants/default-styles";
 import NotificationItem from "../../models/notification-item";
+import MyButton from "../../components/UI/MyButton";
 
 const ScheduleScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
@@ -99,10 +100,18 @@ const ScheduleScreen = (props) => {
           <Picker.Item label="Sunday" value="Sun" />
         </Picker>
 
-        <Button
-          title={!showForm ? "Add Task" : "Close Form"}
+        <MyButton
+          title={!showForm ? "ADD GOAL" : "CLOSE FORM"}
           color={Colors.primary}
           onPress={() => setShowForm((prevState) => !prevState)}
+          icon={
+            <Ionicons
+              name={showForm ? "md-chevron-up" : "md-chevron-down"}
+              size={25}
+              color="white"
+              style={{ marginLeft: 5, marginRight: -5 }}
+            />
+          }
         />
       </View>
       {showForm && (
