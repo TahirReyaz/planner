@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import InputText from "./InputText";
@@ -18,7 +18,9 @@ const NewPlanItemForm = (props) => {
 
   const submitHandler = useCallback(() => {
     if (!isValid) {
-      console.log("Not Valid");
+      Alert.alert("Wrong Input", "Please check errors in the form", [
+        { text: "OK" },
+      ]);
       return;
     }
     onAdd(task);

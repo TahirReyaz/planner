@@ -7,7 +7,6 @@ const InputText = (props) => {
 
   useEffect(() => {
     setValidity(initiallyValid);
-    console.log("effect", validity);
   }, [initiallyValid, setValidity]);
   const [validity, setValidity] = useState(initiallyValid);
 
@@ -38,7 +37,6 @@ const InputText = (props) => {
         value={value}
         onChangeText={onTextChange}
       />
-      {console.log(validity)}
       {!validity && (
         <View style={styles.errorContainer}>
           <Text style={styles.error}>{props.error}</Text>

@@ -17,7 +17,6 @@ export default (state = initialState, action) => {
         goals: newGoals,
       };
     case ADD_PROG_GOAL:
-      console.log("inside progressive reducer");
       const newGoal = new GoalItem(
         action.id,
         action.goal,
