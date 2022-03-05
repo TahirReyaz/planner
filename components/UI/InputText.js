@@ -26,7 +26,7 @@ const InputText = (props) => {
       isValid = false;
     }
     setValidity(isValid);
-    onInputChange(text, validity);
+    onInputChange(text, isValid);
   };
 
   return (
