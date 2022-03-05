@@ -50,7 +50,7 @@ const defaultDrawerScreenOptions = {
 const defaultTabScreenOptions = {
   tabBarActiveTintColor: Colors.primary,
   tabBarInactiveTintColor: Colors.lightGrey,
-  tabBarItemStyle: { margin: 4, borderRadius: 5 },
+  tabBarItemStyle: { margin: 4, borderRadius: 3 },
   tabBarStyle: { backgroundColor: Colors.primary },
   tabBarLabelStyle: { fontSize: 15, fontFamily: "montserrat" },
   tabBarLabelPosition: "beside-icon",
@@ -88,6 +88,12 @@ const PlannerNavigator = () => {
               color={props.color}
             />
           ),
+          tabBarIconStyle: { marginRight: -4 },
+          tabBarLabelStyle: {
+            fontSize: 15,
+            fontFamily: "montserrat",
+            marginRight: -12,
+          },
         }}
       />
       <PlannerTab.Screen
