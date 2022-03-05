@@ -25,12 +25,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.tahirreyaz.rn.plannerpro",
-      "buildNumber": "1.0.10",
+      "buildNumber": "1.0.12",
       "supportsTablet": true
     },
     "android": {
       "package": "com.tahirreyaz.rn.plannerpro",
-      "versionCode": 10,
+      "versionCode": 12,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

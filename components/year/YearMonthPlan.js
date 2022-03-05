@@ -11,9 +11,10 @@ import Colors from "../../constants/Colors";
 
 const YearMonthPlan = (props) => {
   const plans = useSelector((state) => state.yearPlan[props.year][props.index]);
+  const planLength = plans.length ? plans.length : 0;
   const dispatch = useDispatch();
 
-  const [showDetails, setShowDetails] = useState(plans && plans.length !== 0);
+  const [showDetails, setShowDetails] = useState(plans && planLength !== 0);
   const showDetailsIcon = showDetails ? "md-caret-up" : "md-add-circle";
 
   return (
@@ -23,28 +24,33 @@ const YearMonthPlan = (props) => {
           <Text style={styles.title}>{props.title}</Text>
         </View>
 
-        <View>
-          {plans && plans.length > 0 && (
-            <Ionicons
-              name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
-              size={23}
-              color={Colors.red}
-              onPress={props.onDel}
-            />
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          {plans && planLength > 0 && (
+            <Text style={[styles.text, { color: "grey" }]}>{planLength}</Text>
           )}
-          {plans.length === 0 && (
-            <Ionicons
-              name={showDetailsIcon}
-              size={23}
-              color="grey"
-              onPress={() => {
-                setShowDetails((prevState) => !prevState);
-              }}
-            />
-          )}
+          <View>
+            {plans && planLength > 0 && (
+              <Ionicons
+                name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
+                size={23}
+                color={Colors.red}
+                onPress={props.onDel}
+              />
+            )}
+            {planLength === 0 && (
+              <Ionicons
+                name={showDetailsIcon}
+                size={23}
+                color="grey"
+                onPress={() => {
+                  setShowDetails((prevState) => !prevState);
+                }}
+              />
+            )}
+          </View>
         </View>
       </View>
-      {(!plans || plans.length === 0) && !showDetails && (
+      {(!plans || planLength === 0) && !showDetails && (
         <View>
           <Text style={styles.text}>No plans for this month</Text>
         </View>
@@ -66,7 +72,7 @@ const YearMonthPlan = (props) => {
               id={plan.id}
               key={`${props.year}${props.index}${plan.id}`}
               checked={plan.checked}
-              max={11}
+              max={15}
               onCheck={() =>
                 dispatch(yearActions.checkPlanItem(plan.id, props.index))
               }
@@ -88,6 +94,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+    fontFamily: "montserrat",
+    marginRight: 5,
+  },
+  text: {
+    fontSize: 16,
     fontFamily: "montserrat",
     marginRight: 5,
   },

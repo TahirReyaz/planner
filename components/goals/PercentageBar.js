@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 const PercentageBar = (props) => {
   const styles = StyleSheet.create({
     container: {
-      margin: 5,
+      marginVertical: 5,
       height: 50,
       backgroundColor: Colors.lighterGrey,
       borderRadius: 10,

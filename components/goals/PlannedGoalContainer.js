@@ -28,12 +28,17 @@ const PlannedGoalContainer = (props) => {
         </View>
 
         <View style={styles.buttonContainer}>
+          <Text style={{ ...styles.text, color: "grey" }}>
+            {completedTasksLength}/ {props.tasks.length}
+          </Text>
+
           <Ionicons
             name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
             size={23}
             color={Colors.red}
             onPress={props.onDel}
           />
+
           <Ionicons
             name={showDetails ? "md-caret-up" : showDetailsIcon}
             size={25}
@@ -54,7 +59,7 @@ const PlannedGoalContainer = (props) => {
                 id={task.id}
                 key={task.id}
                 checked={task.checked}
-                max={17}
+                max={35}
                 onCheck={() => props.onCheckTask(task.id)}
                 onDel={() => props.onDelTask(task.id)}
               />
@@ -82,6 +87,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
+    fontSize: 20,
+    fontFamily: "montserrat",
+    marginRight: 5,
+  },
+  text: {
     fontSize: 20,
     fontFamily: "montserrat",
     marginRight: 5,

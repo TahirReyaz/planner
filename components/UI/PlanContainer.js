@@ -9,9 +9,9 @@ import Colors from "../../constants/Colors";
 
 const PlanContainer = (props) => {
   const [showDetails, setShowDetails] = useState(false);
+  const numOfPlans = props.plans.length;
   const showDetailsIcon =
-    props.plans && props.plans.length > 0 ? "md-caret-down" : "md-add-circle";
-
+    props.plans && numOfPlans > 0 ? "md-caret-down" : "md-add-circle";
   return (
     <View style={{ ...defaultStyles.styledContainer, margin: 5 }}>
       <View style={styles.summaryContainer}>
@@ -27,7 +27,7 @@ const PlanContainer = (props) => {
           </View>
           {!showDetails && (
             <View>
-              {props.plans && props.plans.length > 0 ? (
+              {props.plans && numOfPlans > 0 ? (
                 <Text style={styles.text}>
                   {props.plans[0].task.length < 21
                     ? props.plans[0].task
@@ -43,7 +43,18 @@ const PlanContainer = (props) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          {props.plans && props.plans.length > 0 && (
+          {!showDetails && numOfPlans > 1 && (
+            <Text style={{ ...styles.text, color: "grey" }}>
+              {" "}
+              +{numOfPlans - 1}
+            </Text>
+          )}
+          {showDetails && (
+            <Text style={{ ...styles.text, color: "grey" }}>
+              {numOfPlans} tasks
+            </Text>
+          )}
+          {props.plans && numOfPlans > 0 && (
             <Ionicons
               name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
               size={23}
@@ -71,7 +82,7 @@ const PlanContainer = (props) => {
                 id={plan.id}
                 key={`${props.time}${plan.id}`}
                 checked={plan.checked}
-                max={17}
+                max={35}
                 onCheck={() => props.onCheck(plan.id, props.id)}
                 onDel={() => props.onDel(plan.id, props.id)}
               />
