@@ -88,6 +88,7 @@ const ScheduleScreen = (props) => {
           mode="dropdown"
         >
           <Picker.Item label="Everyday" value="Everyday" />
+          <Picker.Item label="Weekdays" value="Weekdays" />
           <Picker.Item label="Monday" value="Mon" />
           <Picker.Item label="Tuesday" value="Tue" />
           <Picker.Item label="Wednesday" value="Wed" />
