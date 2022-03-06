@@ -27,7 +27,7 @@ const initialFormState = {
     color: Colors.green,
   },
   inputValidities: {
-    task: false,
+    task: true,
     time: true,
     color: true,
   },
