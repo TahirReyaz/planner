@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Platform,
-  Button,
-  FlatList,
-} from "react-native";
+import { View, StyleSheet, Text, Alert, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { Picker } from "@react-native-picker/picker";
@@ -74,6 +67,19 @@ const ScheduleScreen = (props) => {
   }, [selectedDay, activities, dispatch]);
 
   const onAddHandler = (text, time, color) => {
+    let sameTimeFound = false;
+    activities.every((activity) => {
+      sameTimeFound =
+        moment(activity.time).format("HH:mm") === moment(time).format("HH:mm");
+      if (sameTimeFound) {
+        return false;
+      }
+      return true;
+    });
+    if (sameTimeFound) {
+      Alert.alert("Same time already exists");
+      return;
+    }
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
   };
 
