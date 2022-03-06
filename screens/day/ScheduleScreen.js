@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Alert, FlatList } from "react-native";
+import { View, StyleSheet, Text, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { Picker } from "@react-native-picker/picker";
@@ -67,20 +67,6 @@ const ScheduleScreen = (props) => {
   }, [selectedDay, activities, dispatch]);
 
   const onAddHandler = (text, time, color) => {
-    const duplicateActivity = activities.find(
-      (activity) =>
-        moment(activity.time).format("HH:mm") === moment(time).format("HH:mm")
-    );
-
-    if (duplicateActivity) {
-      Alert.alert(
-        "An Activity for the same time already exists",
-        `${moment(duplicateActivity.time).format("h:mm A")} - ${
-          duplicateActivity.activity
-        }`
-      );
-      return;
-    }
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
   };
 
@@ -123,7 +109,10 @@ const ScheduleScreen = (props) => {
       </View>
       {showForm && (
         <View style={styles.form}>
-          <NewActivityForm onAdd={onAddHandler} />
+          <NewActivityForm
+            onAdd={onAddHandler}
+            activities={activities.map((activity) => activity.time)}
+          />
         </View>
       )}
       {(!activities || activities.length === 0) && (

@@ -88,13 +88,24 @@ const NewActivityForm = (props) => {
 
   const timeChangeHandler = useCallback(
     (event, selectedTime) => {
+      let timeIsValid = true;
       const currentTime = selectedTime || formState.inputValues.time;
       setShow(Platform.OS === "ios");
+
+      const duplicateActivity = props.activities.find(
+        (activity) =>
+          moment(activity).format("HH:mm") ===
+          moment(currentTime).format("HH:mm")
+      );
+
+      if (duplicateActivity) {
+        timeIsValid = false;
+      }
 
       dispatchFormState({
         type: FORM_UPDATE,
         value: currentTime,
-        isValid: true,
+        isValid: timeIsValid,
         input: "time",
       });
     },
@@ -160,22 +171,27 @@ const NewActivityForm = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity
-          style={{
-            ...defaultStyles.styledInput,
-            marginVertical: 10,
-            paddingTop: 5,
-          }}
-          onPress={() => setShow(true)}
-        >
-          <Text
+        <View>
+          <TouchableOpacity
             style={{
-              fontFamily: "montserrat",
+              ...defaultStyles.styledInput,
+              marginVertical: 10,
+              paddingTop: 5,
             }}
+            onPress={() => setShow(true)}
           >
-            {moment(formState.inputValues.time).format("h:mm A")}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                fontFamily: "montserrat",
+              }}
+            >
+              {moment(formState.inputValues.time).format("h:mm A")}
+            </Text>
+          </TouchableOpacity>
+          {!formState.inputValidities.time && (
+            <Text style={styles.timeError}>Already exists</Text>
+          )}
+        </View>
         {show && timePicker}
         <View
           style={{
@@ -236,6 +252,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 5,
+  },
+  timeError: {
+    color: Colors.red,
+    fontFamily: "montserrat",
+    marginTop: -8,
   },
 });
 
