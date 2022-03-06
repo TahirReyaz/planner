@@ -67,17 +67,18 @@ const ScheduleScreen = (props) => {
   }, [selectedDay, activities, dispatch]);
 
   const onAddHandler = (text, time, color) => {
-    let sameTimeFound = false;
-    activities.every((activity) => {
-      sameTimeFound =
-        moment(activity.time).format("HH:mm") === moment(time).format("HH:mm");
-      if (sameTimeFound) {
-        return false;
-      }
-      return true;
-    });
-    if (sameTimeFound) {
-      Alert.alert("Same time already exists");
+    const duplicateActivity = activities.find(
+      (activity) =>
+        moment(activity.time).format("HH:mm") === moment(time).format("HH:mm")
+    );
+
+    if (duplicateActivity) {
+      Alert.alert(
+        "An Activity for the same time already exists",
+        `${moment(duplicateActivity.time).format("h:mm A")} - ${
+          duplicateActivity.activity
+        }`
+      );
       return;
     }
     dispatch(dayActions.addActivity(selectedDay, text, time, color));
