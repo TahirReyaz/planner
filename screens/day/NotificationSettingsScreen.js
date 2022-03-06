@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Platform, Button, Text } from "react-native";
+import React, { useState, useEffect, useReducer } from "react";
+import { View, StyleSheet, Platform, Text } from "react-native";
 import { useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,10 +17,38 @@ Notifications.setNotificationHandler({
   }),
 });
 
+const SETTINGS_UPDATE = "SETTINGS_UPDATE";
+
+const initialSettingsState = [
+  { label: "Every Day", name: "Everyday", value: true },
+  { label: "Sunday", name: "Sun", value: false },
+  { label: "Monday", name: "Mon", value: false },
+  { label: "Tuesday", name: "Tue", value: false },
+  { label: "Wednesday", name: "Wed", value: false },
+  { label: "Thursday", name: "Thu", value: false },
+  { label: "Friday", name: "Fri", value: false },
+  { label: "Saturday", name: "Sat", value: false },
+];
+const settingsReducer = (state, action) => {
+  if (action.type === SETTINGS_UPDATE) {
+    const updatedState = [...state];
+    const changedDayIndex = updatedState.findIndex(
+      (day) => day.name === action.name
+    );
+    updatedState[changedDayIndex].value = !updatedState[changedDayIndex].value;
+
+    return [...updatedState];
+  }
+  return state;
+};
+
 const NotificationSettingsScreen = () => {
   const notifications = useSelector((state) => state.notifications["Everyday"]);
   const [expoPushToken, setExpoPushToken] = useState("");
-  const [switchState, setSwitchState] = useState(true);
+  const [settingsState, dispatchSettingsState] = useReducer(
+    settingsReducer,
+    initialSettingsState
+  );
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
@@ -34,13 +62,31 @@ const NotificationSettingsScreen = () => {
     console.log(cancellation);
   };
 
+  const onSwitchToggle = (day) => {
+    dispatchSettingsState({
+      type: SETTINGS_UPDATE,
+      name: day,
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <NotificationSwitch
-        label="Every Day"
-        state={switchState}
-        onChange={() => setSwitchState((prevState) => !prevState)}
-      />
+      <Text style={[styles.headingText, { marginVertical: 10 }]}>
+        Toggle Notifications of specific days{" "}
+        <Text style={{ color: Colors.primary }}>on</Text> and{" "}
+        <Text style={{ color: Colors.primary }}>off</Text>
+      </Text>
+      <View style={styles.switchContainer}>
+        {settingsState.map((day) => (
+          <NotificationSwitch
+            key={day.name}
+            label={day.label}
+            state={day.value}
+            onChange={() => onSwitchToggle(day.name)}
+          />
+        ))}
+      </View>
+
       {notifications && notifications.length > 0 ? (
         <View style={styles.btnContainer}>
           <MyButton
@@ -64,7 +110,7 @@ const NotificationSettingsScreen = () => {
         </View>
       ) : (
         <View style={styles.fallback}>
-          <Text style={styles.fallbackText}>
+          <Text style={styles.headingText}>
             Schedule not set yet. Add some
             <Text style={{ color: Colors.primary }}> tasks</Text>
           </Text>
@@ -89,10 +135,14 @@ export const screenOptions = (navData) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
     alignItems: "center",
     flex: 1,
     backgroundColor: "#FFFFFF",
+    padding: 10,
+  },
+  switchContainer: {
+    width: "100%",
+    margin: 20,
   },
   btnContainer: {
     flexDirection: "column",
@@ -104,8 +154,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     backgroundColor: "white",
   },
-  fallbackText: {
-    fontSize: 25,
+  headingText: {
+    fontSize: 20,
     fontFamily: "montserrat-bold",
   },
 });

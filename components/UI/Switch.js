@@ -1,27 +1,38 @@
 import React from "react";
-import { View, Text, Switch, StyleSheet } from "react-native";
+import { View, Text, Switch, StyleSheet, Platform } from "react-native";
+
+import Colors from "../../constants/Colors";
 
 const NotificationSwitch = (props) => {
   return (
     <View style={styles.container}>
-      <Text>{props.label}</Text>
-      <Switch value={props.state} onValueChange={props.onChange} />
+      <Text style={styles.label}>{props.label}</Text>
+      <Switch
+        value={props.state}
+        trackColor={{ true: Colors.primaryLight, false: Colors.lighterGrey }}
+        thumbColor={
+          Platform.OS === "android"
+            ? props.state
+              ? Colors.primary
+              : Colors.primaryLight
+            : ""
+        }
+        onValueChange={props.onChange}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  title: {
-    fontFamily: "open-sans-bold",
+  label: {
+    fontFamily: "montserrat",
     fontSize: 22,
-    margin: 20,
-    textAlign: "center",
   },
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 50,
+    paddingHorizontal: 40,
   },
 });
 
