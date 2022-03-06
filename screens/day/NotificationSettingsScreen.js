@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useReducer } from "react";
-import { View, StyleSheet, Platform, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Platform,
+  Text,
+} from "react-native";
 import { useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,6 +28,7 @@ const SETTINGS_UPDATE = "SETTINGS_UPDATE";
 
 const initialSettingsState = [
   { label: "Every Day", name: "Everyday", value: true },
+  { label: "Weekdays", name: "Weekdays", value: false },
   { label: "Sunday", name: "Sun", value: false },
   { label: "Monday", name: "Mon", value: false },
   { label: "Tuesday", name: "Tue", value: false },
@@ -32,6 +40,23 @@ const initialSettingsState = [
 const settingsReducer = (state, action) => {
   if (action.type === SETTINGS_UPDATE) {
     const updatedState = [...state];
+
+    // react to weekday and everyday switches
+    if (
+      action.name === "Weekdays" &&
+      updatedState[1].value === false &&
+      updatedState[0].value === true
+    ) {
+      updatedState[0].value = false;
+    } else if (
+      action.name === "Everyday" &&
+      updatedState[0].value === false &&
+      updatedState[1].value === true
+    ) {
+      updatedState[1].value = false;
+    }
+
+    // react to other switches, including everyday and weekdays
     const changedDayIndex = updatedState.findIndex(
       (day) => day.name === action.name
     );
@@ -70,53 +95,60 @@ const NotificationSettingsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.headingText, { marginVertical: 10 }]}>
-        Toggle Notifications of specific days{" "}
-        <Text style={{ color: Colors.primary }}>on</Text> and{" "}
-        <Text style={{ color: Colors.primary }}>off</Text>
-      </Text>
-      <View style={styles.switchContainer}>
-        {settingsState.map((day) => (
-          <NotificationSwitch
-            key={day.name}
-            label={day.label}
-            state={day.value}
-            onChange={() => onSwitchToggle(day.name)}
-          />
-        ))}
-      </View>
-
-      {notifications && notifications.length > 0 ? (
-        <View style={styles.btnContainer}>
-          <MyButton
-            title="REFRESH SCHEDULED NOTIFICATIONS"
-            onPress={() =>
-              scheduleNotificationsHandler(
-                notifications,
-                expoPushToken,
-                "Everyday"
-              )
-            }
-            color={Colors.primary}
-          />
-          <View style={{ marginTop: 10 }}>
-            <MyButton
-              title="CANCEL NOTIFICATIONS"
-              onPress={cancelNotificationsHandler}
-              color={Colors.primary}
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        contentContainerStyle={{ alignItems: "center" }}
+        alwaysBounceVertical={true}
+      >
+        <Text style={[styles.headingText, { marginVertical: 10 }]}>
+          Toggle Notifications of specific days{" "}
+          <Text style={{ color: Colors.primary }}>on</Text> and{" "}
+          <Text style={{ color: Colors.primary }}>off</Text>
+        </Text>
+        <View style={styles.switchContainer}>
+          {settingsState.map((day) => (
+            <NotificationSwitch
+              key={day.name}
+              label={day.label}
+              state={day.value}
+              onChange={() => onSwitchToggle(day.name)}
             />
+          ))}
+        </View>
+
+        {/* {notifications && notifications.length > 0 ? (
+          <View style={styles.btnContainer}>
+            <View style={{ height: 50 }}>
+              <MyButton
+                title="REFRESH SCHEDULED NOTIFICATIONS"
+                onPress={() =>
+                  scheduleNotificationsHandler(
+                    notifications,
+                    expoPushToken,
+                    "Everyday"
+                  )
+                }
+                color={Colors.primary}
+              />
+            </View>
+            <View style={{ marginTop: 10, height: 50 }}>
+              <MyButton
+                title="CANCEL NOTIFICATIONS"
+                onPress={cancelNotificationsHandler}
+                color={Colors.primary}
+              />
+            </View>
           </View>
-        </View>
-      ) : (
-        <View style={styles.fallback}>
-          <Text style={styles.headingText}>
-            Schedule not set yet. Add some
-            <Text style={{ color: Colors.primary }}> tasks</Text>
-          </Text>
-        </View>
-      )}
-    </View>
+        ) : (
+          <View style={styles.fallback}>
+            <Text style={styles.headingText}>
+              Schedule not set yet. Add some
+              <Text style={{ color: Colors.primary }}> tasks</Text>
+            </Text>
+          </View>
+        )} */}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -135,10 +167,8 @@ export const screenOptions = (navData) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
     flex: 1,
     backgroundColor: "#FFFFFF",
-    padding: 10,
   },
   switchContainer: {
     width: "100%",
@@ -146,8 +176,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "column",
-    width: "50%",
-    height: 50,
+    width: "70%",
   },
   fallback: {
     padding: 5,
