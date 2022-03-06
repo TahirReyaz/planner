@@ -13,10 +13,13 @@ import * as notificationActions from "../../store/actions/notificationsActions";
 import defaultStyles from "../../constants/default-styles";
 import NotificationItem from "../../models/notification-item";
 import MyButton from "../../components/UI/MyButton";
+import { scheduleNotificationsHandler } from "./NotificationSettingsScreen";
+import { weekDays } from "../../constants/days";
 
 const ScheduleScreen = (props) => {
   const [showForm, setShowForm] = useState(false);
   const selectedDay = useSelector((state) => state.schedule.selectedDay);
+  console.log({ selectedDay });
   const activities = useSelector(
     (state) => state.schedule.schedules[selectedDay]
   );
@@ -63,6 +66,7 @@ const ScheduleScreen = (props) => {
       dispatch(
         notificationActions.setNotifications(selectedDay, newNotifications)
       );
+      scheduleNotificationsHandler(newNotifications, null, selectedDay);
     }
   }, [selectedDay, activities, dispatch]);
 
@@ -111,7 +115,9 @@ const ScheduleScreen = (props) => {
         <View style={styles.form}>
           <NewActivityForm
             onAdd={onAddHandler}
-            activities={activities.map((activity) => activity.time)}
+            activities={
+              activities ? activities.map((activity) => activity.time) : []
+            }
           />
         </View>
       )}

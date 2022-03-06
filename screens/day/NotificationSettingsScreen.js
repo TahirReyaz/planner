@@ -7,6 +7,7 @@ import moment from "moment";
 
 import Colors from "../../constants/Colors";
 import MyButton from "../../components/UI/MyButton";
+import NotificationSwitch from "../../components/UI/Switch";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -19,6 +20,7 @@ Notifications.setNotificationHandler({
 const NotificationSettingsScreen = () => {
   const notifications = useSelector((state) => state.notifications["Everyday"]);
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [switchState, setSwitchState] = useState(true);
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
@@ -33,20 +35,22 @@ const NotificationSettingsScreen = () => {
   };
 
   return (
-    <View
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-      }}
-    >
+    <View style={styles.container}>
+      <NotificationSwitch
+        label="Every Day"
+        state={switchState}
+        onChange={() => setSwitchState((prevState) => !prevState)}
+      />
       {notifications && notifications.length > 0 ? (
         <View style={styles.btnContainer}>
           <MyButton
             title="REFRESH SCHEDULED NOTIFICATIONS"
             onPress={() =>
-              scheduleNotificationsHandler(notifications, expoPushToken)
+              scheduleNotificationsHandler(
+                notifications,
+                expoPushToken,
+                "Everyday"
+              )
             }
             color={Colors.primary}
           />
@@ -84,6 +88,12 @@ export const screenOptions = (navData) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
   btnContainer: {
     flexDirection: "column",
     width: "50%",
@@ -129,14 +139,20 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-const scheduleNotificationsHandler = async (notifications, expoPushToken) => {
+const scheduleNotificationsHandler = async (
+  notifications,
+  expoPushToken,
+  day
+) => {
   let trigger, i;
   // Set notifications for a week
-  for (i = 0; i < 7; i++) {
+  for (i = 0; i < 2; i++) {
     notifications.forEach(async (notification) => {
       trigger = new Date(Date.now());
       const triggerTime = new Date(notification.currentTime);
-      trigger.setDate(trigger.getDate() + i);
+      if (day === "Everyday") {
+        trigger.setDate(trigger.getDate() + i);
+      }
       trigger.setHours(triggerTime.getHours());
       trigger.setMinutes(triggerTime.getMinutes());
       trigger.setSeconds(0);
@@ -161,3 +177,4 @@ const scheduleNotificationsHandler = async (notifications, expoPushToken) => {
 };
 
 export default NotificationSettingsScreen;
+export { registerForPushNotificationsAsync, scheduleNotificationsHandler };
