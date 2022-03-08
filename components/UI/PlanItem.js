@@ -21,7 +21,12 @@ const PlanItem = (props) => {
     : {};
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: props.checked ? Colors.lighterGrey : "white" },
+      ]}
+    >
       <View style={styles.row}>
         <View>
           <Ionicons
