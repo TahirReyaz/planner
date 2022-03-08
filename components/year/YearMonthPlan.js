@@ -58,6 +58,7 @@ const YearMonthPlan = (props) => {
       {showDetails && (
         <View>
           <NewPlanItemForm
+            smallWidth
             onAdd={(task) =>
               dispatch(yearActions.addPlanItem(props.index, task))
             }

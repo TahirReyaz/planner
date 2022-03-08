@@ -62,17 +62,20 @@ const NewPlannedGoalForm = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <View>
-          <InputText
-            inputStyle={defaultStyles.styledInput}
-            label="Goal"
-            keyboardType="default"
-            error="Please enter a valid task!"
-            onInputChange={textChangeHandler}
-            value={goal}
-            initiallyValid={true}
-            required
-          />
+        <View style={styles.row}>
+          <View
+            style={{
+              ...defaultStyles.styledInput,
+              paddingHorizontal: 0,
+              paddingVertical: 0,
+              marginVertical: 0,
+              height: 40,
+              width: 150,
+              marginTop: 5,
+            }}
+          >
+            {colorPicker}
+          </View>
         </View>
         <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
           <MyButton
@@ -90,20 +93,17 @@ const NewPlannedGoalForm = (props) => {
           />
         </View>
       </View>
-      <View style={styles.row}>
-        <View
-          style={{
-            ...defaultStyles.styledInput,
-            paddingHorizontal: 0,
-            paddingVertical: 0,
-            marginVertical: 0,
-            height: 40,
-            width: 150,
-            marginTop: 5,
-          }}
-        >
-          {colorPicker}
-        </View>
+      <View>
+        <InputText
+          inputStyle={defaultStyles.styledInput}
+          label="Goal"
+          keyboardType="default"
+          error="Please enter a valid task!"
+          onInputChange={textChangeHandler}
+          value={goal}
+          initiallyValid={true}
+          required
+        />
       </View>
     </View>
   );

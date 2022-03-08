@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+import Colors from "../../constants/Colors";
 
 const InputText = (props) => {
   const value = props.value ? props.value : "";
   const { onInputChange, initiallyValid } = props;
+  const [validity, setValidity] = useState(initiallyValid);
 
   useEffect(() => {
     setValidity(initiallyValid);
-  }, [initiallyValid, setValidity]);
-  const [validity, setValidity] = useState(initiallyValid);
+    onTextChange(value);
+  }, [initiallyValid, setValidity, value, onTextChange]);
 
   const onTextChange = (text) => {
     let isValid = true;
@@ -24,6 +28,9 @@ const InputText = (props) => {
     if (props.minLength != null && text.length < props.minLength) {
       isValid = false;
     }
+    if (props.maxLength != null && text.length > props.maxLength) {
+      isValid = false;
+    }
     setValidity(isValid);
     onInputChange(text, isValid);
   };
@@ -31,12 +38,24 @@ const InputText = (props) => {
   return (
     <View style={{ ...styles.formControl, ...props.containerStyle }}>
       {props.label && <Text style={styles.label}>{props.label}</Text>}
-      <TextInput
-        style={[props.inputStyle, { fontFamily: "montserrat" }]}
-        {...props}
-        value={value}
-        onChangeText={onTextChange}
-      />
+      <View style={[props.inputStyle, styles.row]}>
+        <TextInput
+          style={{
+            fontFamily: "montserrat",
+            fontSize: 20,
+            width: props.smallWidth ? "80%" : "90%",
+          }}
+          {...props}
+          value={value}
+          onChangeText={onTextChange}
+        />
+        <Ionicons
+          name="ios-close"
+          size={28}
+          color={Colors.lightGrey}
+          onPress={() => onTextChange("")}
+        />
+      </View>
       {!validity && (
         <View style={styles.errorContainer}>
           <Text style={styles.error}>{props.error}</Text>
@@ -61,6 +80,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "red",
     fontFamily: "montserrat",
+  },
+  row: {
+    flexDirection: "row",
+    width: "100%",
   },
 });
 

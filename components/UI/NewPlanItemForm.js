@@ -29,8 +29,9 @@ const NewPlanItemForm = (props) => {
   return (
     <View style={styles.container}>
       <InputText
-        inputStyle={styles.input}
+        inputStyle={[styles.input, { width: props.smallWidth ? "80%" : "90%" }]}
         containerStyle={styles.inputContainer}
+        smallWidth={props.smallWidth}
         keyboardType="default"
         error="Enter a valid task!"
         onInputChange={textChangeHandler}
@@ -38,12 +39,14 @@ const NewPlanItemForm = (props) => {
         initiallyValid={true}
         required
       />
-      <Ionicons
-        name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
-        size={28}
-        color="black"
-        onPress={submitHandler}
-      />
+      <View style={{ marginTop: task === "" ? -27 : 0 }}>
+        <Ionicons
+          name={Platform.OS === "android" ? "md-add-circle-outline" : "ios-add"}
+          size={28}
+          color="black"
+          onPress={submitHandler}
+        />
+      </View>
     </View>
   );
 };
@@ -63,7 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    width: "90%",
     paddingHorizontal: 5,
   },
 });

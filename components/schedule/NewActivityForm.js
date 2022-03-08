@@ -222,9 +222,10 @@ const NewActivityForm = (props) => {
           />
         </View>
       </View>
-      <View>
+      <View style={{ width: "100%" }}>
         <InputText
-          inputStyle={defaultStyles.styledInput}
+          inputStyle={[defaultStyles.styledInput, { width: "100%" }]}
+          // containerStyle={{ flexGrow: 1 }}
           label="Task"
           keyboardType="default"
           error="Please enter a valid task!"

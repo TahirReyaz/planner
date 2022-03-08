@@ -124,9 +124,9 @@ const NewGoalForm = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <View>
+        <View style={styles.textInput}>
           <InputText
-            inputStyle={defaultStyles.styledInput}
+            inputStyle={[defaultStyles.styledInput, { width: "80%" }]}
             label="Goal"
             keyboardType="default"
             error="Please enter a valid goal!"
@@ -136,7 +136,13 @@ const NewGoalForm = (props) => {
             required
           />
         </View>
-        <View style={{ flexDirection: "row", height: 35, marginTop: 5 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            height: 35,
+            marginTop: !formState.inputValidities.goal ? -20 : 5,
+          }}
+        >
           <MyButton
             title="ADD"
             color={Colors.primary}
@@ -153,11 +159,12 @@ const NewGoalForm = (props) => {
         </View>
       </View>
       <View style={styles.row}>
-        <View>
+        <View style={styles.textInput}>
           <InputText
-            inputStyle={defaultStyles.styledInput}
+            inputStyle={[defaultStyles.styledInput, { width: "80%" }]}
             label="Task name"
             keyboardType="default"
+            maxLength={11}
             error="Please enter a valid task name!"
             onInputChange={textChangeHandler.bind(this, "objName")}
             value={formState.inputValues.objName}
@@ -174,16 +181,17 @@ const NewGoalForm = (props) => {
             marginVertical: 0,
             height: 40,
             width: 150,
-            marginTop: 5,
+            marginTop: !formState.inputValidities.objName ? -20 : 15,
           }}
         >
           {colorPicker}
         </View>
       </View>
-      <View style={styles.row}>
-        <View>
+      <View style={[styles.row, { alignItems: "flex-start" }]}>
+        <View style={styles.textInput}>
           <InputText
-            inputStyle={defaultStyles.styledInput}
+            inputStyle={[defaultStyles.styledInput, { width: "80%" }]}
+            containerStyle={{ width: "100%" }}
             label={`Total ${formState.inputValues.objName}s`}
             keyboardType="number-pad"
             min={1}
@@ -194,9 +202,9 @@ const NewGoalForm = (props) => {
             required
           />
         </View>
-        <View>
+        <View style={styles.textInput}>
           <InputText
-            inputStyle={defaultStyles.styledInput}
+            inputStyle={[defaultStyles.styledInput, { width: "80%" }]}
             label={`Completed ${formState.inputValues.objName}s`}
             keyboardType="number-pad"
             min={1}
@@ -226,7 +234,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     marginVertical: 5,
+  },
+  textInput: {
+    width: "45%",
   },
 });
 
