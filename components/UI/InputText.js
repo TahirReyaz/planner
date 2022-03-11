@@ -8,6 +8,7 @@ const InputText = (props) => {
   const value = props.value ? props.value : "";
   const { onInputChange, initiallyValid } = props;
   const [validity, setValidity] = useState(initiallyValid);
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     setValidity(initiallyValid);
@@ -38,21 +39,34 @@ const InputText = (props) => {
   return (
     <View style={{ ...styles.formControl, ...props.containerStyle }}>
       {props.label && <Text style={styles.label}>{props.label}</Text>}
-      <View style={[props.inputStyle, styles.row]}>
+      <View
+        style={[
+          props.inputStyle,
+          styles.row,
+          {
+            borderBottomColor: focused ? Colors.primary : Colors.primaryLight,
+            borderLeftColor: focused ? Colors.primary : Colors.primaryLight,
+            backgroundColor: focused ? Colors.primaryLightAF : "white",
+          },
+        ]}
+      >
         <TextInput
           style={{
             fontFamily: "montserrat",
             fontSize: 20,
             width: props.smallWidth ? "80%" : "90%",
+            paddingVertical: 0,
           }}
           {...props}
           value={value}
           onChangeText={onTextChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
         />
         <Ionicons
           name="ios-close"
           size={28}
-          color={Colors.lightGrey}
+          color="grey"
           onPress={() => onTextChange("")}
         />
       </View>
@@ -84,6 +98,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     width: "100%",
+    alignItems: "center",
   },
 });
 
