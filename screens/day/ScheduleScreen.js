@@ -85,7 +85,7 @@ const ScheduleScreen = (props) => {
           selectedValue={selectedDay}
           style={{ width: 150 }}
           onValueChange={dayChangeHandler}
-          mode="dropdown"
+          dropdownIconRippleColor={Colors.primary}
         >
           <Picker.Item label="Everyday" value="Everyday" />
           <Picker.Item label="Weekdays" value="Weekdays" />

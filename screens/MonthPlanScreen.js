@@ -8,6 +8,7 @@ import * as monthActions from "../store/actions/monthActions";
 import defaultStyles from "../constants/default-styles";
 import { monthDays } from "../constants/months";
 import { weekDays } from "../constants/days";
+import Colors from "../constants/Colors";
 
 const MonthPlanScreen = (props) => {
   const selectedMonth = useSelector((state) => state.monthPlan.selectedMonth);
@@ -26,7 +27,7 @@ const MonthPlanScreen = (props) => {
           selectedValue={selectedMonth}
           style={{ width: 150 }}
           onValueChange={monthChangeHandler}
-          mode="dropdown"
+          dropdownIconRippleColor={Colors.primary}
         >
           <Picker.Item label="January" value="Jan" />
           <Picker.Item label="February" value="Feb" />

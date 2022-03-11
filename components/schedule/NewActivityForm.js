@@ -155,7 +155,7 @@ const NewActivityForm = (props) => {
     <Picker
       selectedValue={formState.inputValues.color}
       onValueChange={colorChangeHandler}
-      mode="dropdown"
+      dropdownIconRippleColor={Colors.primary}
       style={{
         marginTop: -8,
       }}

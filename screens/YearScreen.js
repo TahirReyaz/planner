@@ -8,6 +8,7 @@ import * as yearActions from "../store/actions/yearActions";
 import defaultStyles from "../constants/default-styles";
 import years from "../constants/years";
 import { monthNames as months } from "../constants/months";
+import Colors from "../constants/Colors";
 
 const YearScreen = (props) => {
   const selectedYear = useSelector((state) => state.yearPlan.selectedYear);
@@ -22,7 +23,7 @@ const YearScreen = (props) => {
           selectedValue={selectedYear}
           style={{ width: 150 }}
           onValueChange={yearChangeHandler}
-          mode="dropdown"
+          dropdownIconRippleColor={Colors.primary}
         >
           {years.map((year) => (
             <Picker.Item label={year} value={year} key={year} />
