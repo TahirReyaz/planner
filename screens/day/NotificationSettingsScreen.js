@@ -29,13 +29,14 @@ const SETTINGS_UPDATE = "SETTINGS_UPDATE";
 const initialSettingsState = [
   { label: "Every Day", name: "Everyday", value: true },
   { label: "Weekdays", name: "Weekdays", value: false },
-  { label: "Sunday", name: "Sun", value: false },
+  { label: "WeekEnds", name: "WeekEnds", value: false },
   { label: "Monday", name: "Mon", value: false },
   { label: "Tuesday", name: "Tue", value: false },
   { label: "Wednesday", name: "Wed", value: false },
   { label: "Thursday", name: "Thu", value: false },
   { label: "Friday", name: "Fri", value: false },
   { label: "Saturday", name: "Sat", value: false },
+  { label: "Sunday", name: "Sun", value: false },
 ];
 const settingsReducer = (state, action) => {
   if (action.type === SETTINGS_UPDATE) {
@@ -49,11 +50,18 @@ const settingsReducer = (state, action) => {
     ) {
       updatedState[0].value = false;
     } else if (
+      action.name === "WeekEnds" &&
+      updatedState[2].value === false &&
+      updatedState[0].value === true
+    ) {
+      updatedState[0].value = false;
+    } else if (
       action.name === "Everyday" &&
       updatedState[0].value === false &&
       updatedState[1].value === true
     ) {
       updatedState[1].value = false;
+      updatedState[2].value = false;
     }
 
     // react to other switches, including everyday and weekdays
@@ -80,12 +88,6 @@ const NotificationSettingsScreen = () => {
       setExpoPushToken(token)
     );
   }, []);
-
-  const cancelNotificationsHandler = async () => {
-    const cancellation =
-      await Notifications.cancelAllScheduledNotificationsAsync();
-    console.log(cancellation);
-  };
 
   const onSwitchToggle = (day) => {
     dispatchSettingsState({
@@ -116,6 +118,14 @@ const NotificationSettingsScreen = () => {
           ))}
         </View>
 
+        <View style={{ marginTop: 10, height: 50 }}>
+          <MyButton
+            title="CANCEL NOTIFICATIONS"
+            onPress={cancelNotificationsHandler}
+            color={Colors.primary}
+          />
+        </View>
+
         {/* {notifications && notifications.length > 0 ? (
           <View style={styles.btnContainer}>
             <View style={{ height: 50 }}>
@@ -128,13 +138,6 @@ const NotificationSettingsScreen = () => {
                     "Everyday"
                   )
                 }
-                color={Colors.primary}
-              />
-            </View>
-            <View style={{ marginTop: 10, height: 50 }}>
-              <MyButton
-                title="CANCEL NOTIFICATIONS"
-                onPress={cancelNotificationsHandler}
                 color={Colors.primary}
               />
             </View>
@@ -223,6 +226,7 @@ const scheduleNotificationsHandler = async (
   expoPushToken,
   day
 ) => {
+  cancelNotificationsHandler();
   let trigger, i;
   // Set notifications for a week
   for (i = 0; i < 2; i++) {
@@ -253,6 +257,17 @@ const scheduleNotificationsHandler = async (
       });
     });
   }
+};
+
+const weekDaysNotificationsScheduleHandler = () => {};
+const everyDaysNotificationsScheduleHandler = () => {};
+const weekEndsNotificationsScheduleHandler = () => {};
+const specificDayNotificationsScheduleHandler = () => {};
+
+const cancelNotificationsHandler = async () => {
+  const cancellation =
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  console.log(cancellation);
 };
 
 export default NotificationSettingsScreen;
