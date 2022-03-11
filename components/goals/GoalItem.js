@@ -26,7 +26,7 @@ const GoalItem = (props) => {
             onPress={props.onDel}
           />
           <Ionicons
-            name={showDetails ? "md-caret-up" : "md-caret-down"}
+            name={showDetails ? "md-chevron-up" : "md-chevron-down"}
             size={25}
             color="grey"
             style={{ marginLeft: 10 }}

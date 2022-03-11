@@ -15,7 +15,7 @@ const YearMonthPlan = (props) => {
   const dispatch = useDispatch();
 
   const [showDetails, setShowDetails] = useState(plans && planLength !== 0);
-  const showDetailsIcon = showDetails ? "md-caret-up" : "md-add-circle";
+  const showDetailsIcon = showDetails ? "md-chevron-up" : "md-add-circle";
 
   return (
     <View style={{ ...defaultStyles.styledContainer, marginBottom: 5 }}>

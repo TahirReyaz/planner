@@ -61,7 +61,7 @@ const Activity = (props) => {
         <View style={styles.buttonContainer}>
           {props.title.length > 14 && (
             <Ionicons
-              name={showDetails ? "md-caret-up" : "md-caret-down"}
+              name={showDetails ? "md-chevron-up" : "md-chevron-down"}
               size={25}
               color="grey"
               style={{ marginHorizontal: 10 }}

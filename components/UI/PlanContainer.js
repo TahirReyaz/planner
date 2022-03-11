@@ -11,7 +11,7 @@ const PlanContainer = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const numOfPlans = props.plans.length;
   const showDetailsIcon =
-    props.plans && numOfPlans > 0 ? "md-caret-down" : "md-add-circle";
+    props.plans && numOfPlans > 0 ? "md-chevron-down" : "md-add-circle";
   return (
     <View style={{ ...defaultStyles.styledContainer, margin: 5 }}>
       <View style={styles.summaryContainer}>
@@ -63,7 +63,7 @@ const PlanContainer = (props) => {
             />
           )}
           <Ionicons
-            name={showDetails ? "md-caret-up" : showDetailsIcon}
+            name={showDetails ? "md-chevron-up" : showDetailsIcon}
             size={25}
             color="grey"
             style={{ marginLeft: 10 }}
