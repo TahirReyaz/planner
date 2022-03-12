@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -7,7 +7,7 @@ import {
   Platform,
   Text,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
@@ -15,6 +15,7 @@ import moment from "moment";
 import Colors from "../../constants/Colors";
 import MyButton from "../../components/UI/MyButton";
 import NotificationSwitch from "../../components/UI/Switch";
+import * as notifSettingsActions from "../../store/actions/notifSettingsActions";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -24,77 +25,17 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const SETTINGS_UPDATE = "SETTINGS_UPDATE";
-
-const initialSettingsState = [
-  { label: "Every Day", name: "Everyday", value: true },
-  { label: "Weekdays", name: "Weekdays", value: false },
-  { label: "WeekEnds", name: "WeekEnds", value: false },
-  { label: "Monday", name: "Mon", value: false },
-  { label: "Tuesday", name: "Tue", value: false },
-  { label: "Wednesday", name: "Wed", value: false },
-  { label: "Thursday", name: "Thu", value: false },
-  { label: "Friday", name: "Fri", value: false },
-  { label: "Saturday", name: "Sat", value: false },
-  { label: "Sunday", name: "Sun", value: false },
-];
-const settingsReducer = (state, action) => {
-  if (action.type === SETTINGS_UPDATE) {
-    const updatedState = [...state];
-
-    // react to weekday and everyday switches
-    if (
-      action.name === "Weekdays" &&
-      updatedState[1].value === false &&
-      updatedState[0].value === true
-    ) {
-      updatedState[0].value = false;
-    } else if (
-      action.name === "WeekEnds" &&
-      updatedState[2].value === false &&
-      updatedState[0].value === true
-    ) {
-      updatedState[0].value = false;
-    } else if (
-      action.name === "Everyday" &&
-      updatedState[0].value === false &&
-      updatedState[1].value === true
-    ) {
-      updatedState[1].value = false;
-      updatedState[2].value = false;
-    }
-
-    // react to other switches, including everyday and weekdays
-    const changedDayIndex = updatedState.findIndex(
-      (day) => day.name === action.name
-    );
-    updatedState[changedDayIndex].value = !updatedState[changedDayIndex].value;
-
-    return [...updatedState];
-  }
-  return state;
-};
-
 const NotificationSettingsScreen = () => {
-  const notifications = useSelector((state) => state.notifications["Everyday"]);
+  const settings = useSelector((state) => state.notifSettings);
+  // const notifications = useSelector((state) => state.notifications["Everyday"]);
   const [expoPushToken, setExpoPushToken] = useState("");
-  const [settingsState, dispatchSettingsState] = useReducer(
-    settingsReducer,
-    initialSettingsState
-  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
     );
   }, []);
-
-  const onSwitchToggle = (day) => {
-    dispatchSettingsState({
-      type: SETTINGS_UPDATE,
-      name: day,
-    });
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -108,12 +49,14 @@ const NotificationSettingsScreen = () => {
           <Text style={{ color: Colors.primary }}>off</Text>
         </Text>
         <View style={styles.switchContainer}>
-          {settingsState.map((day) => (
+          {settings.map((day) => (
             <NotificationSwitch
               key={day.name}
               label={day.label}
               state={day.value}
-              onChange={() => onSwitchToggle(day.name)}
+              onChange={() =>
+                dispatch(notifSettingsActions.updateSettings(day.name))
+              }
             />
           ))}
         </View>

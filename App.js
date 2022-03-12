@@ -15,6 +15,7 @@ import lifeReducer from "./store/reducers/lifeReducer";
 import goalsReducer from "./store/reducers/goalsReducer";
 import plannedGoalsReducer from "./store/reducers/plannedGoalsReducer";
 import notificationsReducer from "./store/reducers/notificationsReducer";
+import notifSettingsReducer from "./store/reducers/notifSettingsReducer";
 import { PersistGate } from "redux-persist/integration/react";
 
 enableScreens();
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   goals: goalsReducer,
   plannedGoals: plannedGoalsReducer,
   notifications: notificationsReducer,
+  notifSettings: notifSettingsReducer,
 });
 
 const persistConfig = {
