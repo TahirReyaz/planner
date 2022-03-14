@@ -14,9 +14,12 @@ const NotificationSwitch = (props) => {
           Platform.OS === "android"
             ? props.state
               ? Colors.primary
+              : props.disabled
+              ? "white"
               : Colors.primaryLight
             : ""
         }
+        disabled={props.disabled ? props.disabled : false}
         onValueChange={props.onChange}
       />
     </View>

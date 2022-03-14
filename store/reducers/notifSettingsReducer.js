@@ -1,7 +1,7 @@
 import { NOTIF_SETTINGS_UPDATE } from "../actions/notifSettingsActions";
 
 const initialState = [
-  { label: "Every Day", name: "Everyday", value: true },
+  { label: "Every Day", name: "Everyday", value: false },
   { label: "Weekdays", name: "Weekdays", value: false },
   { label: "WeekEnds", name: "WeekEnds", value: false },
   { label: "Monday", name: "Mon", value: false },
