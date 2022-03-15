@@ -16,6 +16,7 @@ import Colors from "../../constants/Colors";
 import MyButton from "../../components/UI/MyButton";
 import NotificationSwitch from "../../components/UI/Switch";
 import * as notifSettingsActions from "../../store/actions/notifSettingsActions";
+import { weekDays } from "../../constants/days";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -265,11 +266,10 @@ const weekEndsNotificationsScheduleHandler = (weekendNotifs) => {
 const weekDaysNotificationsScheduleHandler = (weekdaysNotifs) => {
   let trigger, i;
   const notifications = [];
-  const today = new Date();
-  const currentDay = today.getDay();
-  var firstWeekday = new Date(today);
 
   // select the closest monday
+  const today = new Date();
+  var firstWeekday = new Date(today);
   while (firstWeekday.getDay() !== 1) {
     firstWeekday.setDate(firstWeekday.getDate() - 1);
   }
@@ -304,7 +304,45 @@ const weekDaysNotificationsScheduleHandler = (weekdaysNotifs) => {
 
   return notifications;
 };
-const specificDayNotificationsScheduleHandler = (dayNotif) => {};
+const specificDayNotificationsScheduleHandler = (dayNotifs, selectedDay) => {
+  let trigger, i;
+  const notifications = [];
+
+  // get the date of the next selected Day
+  const today = new Date();
+  var nextSelectedDay = new Date(today);
+  while (weekDays[nextSelectedDay.getDay()] !== selectedDay) {
+    nextSelectedDay.setDate(nextSelectedDay.getDate() + 1);
+  }
+
+  console.log({ selectedDayDate: nextSelectedDay.toLocaleDateString() });
+
+  // Compose selected day's notifs for next 7 weeks
+  for (i = 0; i < 7; i++) {
+    dayNotifs.forEach((notification) => {
+      trigger = new Date(Date.now());
+      const triggerTime = new Date(notification.currentTime);
+      trigger.setDate(nextSelectedDay.getDate() + 7 * i);
+      trigger.setHours(triggerTime.getHours());
+      trigger.setMinutes(triggerTime.getMinutes());
+      trigger.setSeconds(0);
+
+      notifications.push({
+        title:
+          moment(notification.currentTime).format("h:mm A") +
+          ": " +
+          notification.currentTitle,
+        body:
+          moment(notification.nextTime).format("h:mm A") +
+          ": " +
+          notification.nextTitle,
+        trigger,
+      });
+    });
+  }
+
+  return notifications;
+};
 
 const cancelNotificationsHandler = async () => {
   const cancellation =
