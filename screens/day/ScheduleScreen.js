@@ -25,6 +25,7 @@ const ScheduleScreen = (props) => {
   const activities = useSelector(
     (state) => state.schedule.schedules[selectedDay]
   );
+  const notificationSettings = useSelector((state) => state.notifSettings);
   const notifications = useSelector(
     (state) => state.notifications[selectedDay]
   );
@@ -33,6 +34,16 @@ const ScheduleScreen = (props) => {
   useEffect(() => {
     registerForPushNotificationsAsync();
   }, []);
+
+  useEffect(() => {
+    const enabledNotifs = [];
+    notificationSettings.forEach((setting) => {
+      if (setting.value) {
+        enabledNotifs.push(setting.name);
+      }
+      scheduleNotificationsHandler(notifications, enabledNotifs, null);
+    });
+  }, [notificationSettings, notifications]);
 
   useEffect(() => {
     if (activities) {
@@ -72,7 +83,6 @@ const ScheduleScreen = (props) => {
       dispatch(
         notificationActions.setNotifications(selectedDay, newNotifications)
       );
-      // scheduleNotificationsHandler(newNotifications, null, selectedDay);
     }
   }, [selectedDay, activities, dispatch]);
 

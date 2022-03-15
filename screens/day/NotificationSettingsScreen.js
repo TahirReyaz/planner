@@ -30,17 +30,16 @@ const NotificationSettingsScreen = () => {
   const settings = useSelector((state) => state.notifSettings);
   const notifications = useSelector((state) => state.notifications);
   console.log("---------------------------\n");
-  const [expoPushToken, setExpoPushToken] = useState("");
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   registerForPushNotificationsAsync().then((token) =>
-  //     setExpoPushToken(token)
-  //   );
-  // }, []);
-
   useEffect(() => {
-    scheduleNotificationsHandler(notifications, expoPushToken);
+    const enabledNotifs = [];
+    notificationSettings.forEach((setting) => {
+      if (setting.value) {
+        enabledNotifs.push(setting.name);
+      }
+      scheduleNotificationsHandler(notifications, enabledNotifs, null);
+    });
   }, [notifications, expoPushToken]);
 
   return (
@@ -149,20 +148,49 @@ async function registerForPushNotificationsAsync() {
 
 const scheduleNotificationsHandler = async (
   allNotifications,
+  enabledDays,
   expoPushToken
 ) => {
   let notifications = [];
+  let notifObject = {
+    Everyday: [],
+    Weekdays: [],
+    Weekends: [],
+    Sun: [],
+    Mon: [],
+    Tue: [],
+    Wed: [],
+    Thu: [],
+    Fri: [],
+    Sat: [],
+  };
   console.log({ expoPushToken });
 
-  const everydayNotifications = everyDaysNotificationsScheduleHandler(
-    allNotifications["Everyday"] ? allNotifications["Everyday"] : []
-  );
-  const weekendsNotifications = weekEndsNotificationsScheduleHandler(
-    allNotifications["Weekends"] ? allNotifications["Weekends"] : []
-  );
-  const weekdaysNotifications = weekDaysNotificationsScheduleHandler(
-    allNotifications["Weekdays"] ? allNotifications["Weekdays"] : []
-  );
+  enabledDays.forEach((enabledDay) => {
+    const selectedDayNotifs = allNotifications[enabledDay]
+      ? allNotifications[enabledDay]
+      : [];
+    switch (enabledDay) {
+      case "Everyday":
+        notifObject[enabledDay] =
+          everyDaysNotificationsScheduleHandler(selectedDayNotifs);
+        break;
+      case "Weekdays":
+        notifObject[enabledDay] =
+          weekDaysNotificationsScheduleHandler(selectedDayNotifs);
+        break;
+      case "Weekends":
+        notifObject[enabledDay] =
+          weekEndsNotificationsScheduleHandler(selectedDayNotifs);
+        break;
+      default:
+        notifObject[enabledDay] = specificDayNotificationsScheduleHandler(
+          selectedDayNotifs,
+          enabledDay
+        );
+    }
+  });
+
   // const unscheduledWeekendNotifs =
   //   allNotifications["Sat"] && allNotifications["Sun"]
   //     ? allNotifications["Sat"].concat(allNotifications["Sun"])
@@ -170,7 +198,11 @@ const scheduleNotificationsHandler = async (
   // const weekendsNotifications = weekEndsNotificationsScheduleHandler(
   //   unscheduledWeekendNotifs
   // );
-  notifications = [...everydayNotifications];
+  for (const key in notifObject) {
+    notifications = [...notifications, ...notifObject[key]];
+  }
+
+  console.log(notifications);
 
   cancelNotificationsHandler();
 
