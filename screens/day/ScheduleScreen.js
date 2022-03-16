@@ -41,8 +41,8 @@ const ScheduleScreen = (props) => {
       if (setting.value) {
         enabledNotifs.push(setting.name);
       }
-      scheduleNotificationsHandler(notifications, enabledNotifs, null);
     });
+    scheduleNotificationsHandler(notifications, enabledNotifs, null);
   }, [notificationSettings, notifications]);
 
   useEffect(() => {

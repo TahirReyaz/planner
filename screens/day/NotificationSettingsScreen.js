@@ -33,14 +33,16 @@ const NotificationSettingsScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("Use Effect ran");
     const enabledNotifs = [];
-    notificationSettings.forEach((setting) => {
+    settings.forEach((setting) => {
       if (setting.value) {
         enabledNotifs.push(setting.name);
       }
-      scheduleNotificationsHandler(notifications, enabledNotifs, null);
     });
-  }, [notifications, expoPushToken]);
+    console.log({ enabledNotifs });
+    scheduleNotificationsHandler(notifications, enabledNotifs, null);
+  }, [notifications, scheduleNotificationsHandler]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -164,7 +166,8 @@ const scheduleNotificationsHandler = async (
     Fri: [],
     Sat: [],
   };
-  console.log({ expoPushToken });
+  console.log("Schedule notifs ran");
+  cancelNotificationsHandler();
 
   enabledDays.forEach((enabledDay) => {
     const selectedDayNotifs = allNotifications[enabledDay]
@@ -202,9 +205,7 @@ const scheduleNotificationsHandler = async (
     notifications = [...notifications, ...notifObject[key]];
   }
 
-  console.log(notifications);
-
-  cancelNotificationsHandler();
+  // console.log(notifications);
 
   notifications.forEach(async (notification) => {
     // await Notifications.scheduleNotificationAsync({
@@ -265,7 +266,7 @@ const weekEndsNotificationsScheduleHandler = (weekendNotifs) => {
     firstWeekendDay = new Date(today.setDate(lastDay));
   }
 
-  console.log({ saturday: firstWeekendDay.toLocaleDateString() });
+  // console.log({ saturday: firstWeekendDay.toLocaleDateString() });
 
   // Compose weekend notifs for next 7 weeks
   for (i = 0; i < 7; i++) {
@@ -306,7 +307,7 @@ const weekDaysNotificationsScheduleHandler = (weekdaysNotifs) => {
     firstWeekday.setDate(firstWeekday.getDate() - 1);
   }
 
-  console.log({ monday: firstWeekday.toLocaleDateString() });
+  // console.log({ monday: firstWeekday.toLocaleDateString() });
 
   // Compose weekdays notifs for next 7 weeks
   for (i = 0; i < 7; i++) {
@@ -347,7 +348,7 @@ const specificDayNotificationsScheduleHandler = (dayNotifs, selectedDay) => {
     nextSelectedDay.setDate(nextSelectedDay.getDate() + 1);
   }
 
-  console.log({ selectedDayDate: nextSelectedDay.toLocaleDateString() });
+  // console.log({ selectedDayDate: nextSelectedDay.toLocaleDateString() });
 
   // Compose selected day's notifs for next 7 weeks
   for (i = 0; i < 7; i++) {
